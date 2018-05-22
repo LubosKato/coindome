@@ -1,0 +1,4 @@
+{
+  "dbUri": "mongodb://kejto79:heslo@ds143388.mlab.com:43388/coindome",
+  "jwtSecret": "a secret phrase!!"
+}
