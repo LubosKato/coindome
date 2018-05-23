@@ -1,6 +1,8 @@
 # Coindome
 
 This is blueprint for react app with nodejs
+Its using mongolab for mongodb and heroku for deployment
+User Password is hashed in DB
 
 ### Installing
 
