@@ -1,0 +1,13 @@
+{
+    "email": "Please provide a correct email address.",
+    "name": "Please provide your name.",
+    "emailLogin": "Please provide your email address.",
+    "nameLogin": "Please provide your password.",
+    "emailTaken": "This email is already taken.",
+    "nameTaken": "This name is already taken",
+    "errors": "Check the form for errors.",
+    "password": "Password must have at least 8 characters.",
+    "formProcessError": "Could not process the form.",
+    "registerSucccess": "You have successfully signed up! Now you should be able to log in.",
+    "loginSucccess": "You have successfully logged in!"
+}

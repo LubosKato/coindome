@@ -2,6 +2,7 @@ const express = require('express');
 const validator = require('validator');
 const passport = require('passport');
 const router = new express.Router();
+const { t } = require('localizify');
 
 /**
  * Validate the sign up form
@@ -17,21 +18,21 @@ function validateSignupForm(payload) {
 
   if (!payload || typeof payload.email !== 'string' || !validator.isEmail(payload.email)) {
     isFormValid = false;
-    errors.email = 'Please provide a correct email address.';
+    errors.email = t('email');
   }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {
     isFormValid = false;
-    errors.password = 'Password must have at least 8 characters.';
+    errors.password = t('password');
   }
 
   if (!payload || typeof payload.name !== 'string' || payload.name.trim().length === 0) {
     isFormValid = false;
-    errors.name = 'Please provide your name.';
+    errors.name =  t('name');
   }
 
   if (!isFormValid) {
-    message = 'Check the form for errors.';
+    message =  t('errors');
   }
 
   return {
@@ -55,16 +56,16 @@ function validateLoginForm(payload) {
 
   if (!payload || typeof payload.email !== 'string' || payload.email.trim().length === 0) {
     isFormValid = false;
-    errors.email = 'Please provide your email address.';
+    errors.email = t('emailLogin');
   }
 
   if (!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
     isFormValid = false;
-    errors.password = 'Please provide your password.';
+    errors.password = t('nameLogin');
   }
 
   if (!isFormValid) {
-    message = 'Check the form for errors.';
+    message = t('errors');
   }
 
   return {
@@ -92,18 +93,18 @@ router.post('/signup', (req, res, next) => {
         if(err.message.indexOf("$email") > -1){
           return res.status(409).json({
             success: false,
-            message: 'Check the form for errors.',
+            message: t('errors'),
             errors: {
-              email: 'This email is already taken.'
+              email: t('emailTaken'), 
             }
           });
         }
         if(err.message.indexOf("$name") > -1){
           return res.status(409).json({
             success: false,
-            message: 'Check the form for errors.',
+            message: t('errors'),
             errors: {
-              name: 'This name is already taken.'
+              name: t('nameTaken')
             }
           });
         }
@@ -111,13 +112,13 @@ router.post('/signup', (req, res, next) => {
 
       return res.status(400).json({
         success: false,
-        message: 'Could not process the form.'
+        message: t('formProcessError')
       });
     }
 
     return res.status(200).json({
       success: true,
-      message: 'You have successfully signed up! Now you should be able to log in.'
+      message: t('registerSucccess')
     });
   })(req, res, next);
 });
@@ -143,13 +144,13 @@ router.post('/login', (req, res, next) => {
 
       return res.status(400).json({
         success: false,
-        message: 'Could not process the form.'
+        message: t('formProcessError')
       });
     }
     
     return res.json({
       success: true,
-      message: 'You have successfully logged in!',
+      message: t('loginSucccess'),
       token,
       user: userData
     });

@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const config = require('./config');
+const localizify = require('localizify');
+const en = require('./server/constants/en.json');
+const sk = require('./server/constants/sk.json');
 
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
@@ -18,7 +21,19 @@ app.use(passport.initialize());
 app.get("/*", function(req, res) {
   res.sendFile(__dirname + '/server/static/index.html')
   })
-  
+
+//localizify
+app.use((request, response, next) => {
+    const lang = request.headers['accept-language'] || 'en_US';
+    localizify.setLocale(lang);
+    next();
+});
+
+localizify
+  .add('en_US', en)
+  .add('sk_SK', sk)
+  .setLocale('en_US');
+
 // load passport strategies
 const localSignupStrategy = require('./server/passport/local-signup');
 const localLoginStrategy = require('./server/passport/local-login');

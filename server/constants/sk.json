@@ -1,0 +1,13 @@
+{
+    "email": "Prosim uvedte spravnu emailovu adresu.",
+    "name": "Prosim uvedte meno.",
+    "emailLogin":"Prosim uvedte svoju emailovu adresu.",
+    "nameLogin":"Prosim uveste svoje heslo.",
+    "emailTaken": "Tento email je uz pouzity.",
+    "nameTaken": "This name is already taken",
+    "errors": "Prosim skontrolujte formular.",
+    "password": "Heslo musi mat najmenej 8 znakov.",
+    "formProcessError": "Nepodarilo sa spracovat formular.",
+    "registerSucccess": "Ucet uspesne vytvoreny! Teraz sa mozte prihlasit.",
+    "loginSucccess": "Uspesne ste sa prihlasili!"
+}
