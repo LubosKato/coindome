@@ -1,13 +1,12 @@
 {
-    "email": "Prosim uvedte spravnu emailovu adresu.",
-    "name": "Prosim uvedte meno.",
-    "emailLogin":"Prosim uvedte svoju emailovu adresu.",
-    "nameLogin":"Prosim uveste svoje heslo.",
-    "emailTaken": "Tento email je uz pouzity.",
+    "email": "Prosím uveďte správnu e-mailovú adresu.",
+    "name": "Prosím uveďte meno.",
+    "emailLogin":"Prosím uveďte svoju e-mailovú adresu.",
+    "nameLogin":"Prosím uveďte svoje heslo.",
+    "emailTaken": "Tento e-mail už niekto používa.",
     "nameTaken": "This name is already taken",
-    "errors": "Prosim skontrolujte formular.",
-    "password": "Heslo musi mat najmenej 8 znakov.",
-    "formProcessError": "Nepodarilo sa spracovat formular.",
-    "registerSucccess": "Ucet uspesne vytvoreny! Teraz sa mozte prihlasit.",
-    "loginSucccess": "Uspesne ste sa prihlasili!"
+    "errors": "Prosím skontrolujte formulár.",
+    "password": "Heslo musí mať najmenej 8 znakov.",
+    "formProcessError": "Nepodarilo sa spracovať formulár.",
+    "registerSucccess": "Účet bol úspešne vytvorený! Teraz sa môžete prihlásiť."
 }
