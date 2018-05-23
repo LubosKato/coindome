@@ -9,8 +9,8 @@ npm install
 ## Getting Started
 
 please run in 2 separate terminals :
-npm run bundle
-npm start
+* npm run bundle
+* npm start
 
 ### Prerequisites
 
