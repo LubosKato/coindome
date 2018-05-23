@@ -54,6 +54,7 @@ class SignUpPage extends React.Component {
     const xhr = new XMLHttpRequest();
     xhr.open('post', '/auth/signup');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Accept-Language', localStorage.getItem('lang'));
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {

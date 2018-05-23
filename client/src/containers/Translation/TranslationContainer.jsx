@@ -5,7 +5,6 @@ import { TRANSLATIONS } from './../../constants/translations';
 import Translation from './Translation.jsx';
 
 class TranslationContainer extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +27,7 @@ class TranslationContainer extends Component {
     if (translationKey && activeLanguageCode) {
       try {
         this.setState({ translation: TRANSLATIONS[activeLanguageCode][translationKey] });
+        localStorage.setItem('lang', activeLanguageCode);
       } catch (error) {
         //console.log(error);
       }
