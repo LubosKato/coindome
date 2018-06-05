@@ -12,8 +12,8 @@ const LoginForm = ({onSubmit,onChange,errors,successMessage,user}) => (
     <form action="/" onSubmit={onSubmit}>
       <h2 className={styles.card_heading}><TranslationContainer translationKey="login_text"/></h2> 
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
-      {errors.summary && <p className="error-message">{errors.summary}</p>}
+      {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+      {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
 
       <div className={styles.field_line}>
         <TextField

@@ -9,5 +9,10 @@
     "password": "Password must have at least 8 characters.",
     "formProcessError": "Could not process the form.",
     "registerSucccess": "You have successfully signed up! Now you should be able to log in.",
-    "loginSucccess": "You have successfully logged in!"
+    "loginSucccess": "You have successfully logged in!",
+    "changePwdSucccess":"You have successfully changed password!",
+    "wrongEmail":"Incorrect email or password",
+    "samePassword":"New password is same as previous one!",
+    "error": "IncorrectCredentialsError",
+    "matchPassword":"Current password doesn't match!"
 }

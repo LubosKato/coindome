@@ -25,7 +25,13 @@ export const TRANSLATIONS = {
     change_curr_text:"Change Since Last Month (USD)",
     change_perc_text:"Change Since Last Month (%)",
     powered_text:'Powered by ',
-    
+    profile_text:'Profile',
+    update_password_text:'Update Password',
+    new_password_text:'Enter new password',
+    confirm_password_text:'Confirm password',
+    curr_password_text:'Enter current password',
+    match_password_text:'Passwords do not match',
+    update_password_success_text:'Password updated !'
   },
   sk_SK: {
     title_text:'Titulná stránka',
@@ -53,6 +59,13 @@ export const TRANSLATIONS = {
     change_curr_text:"Zmena od posledného mesiaca (USD)", 
     change_perc_text:"Zmena od posledného mesiaca (%)",
     powered_text:'Engine ',
+    profile_text:'Profil',
+    update_password_text:'Zmena hesla',
+    new_password_text:'Vložte nové heslo',
+    confirm_password_text:'Potvrdiť heslo',
+    curr_password_text:'Potvrdiť existujúce heslo',
+    match_password_text:'Heslo musí byť rovnaké',
+    update_password_success_text:'Heslo zmenené !'
   }
 };
 

@@ -1,8 +1,8 @@
 # Coindome
 
-This is blueprint for react app with nodejs
+This is blueprint for react app with nodejs./n
 Its using mongolab for mongodb and heroku for deployment
-User Password is hashed in DB
+User password is hashed in DB
 
 ### Installing
 
@@ -31,6 +31,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * credits for jwt oauth 2.0 implementation https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
 
 ## TODO
-* add profile info and reset password page
 * add currency
 * extend graph to days, months, years if possible
+* include tests

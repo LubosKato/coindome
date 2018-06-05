@@ -4,44 +4,34 @@ import { Link } from 'react-router-dom'
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
-import styles from './../styles/Index.css'
+import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import styles from './../../styles/Index.css'
 
-const SignUpForm = ({onSubmit,onChange,errors,user}) => (
+const Profile = ({onSubmit,onChange,errors,user}) => (
   <Card className={styles.container}>
     <form action="/" onSubmit={onSubmit}>
-      <h2 className={styles.card_heading}><TranslationContainer translationKey="signup_text"/></h2>
-
+    <h2 className={styles.card_heading}><TranslationContainer translationKey="user_welcome_text"/> {JSON.parse(localStorage.getItem('usrname')).name}</h2>
+      <TranslationContainer translationKey="update_password_text"/>
       {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
-
       <div className={styles.field_line}>
         <TextField
-          floatingLabelText={<TranslationContainer translationKey="name_text"/>}
-          name="name"
-          errorText={errors.name}
-          onChange={onChange}
-          value={user.name}
-        />
-      </div>
-
-      <div className={styles.field_line}>
-        <TextField
-          floatingLabelText={<TranslationContainer translationKey="email_text"/>}
-          name="email"
-          errorText={errors.email}
-          onChange={onChange}
-          value={user.email}
-        />
-      </div>
-
-      <div className={styles.field_line}>
-        <TextField
-          floatingLabelText={<TranslationContainer translationKey="password_text"/>}
+          floatingLabelText={<TranslationContainer translationKey="curr_password_text"/>}
           type="password"
-          name="password"
+          name="currentpwd"
+          onChange={onChange}
+          errorText={errors.currentpwd}
+          value={user.currentpwd}
+        />
+      </div>
+
+      <div className={styles.field_line}>
+        <TextField
+          floatingLabelText={<TranslationContainer translationKey="new_password_text"/>}
+          type="password"
+          name="newpwd"
           onChange={onChange}
           errorText={errors.password}
-          value={user.password}
+          value={user.newpwd}
         />
       </div>
 
@@ -57,19 +47,17 @@ const SignUpForm = ({onSubmit,onChange,errors,user}) => (
       </div>
 
       <div className={styles.button_line}>
-        <RaisedButton type="submit" label={<TranslationContainer translationKey="create_text"/>} primary />
+        <RaisedButton type="submit" label={<TranslationContainer translationKey="update_password_text"/>} primary />
       </div>
-
-      <CardText><TranslationContainer translationKey="have_account_text"/> <Link to={'/login'}><TranslationContainer translationKey="login_text"/></Link></CardText>
     </form>
   </Card>
 );
 
-SignUpForm.propTypes = {
+Profile.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired
 };
 
-export default SignUpForm;
+export default Profile;

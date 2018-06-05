@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
 const config = require('../../config');
+const { t } = require('localizify');
 
 /**
  * Return the Passport Local Strategy object.
@@ -16,14 +17,14 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim()
   };
-
+  const errors = {};
   // find a user by email address
   return User.findOne({ email: userData.email }, (err, user) => {
     if (err) { return done(err); }
 
     if (!user) {
-      const error = new Error('Incorrect email or password');
-      error.name = 'IncorrectCredentialsError';
+      const error = new Error(t('wrongEmail'));
+      error.name = t('error');
 
       return done(error);
     }
@@ -33,8 +34,8 @@ module.exports = new PassportLocalStrategy({
       if (err) { return done(err); }
 
       if (!isMatch) {
-        const error = new Error('Incorrect email or password');
-        error.name = 'IncorrectCredentialsError';
+        const error = new Error(t('wrongEmail'));
+        error.name = t('error');
 
         return done(error);
       }

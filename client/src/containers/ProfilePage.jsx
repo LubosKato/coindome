@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
-import SignUpForm from '../components/SignUpForm.jsx';
+import ProfileForm from '../components/Profile/Profile.jsx';
+import ProfileSuccessForm from '../components/Profile/ProfileSuccess.jsx';
 import {Redirect} from 'react-router-dom';
 import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
 
-class SignUpPage extends React.Component {
+class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     // set the initial component state
@@ -11,9 +12,9 @@ class SignUpPage extends React.Component {
       redirect: false,
       errors: {},
       user: {
-        email: '',
-        name: '',
-        password: '',
+        name:'',
+        currentpwd: '',
+        newpwd: '',
         confirmPassword: ''
       }
     };
@@ -45,15 +46,15 @@ class SignUpPage extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-
+    this.state.user.name = JSON.parse(localStorage.getItem('usrname')).name;
     // create a string for an HTTP body message
     const name = encodeURIComponent(this.state.user.name);
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
-    const confirmPassword = encodeURIComponent(this.state.user.confirmPassword);
-    const formData = `name=${name}&email=${email}&password=${password}`;
+    const newpwd = encodeURIComponent(this.state.user.newpwd);
+    const currentpwd = encodeURIComponent(this.state.user.currentpwd);
+    const confirmPassword  = encodeURIComponent(this.state.user.confirmPassword); 
+    const formData = `name=${name}&password=${newpwd}&currentpwd=${currentpwd}`;
 
-    if(password != confirmPassword){
+    if(newpwd != confirmPassword){
       const errors = {};
       errors.password = <TranslationContainer translationKey="match_password_text"/>;
       this.setState({
@@ -63,7 +64,7 @@ class SignUpPage extends React.Component {
     else{
     // create an AJAX request
     const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/signup');
+    xhr.open('post', '/auth/changepwd');
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('Accept-Language', localStorage.getItem('lang'));
     xhr.responseType = 'json';
@@ -101,7 +102,7 @@ class SignUpPage extends React.Component {
     return (
       <div>
       {this.state.redirect == false ?(
-      <SignUpForm
+      <ProfileForm
         onSubmit={this.processForm}
         onChange={this.changeUser}
         errors={this.state.errors}
@@ -109,7 +110,8 @@ class SignUpPage extends React.Component {
       />
       ):
       (
-        <Redirect to='/login' />
+        <ProfileSuccessForm/>
+        //<Redirect to='/login' />
       )
       }
       </div>
@@ -117,4 +119,4 @@ class SignUpPage extends React.Component {
   }
 }
 
-export default SignUpPage;
+export default ProfilePage;

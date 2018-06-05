@@ -37,8 +37,10 @@ localizify
 // load passport strategies
 const localSignupStrategy = require('./server/passport/local-signup');
 const localLoginStrategy = require('./server/passport/local-login');
+const localChangePassportStrategy = require('./server/passport/local-changePwd');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
+passport.use('local-changepwd', localChangePassportStrategy);
 
 // pass the authenticaion checker middleware
 const authCheckMiddleware = require('./server/middleware/auth-check');
@@ -49,6 +51,16 @@ const authRoutes = require('./server/routes/auth');
 const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
+
+// if(process.env.NODE_ENV !== 'production') {
+//   process.once('uncaughtException', function(err) {
+//     console.error('FATAL: Uncaught exception.');
+//     console.error(err.stack||err);
+//     setTimeout(function(){
+//       process.exit(1);
+//     }, 100);
+//   });
+// }
 
 // start the server
 app.listen(process.env.PORT || 3000, () => {

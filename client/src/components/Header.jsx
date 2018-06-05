@@ -45,6 +45,7 @@ class Header extends React.Component {
               </ul>
           ):(
             <ul className="nav navbar-nav navbar-right">
+             <li className="active"><Link to="/profile"><TranslationContainer translationKey="profile_text"/> <span className="sr-only">(current)</span></Link></li>  
              <li><Link to="/login" onClick={this.onLogOutClicked}><TranslationContainer translationKey="logout_text"/> <span className="sr-only">(current)</span></Link></li>  
               <li><LangSwitchContainer /> </li>
               </ul>

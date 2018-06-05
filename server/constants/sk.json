@@ -4,9 +4,14 @@
     "emailLogin":"Prosím uveďte svoju e-mailovú adresu.",
     "nameLogin":"Prosím uveďte svoje heslo.",
     "emailTaken": "Tento e-mail už niekto používa.",
-    "nameTaken": "This name is already taken",
+    "nameTaken": "Toto meno už niekto používa.",
     "errors": "Prosím skontrolujte formulár.",
     "password": "Heslo musí mať najmenej 8 znakov.",
     "formProcessError": "Nepodarilo sa spracovať formulár.",
-    "registerSucccess": "Účet bol úspešne vytvorený! Teraz sa môžete prihlásiť."
+    "registerSucccess": "Účet bol úspešne vytvorený! Teraz sa môžete prihlásiť.",
+    "changePwdSucccess":"Úspešne ste zmenili heslo!",
+    "wrongEmail":"Zly email alebo heslo",
+    "samePassword":"Toto heslo je zhodne s predoslym",
+    "error": "IncorrectCredentialsError",
+    "matchPassword":"Aktualne heslo nieje rovnake!"
 }
