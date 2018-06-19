@@ -10627,7 +10627,7 @@ var TRANSLATIONS = exports.TRANSLATIONS = {
     bitcoin_text: 'Bitcoin Graf',
     chart_title_text: '30-dňový Bitcoinový graf',
     updated_text: "Aktualizované ",
-    change_curr_text: "Zmena od posledného mesiaca (USD)",
+    change_curr_text: "Zmena od posledného mesiaca",
     change_perc_text: "Zmena od posledného mesiaca (%)",
     powered_text: 'Engine ',
     profile_text: 'Profil',
