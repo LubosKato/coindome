@@ -5,15 +5,18 @@ import LineChart from './LineChart';
 import ToolTip from './ToolTip';
 import InfoBox from './InfoBox';
 import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import { connect } from 'react-redux';
 
-class BicoinChart extends Component {
+class BitcoinChart extends Component {
   constructor(props) {
     super(props);
+    this.updateChart = this.updateChart.bind(this)
     this.state = {
       fetchingData: true,
       data: null,
       hoverLoc: null,
-      activePoint: null
+      activePoint: null,
+      currency:props.currency.currency
     }
   }
   handleChartHover(hoverLoc, activePoint){
@@ -23,8 +26,18 @@ class BicoinChart extends Component {
     })
   }
   componentDidMount(){
+    this.updateChart();
+  }
+  componentDidUpdate(prevProps) {
+    // only update chart if the data has changed
+    if (prevProps.currency !== this.props.currency) {
+      this.updateChart();
+    }
+  }
+  updateChart(){
+    var currency = this.props.currency.currency;
     const getData = () => {
-      const url = 'https://api.coindesk.com/v1/bpi/historical/close.json';
+      const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency;
 
       fetch(url).then( r => r.json())
         .then((bitcoinData) => {
@@ -33,7 +46,7 @@ class BicoinChart extends Component {
           for (let date in bitcoinData.bpi){
             sortedData.push({
               d: moment(date).format('MMM DD'),
-              p: bitcoinData.bpi[date].toLocaleString('us-EN',{ style: 'currency', currency: 'USD' }),
+              p: bitcoinData.bpi[date].toLocaleString('us-EN',{ style: 'currency', currency: currency }),
               x: count, //previous days
               y: bitcoinData.bpi[date] // numerical price
             });
@@ -52,7 +65,6 @@ class BicoinChart extends Component {
   }
   render() {
     return (
-
       <div>
         <div className={styles.row}>
           <h1><TranslationContainer translationKey="chart_title_text"/></h1>
@@ -83,4 +95,14 @@ class BicoinChart extends Component {
   }
 }
 
-export default BicoinChart;
+function mapStateToProps(state) {
+  return {
+    currency: state.currency,
+  };
+}
+
+export default connect(mapStateToProps, null)(BitcoinChart);
+
+BitcoinChart.propTypes = {
+  currency: PropTypes.object,
+};

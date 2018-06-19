@@ -4,13 +4,28 @@ import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
 import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
 import LangSwitchContainer from './../containers/LangSwitch/LangSwitchContainer.jsx';
-import styles from './../styles/Index.css'
+import Currencies from './Currencies.jsx';
+import { connect } from 'react-redux';
+import * as currencyActions from './../actions/currencyActions';
+import { bindActionCreators } from 'redux';
+import {withRouter} from 'react-router'
 
 class Header extends React.Component {
   constructor(props) {
-    super(props);
-    this.onLogOutClicked = this.onLogOutClicked.bind(this);
-  }    
+      super(props);
+      this.onLogOutClicked = this.onLogOutClicked.bind(this);
+      this.onUpdate = this.onUpdate.bind(this);
+      this.state = {
+        currency: "USD"
+      };
+  }
+
+  onUpdate(val) {
+    this.props.actions.setCurrency(val);
+    this.setState({
+      currency: val
+    })
+  };
 
   onLogOutClicked()
   {
@@ -45,8 +60,9 @@ class Header extends React.Component {
               </ul>
           ):(
             <ul className="nav navbar-nav navbar-right">
+             <li><Currencies onUpdate={this.onUpdate}/></li>
              <li className="active"><Link to="/profile"><TranslationContainer translationKey="profile_text"/> <span className="sr-only">(current)</span></Link></li>  
-             <li><Link to="/login" onClick={this.onLogOutClicked}><TranslationContainer translationKey="logout_text"/> <span className="sr-only">(current)</span></Link></li>  
+             <li><Link to="/login" onClick={this.onLogOutClicked}><TranslationContainer translationKey="logout_text"/> <span className="sr-only">(current)</span></Link></li>
               <li><LangSwitchContainer /> </li>
               </ul>
           )
@@ -58,4 +74,21 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+function mapStateToProps(state) {
+  return {
+    currency: state.currency
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(currencyActions, dispatch),
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+
+Header.propTypes = {
+  currency: PropTypes.object,
+  actions: PropTypes.object
+};

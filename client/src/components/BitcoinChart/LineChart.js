@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import styles from "./../../styles/LineChart.css";
+import { connect } from 'react-redux';
 
 class LineChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hoverLoc: null,
-      activePoint: null
+      activePoint: null,
+      currency:props.currency.currency
     }
   }
   // GET X & Y || MAX & MIN
@@ -83,16 +85,17 @@ class LineChart extends Component {
     );
   }
   makeLabels(){
+    var currency = this.props.currency.currency;
     const {svgHeight, svgWidth, xLabelSize, yLabelSize} = this.props;
     const padding = 5;
     return(
       <g className={styles.linechart_label}>
         {/* Y AXIS LABELS */}
         <text transform={`translate(${yLabelSize/2}, 20)`} textAnchor="middle">
-          {this.getY().max.toLocaleString('us-EN',{ style: 'currency', currency: 'USD' })}
+          {this.getY().max.toLocaleString('us-EN',{ style: 'currency', currency: currency })}
         </text>
         <text transform={`translate(${yLabelSize/2}, ${svgHeight - xLabelSize - padding})`} textAnchor="middle">
-          {this.getY().min.toLocaleString('us-EN',{ style: 'currency', currency: 'USD' })}
+          {this.getY().min.toLocaleString('us-EN',{ style: 'currency', currency: currency })}
         </text>
         {/* X AXIS LABELS */}
         <text transform={`translate(${yLabelSize}, ${svgHeight})`} textAnchor="start">
@@ -197,4 +200,14 @@ LineChart.defaultProps = {
   yLabelSize: 80
 }
 
-export default LineChart;
+function mapStateToProps(state) {
+  return {
+    currency: state.currency,
+  };
+}
+
+export default connect(mapStateToProps, null)(LineChart);
+
+LineChart.propTypes = {
+  currency: PropTypes.object,
+};

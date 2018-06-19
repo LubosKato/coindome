@@ -1,4 +1,4 @@
-import { SET_LANGUAGE } from './../../constants/generalConstants';
+import { SET_LANGUAGE } from '../constants/generalConstants';
 
 export function setLanguage(locale) {
   return {

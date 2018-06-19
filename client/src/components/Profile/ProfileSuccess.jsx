@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardText } from 'material-ui/Card';
+import { Card } from 'material-ui/Card';
 import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
 import styles from './../../styles/Index.css'
 

@@ -22,7 +22,7 @@ app.get("/*", function(req, res) {
   res.sendFile(__dirname + '/server/static/index.html')
   })
 
-//localizify
+//localizify for noodejs
 app.use((request, response, next) => {
     const lang = request.headers['accept-language'] || 'en_US';
     localizify.setLocale(lang);

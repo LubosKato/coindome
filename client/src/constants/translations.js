@@ -22,7 +22,7 @@ export const TRANSLATIONS = {
     bitcoin_text:'Bitcoin Chart',
     chart_title_text:'30 Day Bitcoin Price Chart',
     updated_text:"Updated ",
-    change_curr_text:"Change Since Last Month (USD)",
+    change_curr_text:"Change Since Last Month",
     change_perc_text:"Change Since Last Month (%)",
     powered_text:'Powered by ',
     profile_text:'Profile',

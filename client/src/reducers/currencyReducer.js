@@ -1,15 +1,15 @@
-import { SET_LANGUAGE } from './../constants/generalConstants';
+import { SET_CURRENCY } from './../constants/generalConstants';
 
 // Initial state
 export const initialState = {
-  locale: 'en_US', // default locale,
+  currency: 'USD', // default currency,
 };
 
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case SET_LANGUAGE:
-      return {state, locale: action.locale };
+    case SET_CURRENCY:
+      return {state, currency: action.currency };
     default:
       return state;
   }

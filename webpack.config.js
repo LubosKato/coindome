@@ -17,11 +17,15 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         presets: ["react", "es2015", ]
-      }
+      },
     },
-    { test: /\.(scss|css)$/,
-      loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]___[hash:base64:5]'}
+    { 
+      test: /\.(scss|css|less)$/,
+      loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]___[hash:base64:5]'
+    },
+
   ]},
+  
   // start Webpack in a watch mode, so Webpack will rebuild the bundle on changes
   watch: true
 };
