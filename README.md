@@ -2,7 +2,8 @@
 
 This is blueprint for react app with nodejs.
 Its using mongolab for mongodb and heroku for deployment
-User password is hashed in DB
+User password is hashed in DB,
+Redux is used for translations and currency (visible after login)
 
 ### Hosted on Heroku
 https://coindome.herokuapp.com/
