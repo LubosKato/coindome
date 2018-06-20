@@ -6,17 +6,21 @@ import ToolTip from './ToolTip';
 import InfoBox from './InfoBox';
 import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
 import { connect } from 'react-redux';
+import { PERIODS } from './../../constants/periods';
 
 class BitcoinChart extends Component {
   constructor(props) {
     super(props);
     this.updateChart = this.updateChart.bind(this)
+    this.getToday = this.getToday.bind(this)
+    this.getDate = this.getDate.bind(this)
     this.state = {
       fetchingData: true,
       data: null,
       hoverLoc: null,
       activePoint: null,
-      currency:props.currency.currency
+      currency:props.currency.currency,
+      period:'30'
     }
   }
   handleChartHover(hoverLoc, activePoint){
@@ -26,18 +30,54 @@ class BitcoinChart extends Component {
     })
   }
   componentDidMount(){
-    this.updateChart();
+    this.updateChart(this.state.period);
   }
   componentDidUpdate(prevProps) {
     // only update chart if the data has changed
     if (prevProps.currency !== this.props.currency) {
-      this.updateChart();
+      this.updateChart(this.state.period);
     }
   }
-  updateChart(){
+  getToday(){
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+  }
+  getDate(period){
+    var today = new Date();
+    today.setDate(today.getDate()-period);
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd = '0'+dd
+    } 
+
+    if(mm<10) {
+        mm = '0'+mm
+    } 
+
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+  }
+  updateChart(period){
+    this.state.period = period;
     var currency = this.props.currency.currency;
     const getData = () => {
-      const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency;
+      const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency +'&start=' + this.getDate(period) + '&end=' + this.getToday();
 
       fetch(url).then( r => r.json())
         .then((bitcoinData) => {
@@ -69,6 +109,17 @@ class BitcoinChart extends Component {
         <div className={styles.row}>
           <h1><TranslationContainer translationKey="chart_title_text"/></h1>
         </div>
+        <div className="lang" style={{ padding: 10, textAlign: 'center' }}>
+        {PERIODS.map((period, i) =>
+          <button
+            key={i}
+            style={{ fontWeight: this.state.period === period.value ? 'bold' : '' }}
+            onClick={() => this.updateChart(period.value)}
+          >
+            <span>{period.label}</span>
+          </button>
+        )}
+      </div>
         <div className={styles.row}>
           { !this.state.fetchingData ?
           <InfoBox data={this.state.data} />

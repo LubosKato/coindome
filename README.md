@@ -35,5 +35,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * credits for jwt oauth 2.0 implementation https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
 
 ## TODO
-* extend diagram to filter by days, months, years
 * include tests

@@ -10591,7 +10591,7 @@ var TRANSLATIONS = exports.TRANSLATIONS = {
     dashboard_text: 'Dashboard',
     logged_in_text: 'You should get access to this page only after authentication.',
     bitcoin_text: 'Bitcoin Chart',
-    chart_title_text: '30 Day Bitcoin Price Chart',
+    chart_title_text: 'Bitcoin Price Chart',
     updated_text: "Updated ",
     change_curr_text: "Change Since Last Month",
     change_perc_text: "Change Since Last Month (%)",
@@ -10625,7 +10625,7 @@ var TRANSLATIONS = exports.TRANSLATIONS = {
     dashboard_text: 'Úvod',
     logged_in_text: 'Prístup k tejto stránke by ste mali získať až po autentifikácii.',
     bitcoin_text: 'Bitcoin Graf',
-    chart_title_text: '30-dňový Bitcoinový graf',
+    chart_title_text: 'Bitcoinový graf',
     updated_text: "Aktualizované ",
     change_curr_text: "Zmena od posledného mesiaca",
     change_perc_text: "Zmena od posledného mesiaca (%)",
@@ -56040,6 +56040,8 @@ var _TranslationContainer2 = _interopRequireDefault(_TranslationContainer);
 
 var _reactRedux = __webpack_require__(27);
 
+var _periods = __webpack_require__(496);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56057,12 +56059,15 @@ var BitcoinChart = function (_Component) {
     var _this = _possibleConstructorReturn(this, (BitcoinChart.__proto__ || Object.getPrototypeOf(BitcoinChart)).call(this, props));
 
     _this.updateChart = _this.updateChart.bind(_this);
+    _this.getToday = _this.getToday.bind(_this);
+    _this.getDate = _this.getDate.bind(_this);
     _this.state = {
       fetchingData: true,
       data: null,
       hoverLoc: null,
       activePoint: null,
-      currency: props.currency.currency
+      currency: props.currency.currency,
+      period: '30'
     };
     return _this;
   }
@@ -56078,24 +56083,64 @@ var BitcoinChart = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.updateChart();
+      this.updateChart(this.state.period);
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       // only update chart if the data has changed
       if (prevProps.currency !== this.props.currency) {
-        this.updateChart();
+        this.updateChart(this.state.period);
       }
     }
   }, {
+    key: 'getToday',
+    value: function getToday() {
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+
+      today = yyyy + '-' + mm + '-' + dd;
+      return today;
+    }
+  }, {
+    key: 'getDate',
+    value: function getDate(period) {
+      var today = new Date();
+      today.setDate(today.getDate() - period);
+      var dd = today.getDate();
+      var mm = today.getMonth() + 1; //January is 0!
+      var yyyy = today.getFullYear();
+
+      if (dd < 10) {
+        dd = '0' + dd;
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm;
+      }
+
+      today = yyyy + '-' + mm + '-' + dd;
+      return today;
+    }
+  }, {
     key: 'updateChart',
-    value: function updateChart() {
+    value: function updateChart(period) {
       var _this2 = this;
 
+      this.state.period = period;
       var currency = this.props.currency.currency;
       var getData = function getData() {
-        var url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency;
+        var url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency + '&start=' + _this2.getDate(period) + '&end=' + _this2.getToday();
 
         fetch(url).then(function (r) {
           return r.json();
@@ -56137,6 +56182,27 @@ var BitcoinChart = function (_Component) {
             null,
             _react2.default.createElement(_TranslationContainer2.default, { translationKey: 'chart_title_text' })
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'lang', style: { padding: 10, textAlign: 'center' } },
+          _periods.PERIODS.map(function (period, i) {
+            return _react2.default.createElement(
+              'button',
+              {
+                key: i,
+                style: { fontWeight: _this3.state.period === period.value ? 'bold' : '' },
+                onClick: function onClick() {
+                  return _this3.updateChart(period.value);
+                }
+              },
+              _react2.default.createElement(
+                'span',
+                null,
+                period.label
+              )
+            );
+          })
         ),
         _react2.default.createElement(
           'div',
@@ -65139,6 +65205,18 @@ function reducer() {
       return state;
   }
 }
+
+/***/ }),
+/* 496 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var PERIODS = exports.PERIODS = [{ value: '7', label: '1w' }, { value: '30', label: '1m' }, { value: '90', label: '3m' }, { value: '356', label: '1y' }];
 
 /***/ })
 /******/ ]);
