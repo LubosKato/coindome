@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from './../containers/TranslationContainer.jsx';
 import styles from './../styles/Index.css'
 
 const SignUpForm = ({onSubmit,onChange,errors,user}) => (

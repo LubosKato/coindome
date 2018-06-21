@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle } from 'material-ui/Card';
 import Auth from '../modules/Auth';
-import DashboardPage from '../containers/DashboardPage.jsx';
+import DashboardPage from '../containers/DashboardContainer.jsx';
 import styles from './../styles/Index.css'
 
 class Home extends React.Component {
@@ -12,34 +12,6 @@ class Home extends React.Component {
     this.cardtitleP = "";
     this.cardsubtitle = "";
   }
-  
-  //  componentWillMount() {
-  //     console.log('Component WILL MOUNT!')
-  //  }
-
-  //  componentDidMount() {
-  //     console.log('Component DID MOUNT!')
-  //  }
-
-  //  componentWillReceiveProps(newProps) {    
-  //     console.log('Component WILL RECIEVE PROPS!')
-  //  }
-
-  //  shouldComponentUpdate(newProps, newState) {
-  //     return true;
-  //  }
-
-  //  componentWillUpdate(nextProps, nextState) {
-  //     console.log('Component WILL UPDATE!');
-  //  }
-
-  //  componentDidUpdate(prevProps, prevState) {
-  //     console.log('Component DID UPDATE!')
-  //  }
-
-  //  componentWillUnmount() {
-  //     console.log('Component WILL UNMOUNT!')
-  //  }
 
   render() {
     return (

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from './../../containers/TranslationContainer.jsx';
 import styles from './../../styles/Index.css'
 
 const Profile = ({onSubmit,onChange,errors,user}) => (

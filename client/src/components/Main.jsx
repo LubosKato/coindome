@@ -2,10 +2,10 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Home from './Home.jsx'
 import BitcoinChart from './BitcoinChart/BitcoinChart.jsx'
-import LoginPage from '../containers/LoginPage.jsx';
-import SignUpPage from '../containers/SignUpPage.jsx';
-import ProfilePage from '../containers/ProfilePage.jsx';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
+import LoginPage from '../containers/LoginContainer.jsx';
+import SignUpPage from '../containers/SignUpContainer.jsx';
+import ProfilePage from '../containers/ProfileContainer.jsx';
+import TranslationContainer from './../containers/TranslationContainer.jsx';
 
 class Main extends React.Component {
   render() {

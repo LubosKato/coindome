@@ -3,7 +3,7 @@ import LoginForm from '../components/LoginForm.jsx';
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
 
-class LoginPage extends React.Component {
+class LoginContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -120,4 +120,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default LoginContainer;

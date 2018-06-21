@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from '../containers/TranslationContainer.jsx';
 import styles from './../styles/Index.css'
 
 const Dashboard = ({ secretData }) => (

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
-import { TRANSLATIONS } from './../../constants/translations';
-import Translation from './Translation.jsx';
+import { TRANSLATIONS } from './../constants/translations';
+import Translation from '../components/Translation.jsx';
 
 class TranslationContainer extends Component {
   constructor(props) {

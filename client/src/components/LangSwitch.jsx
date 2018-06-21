@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { LANG_NAMES } from './../../constants/translations';
+import { LANG_NAMES } from './../constants/translations';
 
 export default class LangSwitch extends Component {
 

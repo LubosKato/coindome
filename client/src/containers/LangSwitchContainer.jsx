@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as translationActions from '../../actions/langActions';
-import LangSwitch from './LangSwitch.jsx';
+import * as translationActions from '../actions/langActions';
+import LangSwitch from '../components/LangSwitch.jsx';
 
 class LangSwitchContainer extends Component {
 

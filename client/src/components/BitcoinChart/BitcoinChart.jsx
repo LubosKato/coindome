@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import styles from './../../styles/BitcoinChart.css';
-import LineChart from './LineChart';
-import ToolTip from './ToolTip';
-import InfoBox from './InfoBox';
-import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import LineChart from './LineChart.jsx';
+import ToolTip from './ToolTip.jsx';
+import InfoBox from './InfoBox.jsx';
+import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
 import { PERIODS } from './../../constants/periods';
 

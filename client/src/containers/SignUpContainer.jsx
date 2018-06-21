@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
 import {Redirect} from 'react-router-dom';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from './../containers/TranslationContainer.jsx';
 
-class SignUpPage extends React.Component {
+class SignUpContainer extends React.Component {
   constructor(props) {
     super(props);
     // set the initial component state
@@ -117,4 +117,4 @@ class SignUpPage extends React.Component {
   }
 }
 
-export default SignUpPage;
+export default SignUpContainer;

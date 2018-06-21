@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-select';
 import { CURRENCY_NAMES } from '../constants/currencies';
 
-class CurrenciesField extends React.Component{
+class Currencies extends React.Component{
 	constructor(props) {
 		super(props);	
 		this.updateValue = this.updateValue.bind(this)
@@ -17,10 +17,7 @@ class CurrenciesField extends React.Component{
 	}
 
 	updateValue(newValue) {
-		//localStorage.setItem('currency') = newValue.label;
-		//this.props.currency=newValue.label;
 		this.props.onUpdate(newValue.label);
-        console.log(`Selected: ${newValue.label}`);
 		this.setState({
 			selectValue: newValue.value,
 		});
@@ -49,4 +46,4 @@ class CurrenciesField extends React.Component{
 	}
 }
 
-export default CurrenciesField;
+export default Currencies;

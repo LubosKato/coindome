@@ -2,7 +2,7 @@ import React from 'react';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 
-class DashboardPage extends React.Component {
+class DashboardContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -44,4 +44,4 @@ class DashboardPage extends React.Component {
   }
 }
 
-export default DashboardPage;
+export default DashboardContainer;

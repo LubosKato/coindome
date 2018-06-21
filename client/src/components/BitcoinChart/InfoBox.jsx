@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import styles from './../../styles/InfoBox.css';
-import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
 
 class InfoBox extends Component {

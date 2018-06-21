@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import ProfileForm from '../components/Profile/Profile.jsx';
 import ProfileSuccessForm from '../components/Profile/ProfileSuccess.jsx';
 import {Redirect} from 'react-router-dom';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from './../containers/TranslationContainer.jsx';
 
-class ProfilePage extends React.Component {
+class ProfileContainer extends React.Component {
   constructor(props) {
     super(props);
     // set the initial component state
@@ -119,4 +119,4 @@ class ProfilePage extends React.Component {
   }
 }
 
-export default ProfilePage;
+export default ProfileContainer;

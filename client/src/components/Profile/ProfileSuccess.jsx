@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from 'material-ui/Card';
-import TranslationContainer from './../../containers/Translation/TranslationContainer.jsx';
+import TranslationContainer from './../../containers/TranslationContainer.jsx';
 import styles from './../../styles/Index.css'
 
 const ProfileSuccess = () => (

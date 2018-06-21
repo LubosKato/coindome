@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
-import TranslationContainer from './../containers/Translation/TranslationContainer.jsx';
-import LangSwitchContainer from './../containers/LangSwitch/LangSwitchContainer.jsx';
+import TranslationContainer from '../containers/TranslationContainer.jsx';
+import LangSwitchContainer from '../containers/LangSwitchContainer.jsx';
 import Currencies from './Currencies.jsx';
 import { connect } from 'react-redux';
 import * as currencyActions from './../actions/currencyActions';
