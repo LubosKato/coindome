@@ -7,4 +7,11 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
+router.get('/diagram', (req, res, next) => {
+  return res.status(200).json({
+    success: true,
+    message: "registerSucccess"
+  });
+});
+
 module.exports = router;

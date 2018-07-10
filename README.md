@@ -40,7 +40,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## TODO
 * include tests
-* add new nodejs endpoints to prevent direct access to coindesk api
 * add logout timeout, wrong password retries (5)
 * add administration of the users / roles
-* npm to yarn
+* fix routing error
