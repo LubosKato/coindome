@@ -7,6 +7,7 @@ const en = require('./server/constants/en.json');
 const sk = require('./server/constants/sk.json');
 const schema = require('./server/data/schema.js');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+var path=require('path');
 
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
@@ -45,13 +46,13 @@ passport.use('local-changepwd', localChangePassportStrategy);
 const authCheckMiddleware = require('./server/middleware/auth-check');
 app.use('/api', authCheckMiddleware);
 
-// app.get('/*', function(req, res) {
-//   res.sendFile(path.join(__dirname, './server/static/index.html'), function(err) {
-//     if (err) {
-//       res.status(500).send(err)
-//     }
-//   })
-// })
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, './server/static/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 // routes
 const authRoutes = require('./server/routes/auth');

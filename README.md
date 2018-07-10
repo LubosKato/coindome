@@ -42,4 +42,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * include tests
 * add logout timeout, wrong password retries (5)
 * add administration of the users / roles
-* fix routing error

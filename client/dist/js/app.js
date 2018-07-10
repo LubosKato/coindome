@@ -60926,22 +60926,6 @@ function mapStateToProps(state) {
     currency: state.currency
   };
 }
-// const all = gql`
-// {getGraphData{
-//   bpi
-//   disclaimer
-//   time {
-//     updated
-//     updatedISO
-//   }}}
-// `;
-
-// const Container = graphql(all, {
-//   props: ({ data: { time, bpi } }) => ({
-//     bpi,
-//     time
-//   }),
-// })(BitcoinChart);
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(BitcoinChart);
 

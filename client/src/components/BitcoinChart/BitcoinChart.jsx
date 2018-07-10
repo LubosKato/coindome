@@ -171,22 +171,6 @@ function mapStateToProps(state) {
     currency: state.currency,
   };
 }
-// const all = gql`
-// {getGraphData{
-//   bpi
-//   disclaimer
-//   time {
-//     updated
-//     updatedISO
-//   }}}
-// `;
-
-// const Container = graphql(all, {
-//   props: ({ data: { time, bpi } }) => ({
-//     bpi,
-//     time
-//   }),
-// })(BitcoinChart);
 
 export default connect(mapStateToProps, null)(BitcoinChart);
 
