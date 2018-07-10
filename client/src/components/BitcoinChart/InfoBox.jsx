@@ -3,6 +3,7 @@ import moment from 'moment';
 import styles from './../../styles/InfoBox.css';
 import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
+import gql from 'graphql-tag';
 
 class InfoBox extends Component {
   constructor(props) {
@@ -28,19 +29,33 @@ class InfoBox extends Component {
     var currency = this.props.currency.currency;
     this.getData = () => {
       const {data} = this.props;
-      const url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-
-      fetch(url).then(r => r.json())
-        .then((bitcoinData) => {
-          const price = currency == 'USD' ? bitcoinData.bpi.USD.rate_float : bitcoinData.bpi.EUR.rate_float;
+      const all = gql`
+      {getInfoBox{
+        bpi
+        disclaimer
+        time {
+          updated
+          updatedISO
+          updateduk
+        }}}`;
+        
+        fetch('/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({query: all})
+        }).then( r => r.json()).then((bitcoinData) => {
+          const price = currency == 'USD' ? bitcoinData.data.getInfoBox.bpi.USD.rate_float : bitcoinData.data.getInfoBox.bpi.EUR.rate_float;
           const change = price - data[0].y;
           const changeP = (price - data[0].y) / data[0].y * 100;
 
           this.setState({
-            currentPrice: currency == 'USD' ? bitcoinData.bpi.USD.rate_float : bitcoinData.bpi.EUR.rate_float,
+            currentPrice: currency == 'USD' ? bitcoinData.data.getInfoBox.bpi.USD.rate_float : bitcoinData.data.getInfoBox.bpi.EUR.rate_float,
             monthChangeD: change.toLocaleString('us-EN',{ style: 'currency', currency: currency }),
             monthChangeP: changeP.toFixed(2) + '%',
-            updatedAt: bitcoinData.time.updated
+            updatedAt: bitcoinData.data.getInfoBox.time.updated
           })
         })
         .catch((e) => {

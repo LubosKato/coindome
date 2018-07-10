@@ -7,6 +7,7 @@ import InfoBox from './InfoBox.jsx';
 import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
 import { PERIODS } from './../../constants/periods';
+import gql from 'graphql-tag';
 
 class BitcoinChart extends Component {
   constructor(props) {
@@ -20,9 +21,11 @@ class BitcoinChart extends Component {
       hoverLoc: null,
       activePoint: null,
       currency:props.currency.currency,
+      data:props.pbi,
       period:'30'
     }
   }
+  
   handleChartHover(hoverLoc, activePoint){
     this.setState({
       hoverLoc: hoverLoc,
@@ -76,19 +79,36 @@ class BitcoinChart extends Component {
   updateChart(period){
     this.state.period = period;
     var currency = this.props.currency.currency;
-    const getData = () => {
-      const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?currency=' + currency +'&start=' + this.getDate(period) + '&end=' + this.getToday();
-
-      fetch(url).then( r => r.json())
-        .then((bitcoinData) => {
+    var bpi = this.state.data;
+    const getData = () => {     
+      const all = gql`
+      query getData($currency: String, $period: String){getGraphData(currency:$currency, period:$period)
+        {
+        bpi
+        disclaimer
+        time {
+          updated
+          updatedISO
+          updateduk
+        }}}
+      `;
+        
+        fetch('/graphql', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({query: all,variables: { currency, period }})
+        }).then( r => r.json()).then((bitcoinData) => {
           const sortedData = [];
           let count = 0;
-          for (let date in bitcoinData.bpi){
+          for (let date in bitcoinData.data.getGraphData.bpi){
             sortedData.push({
               d: moment(date).format('MMM DD'),
-              p: bitcoinData.bpi[date].toLocaleString('us-EN',{ style: 'currency', currency: currency }),
+              p: bitcoinData.data.getGraphData.bpi[date].toLocaleString('us-EN',{ style: 'currency', currency: currency }),
               x: count, //previous days
-              y: bitcoinData.bpi[date] // numerical price
+              y: bitcoinData.data.getGraphData.bpi[date] // numerical price
             });
             count++;
           }
@@ -105,6 +125,7 @@ class BitcoinChart extends Component {
   }
   render() {
     return (
+
       <div>
         <div className={styles.row}>
           <h1><TranslationContainer translationKey="chart_title_text"/></h1>
@@ -141,7 +162,6 @@ class BitcoinChart extends Component {
           <div id="coindesk"> <TranslationContainer translationKey="powered_text"/> <a href="http://www.coindesk.com/price/">CoinDesk</a></div>
         </div>
       </div>
-
     );
   }
 }
@@ -151,9 +171,26 @@ function mapStateToProps(state) {
     currency: state.currency,
   };
 }
+// const all = gql`
+// {getGraphData{
+//   bpi
+//   disclaimer
+//   time {
+//     updated
+//     updatedISO
+//   }}}
+// `;
+
+// const Container = graphql(all, {
+//   props: ({ data: { time, bpi } }) => ({
+//     bpi,
+//     time
+//   }),
+// })(BitcoinChart);
 
 export default connect(mapStateToProps, null)(BitcoinChart);
 
 BitcoinChart.propTypes = {
   currency: PropTypes.object,
+  bpi:PropTypes.bool
 };

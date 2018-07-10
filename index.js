@@ -5,6 +5,8 @@ const config = require('./config');
 const localizify = require('localizify');
 const en = require('./server/constants/en.json');
 const sk = require('./server/constants/sk.json');
+const schema = require('./server/data/schema.js');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
@@ -18,15 +20,12 @@ app.use(express.static('./client/dist/'));
 app.use(bodyParser.urlencoded({ extended: false }));
 // pass the passport middleware
 app.use(passport.initialize());
-app.get("/*", function(req, res) {
-  res.sendFile(__dirname + '/server/static/index.html')
-  })
 
-//localizify for noodejs
+//localizify for nodejs
 app.use((request, response, next) => {
-    const lang = request.headers['accept-language'] || 'en_US';
-    localizify.setLocale(lang);
-    next();
+  const lang = request.headers['accept-language'] || 'en_US';
+  localizify.setLocale(lang);
+  next();
 });
 
 localizify
@@ -46,12 +45,22 @@ passport.use('local-changepwd', localChangePassportStrategy);
 const authCheckMiddleware = require('./server/middleware/auth-check');
 app.use('/api', authCheckMiddleware);
 
+// app.get('/*', function(req, res) {
+//   res.sendFile(path.join(__dirname, './server/static/index.html'), function(err) {
+//     if (err) {
+//       res.status(500).send(err)
+//     }
+//   })
+// })
+
 // routes
 const authRoutes = require('./server/routes/auth');
 const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');

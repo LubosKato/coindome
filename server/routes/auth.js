@@ -3,8 +3,8 @@ const validator = require('validator');
 const passport = require('passport');
 const router = new express.Router();
 const { t } = require('localizify');
-const bcrypt = require('bcrypt');
-const User = require('mongoose').model('User');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+
 /**
  * Validate cahnge password
  *
@@ -112,6 +112,10 @@ function validateLoginForm(payload) {
     errors
   };
 }
+
+router.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}))
 
 router.post('/signup', (req, res, next) => {
   const validationResult = validateSignupForm(req.body);
@@ -250,6 +254,18 @@ router.post('/changepwd', (req, res, next) => {
       message: t('registerSucccess')
     });
   })(req, res, next);
+});
+
+router.get('/diagram', (req, res, next) => {
+    request('https://api.coindesk.com/v1/bpi/historical/close.json?currency=USD&start=2018-05-29&end=2018-06-28', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      return res.status(200).json({
+        success: true,
+        message: "registerSucccess"
+      });
+    }
+  });
 });
 
 module.exports = router;
