@@ -6,14 +6,15 @@
     "node": "8.9.x"
   },
   "scripts": {
-    "start": "node server",
-    "heroku-postbuild": "cd server/ && npm install && cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "start": "concurrently \"cd server node server \"cd client npm start",
+    "heroku-postbuild": "(cd server && npm install) &&(cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build)"
   },
   "cacheDirectories": [
     "node_modules",
     "client/node_modules"
   ],
   "dependencies": {
+    "concurrently": "^3.6.1",
     "express": "^4.16.3"
   },
   "repository": {
