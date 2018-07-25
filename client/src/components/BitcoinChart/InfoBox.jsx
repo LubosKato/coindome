@@ -4,6 +4,7 @@ import styles from './../../styles/InfoBox.css';
 import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 class InfoBox extends Component {
   constructor(props) {

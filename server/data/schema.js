@@ -7,7 +7,11 @@ scalar JSON
 type Query {
   getGraphData(currency: String, period: String): Bitcoin @cacheControl(maxAge: 5000)
   getInfoBox: InfoBox @cacheControl(maxAge: 5000)
+  notifications: [Notification]
 }
+type Notification { label: String }
+type Mutation { pushNotification(label: String!): Notification }
+type Subscription { newNotification: Notification }
 type Bitcoin {
   period: String
   currency: String

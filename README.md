@@ -19,7 +19,7 @@ npm install
 ## Getting Started
 
 please run in 2 separate terminals :
-* npm run bundle
+* npm run dev - for debugging (build for prod)
 * npm start
 
 ### Prerequisites

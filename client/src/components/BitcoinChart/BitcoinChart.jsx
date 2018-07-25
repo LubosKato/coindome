@@ -8,6 +8,7 @@ import TranslationContainer from '../../containers/TranslationContainer.jsx';
 import { connect } from 'react-redux';
 import { PERIODS } from './../../constants/periods';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 class BitcoinChart extends Component {
   constructor(props) {
@@ -104,8 +105,9 @@ class BitcoinChart extends Component {
           const sortedData = [];
           let count = 0;
           for (let date in bitcoinData.data.getGraphData.bpi){
+            const date1 = new Date(date);
             sortedData.push({
-              d: moment(date).format('MMM DD'),
+              d: moment(date1.toISOString()).format('MMM DD'),
               p: bitcoinData.data.getGraphData.bpi[date].toLocaleString('us-EN',{ style: 'currency', currency: currency }),
               x: count, //previous days
               y: bitcoinData.data.getGraphData.bpi[date] // numerical price

@@ -9,6 +9,11 @@ import { connect } from 'react-redux';
 import * as currencyActions from './../actions/currencyActions';
 import { bindActionCreators } from 'redux';
 import {withRouter} from 'react-router'
+import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -18,6 +23,13 @@ class Header extends React.Component {
       this.state = {
         currency: "USD"
       };
+  }
+
+  componentWillReceiveProps(params) {
+    //var xx = this.props.textMessage;
+    if(params.data.newNotification != null){
+      toast(params.data.newNotification.label);
+    }
   }
 
   onUpdate(val) {
@@ -35,6 +47,19 @@ class Header extends React.Component {
   render() {
     return (
     <nav className="navbar navbar-default">
+      <div className="App">
+      <div className="App-intro">
+      </div>
+        <ToastContainer position="bottom-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnVisibilityChange
+          draggable
+          pauseOnHover/>
+      </div>
     <div className="container-fluid">
       <div className="navbar-header">
         <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
@@ -85,8 +110,16 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(currencyActions, dispatch),
   };
 }
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+const subNewNotification = gql`
+  subscription {
+    newNotification {
+      label
+    }
+  }
+`;
+const query= graphql(subNewNotification);
+const headerWithQuery = query(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(headerWithQuery));
 
 Header.propTypes = {
   currency: PropTypes.object,

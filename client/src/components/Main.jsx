@@ -18,9 +18,9 @@ class Main extends React.Component {
               <Route path='/profile' component={ProfilePage}/>
               <Route path='/bitcoinchart' component={BitcoinChart}/>
             </Switch>
-          </main>
+          </main>     
     )
   }  
 }
 
-export default Main
+export default (Main)

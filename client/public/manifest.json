@@ -1,0 +1,16 @@
+{
+  "short_name": "Coindome",
+  "name": "Coindome app",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "../index.js",
+  "background_color": "#557EA0",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#557EA0"
+}

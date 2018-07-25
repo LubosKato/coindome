@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import styles from "./../../styles/LineChart.css";
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class LineChart extends Component {
   constructor(props) {
