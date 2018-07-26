@@ -1,6 +1,17 @@
 {
     "root":"client/public",
     "routes" : {
-        "/**":"index.html"
-    }
+        "/**":"index.html",
+        "/graphql/*": "/graphql/",
+        "/auth/login/*": "/auth/login/",
+        "/api/*": "/api/"
+    },
+    "proxies": {
+          "/api/": {
+            "origin": "https://coindomeserver.herokuapp.com/"
+          },
+          "/graphql/": {
+            "origin": "https://coindomeserver.herokuapp.com/"
+          }
+    } 
 }
