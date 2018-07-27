@@ -1,6 +1,4 @@
-const webpack = require('webpack');
 const merge = require('webpack-merge');
-
 const PATHS = require('./webpack-paths');
 const loaders = require('./webpack-loaders');
 const plugins = require('./webpack-plugins');
@@ -44,7 +42,6 @@ switch (process.env.NODE_ENV) {
         plugins: [
           plugins.loaderOptions,
           plugins.environmentVariables,
-          plugins.uglifyJs,
           plugins.manifest,
           plugins.sw,
           plugins.copy,
