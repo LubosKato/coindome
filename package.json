@@ -1,12 +1,13 @@
 {
   "name": "coindome",
-  "version": "1.0.13",
+  "version": "1.0.10",
   "description": "Coindome web app with a custom Node API on Heroku",
   "engines": {
     "node": "8.9.x"
   },
   "scripts": {
     "start": "node server/index.js",
+    "build": "NODE_ENV=production webpack",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "cacheDirectories": [
