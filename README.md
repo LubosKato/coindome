@@ -14,13 +14,12 @@ https://coindome.herokuapp.com/
 
 ### Installing
 
-npm install
+yarn install
 
 ## Getting Started
 
-please run in 2 separate terminals :
-* npm run dev - for debugging (build for prod)
-* npm start
+yarn startlocal for local dev
+yarn start for prod
 
 ### Prerequisites
 
