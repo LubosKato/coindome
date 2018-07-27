@@ -18,7 +18,7 @@ yarn install
 
 ## Getting Started
 
-yarn startlocal for local dev
+yarn startlocal for local dev <br />
 yarn start for prod
 
 ### Prerequisites
