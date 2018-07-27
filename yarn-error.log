@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\lubos\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js build
+  C:\Program Files\nodejs\node.exe C:\Users\lubos\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js start:prod
 
 PATH: 
   C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\TortoiseGit\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\bin\git.exe;c:\cygwin64\sh\;c:\cygwin64\;C:\Program Files (x86)\OpenSSH\bin;c:\Users\lubos\AppData\Local\Programs\Python\Python36-32\;C:\Program Files\Amazon\AWSCLI\;c:\Users\lubos\AppData\Local\Programs\Python\Python36-32\Scripts;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files\PuTTY\;C:\WINDOWS\System32\OpenSSH\;c:\Program Files\MongoDB\Server\3.6\bin\;;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Users\lubos\AppData\Local\Programs\Python\Python36\Scripts\;C:\Users\lubos\AppData\Local\Programs\Python\Python36\;C:\Users\lubos\AppData\Local\Microsoft\WindowsApps;C:\Users\lubos\AppData\Local\Programs\Fiddler;C:\Program Files\Heroku\bin;C:\Users\lubos\AppData\Local\Microsoft\WindowsApps;C:\Users\lubos\AppData\Local\GitHubDesktop\bin;C:\Users\lubos\AppData\Roaming\npm;c:\Users\Me\AppData\Roaming\npm\
@@ -16,7 +16,7 @@ Platform:
 npm manifest: 
   {
     "name": "coindome",
-    "version": "1.0.17",
+    "version": "1.0.19",
     "main": "index.js",
     "description": "Coindome web app with a custom Node API on Heroku",
     "engines": {
@@ -26,8 +26,8 @@ npm manifest:
       "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
       "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules build\" \"cd server && rimraf node_modules build\"",
       "heroku-postbuild": "yarn build",
-      "install": "(cd client && yarn) && cd.. && (cd server && yarn)",
-      "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd server && PORT=3001 yarn start\"",
+      "install": "concurrently \"cd client && yarn\" \"cd server && yarn\"",
+      "start": "concurrently \"cd client && yarn start\" \"cd server && yarn start\"",
       "start:prod": "cd server && yarn start:prod"
     },
     "cacheDirectories": [
@@ -578,7 +578,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c concurrently "cd client && yarn build" "cd server && yarn build"
+  Arguments: /d /s /c cd server && yarn start:prod
   Directory: D:\test apss\coindome
   Output:
   
