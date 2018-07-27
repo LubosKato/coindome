@@ -16,7 +16,7 @@ Platform:
 npm manifest: 
   {
     "name": "coindome",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "main": "index.js",
     "description": "Coindome web app with a custom Node API on Heroku",
     "engines": {
