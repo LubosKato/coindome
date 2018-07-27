@@ -23,7 +23,7 @@ npm manifest:
       "test": "echo \"Error: no test specified\" && exit 1",
       "start": "nodemon --use_strict index.js",
       "build": "babel . --ignore node_modules,build --out-dir build",
-      "start:prod": "node -r index.js"
+      "start:prod": "node -r index"
     },
     "author": "Lubos Kato",
     "license": "ISC",
@@ -6704,7 +6704,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: C:\WINDOWS\system32\cmd.exe
-  Arguments: /d /s /c node -r index.js
+  Arguments: /d /s /c node -r index
   Directory: D:\test apss\coindome\server
   Output:
   
