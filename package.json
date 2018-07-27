@@ -1,6 +1,6 @@
 {
   "name": "coindome",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "main": "index.js",
   "description": "Coindome web app with a custom Node API on Heroku",
   "engines": {
@@ -11,7 +11,6 @@
     "clean": "concurrently \"rimraf node_modules\" \"cd client && rimraf node_modules build\" \"cd server && rimraf node_modules build\"",
     "heroku-postbuild": "yarn build",
     "install": "concurrently \"cd client && yarn\" \"cd server && yarn\"",
-
     "start:prod": "cd server && yarn start:prod"
   },
   "cacheDirectories": [
