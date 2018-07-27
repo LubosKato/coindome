@@ -1,6 +1,6 @@
 {
   "name": "coindome",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Coindome web app with a custom Node API on Heroku",
   "engines": {
     "node": "8.9.x"
