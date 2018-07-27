@@ -33,5 +33,7 @@
     "react"
   ],
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack-merge": "^4.1.3"
+  }
 }
