@@ -11,3 +11,7 @@ yarn-error.log
 # Docker
 Dockerfile
 docker-compose.yml
+client/public/asset-manifest.json
+client/public/bundle.js
+client/public/bundle.js.map
+
