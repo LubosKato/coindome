@@ -37,6 +37,12 @@ app.use((request, response, next) => {
   next();
 });
 
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 localizify
   .add('en_US', en)
   .add('sk_SK', sk)
