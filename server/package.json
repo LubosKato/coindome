@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --use_strict index.js",
     "build": "babel . --ignore node_modules,build --out-dir build",
-    "start:prod": "node index"
+    "start:prod": "node index.js"
   },
   "author": "Lubos Kato",
   "license": "ISC",
