@@ -23,6 +23,7 @@ app.use(cors())
 // tell the app to look for static files in these directories
 //app.use(express.static('./server/static/'));
 app.use(express.static('../client/public'))
+app.use(express.static(__dirname + '/'));
 //app.use(express.static(path.join(__dirname + '/default.htm')));
 
 // tell the app to parse HTTP body messages
@@ -66,8 +67,12 @@ const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
+app.get('/service-worker.js', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'service-worker.js'));
+});
+
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3000/subscriptions` }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3001/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');

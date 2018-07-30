@@ -39,6 +39,7 @@ switch (process.env.NODE_ENV) {
 		  common,
       {
         devtool: 'source-map',
+        mode:'production',
         plugins: [
           plugins.loaderOptions,
           plugins.environmentVariables,
@@ -54,7 +55,7 @@ switch (process.env.NODE_ENV) {
 	case 'development':
 		config = merge(
 			common,
-			{ devtool: 'eval-source-map' },
+			{ devtool: 'eval-source-map', mode:'development' },
 			loaders.devServer({
 				host: process.env.host,
 				port: process.env.port,
