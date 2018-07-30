@@ -35,6 +35,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "serviceworker-webpack-plugin": "^1.0.0-alpha02",
     "webpack-merge": "^4.1.3"
   }
 }

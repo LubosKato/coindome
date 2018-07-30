@@ -17,15 +17,15 @@ exports.environmentVariables = new webpack.DefinePlugin({
   },
 });
 
-exports.uglifyJs = new webpack.optimize.UglifyJsPlugin({
-  output: {
-    comments: false,
-  },
-  compress: {
-    warnings: false,
-    drop_console: true,
-  },
-});
+// exports.uglifyJs = new webpack.optimize.UglifyJsPlugin({
+//   output: {
+//     comments: false,
+//   },
+//   compress: {
+//     warnings: false,
+//     drop_console: true,
+//   },
+// });
 
 exports.extractText = (() => {
   const config = {

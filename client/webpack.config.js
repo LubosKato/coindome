@@ -45,7 +45,7 @@ switch (process.env.NODE_ENV) {
           plugins.manifest,
           plugins.sw,
           plugins.copy,
-          plugins.uglifyJs,
+          //plugins.uglifyJs,
           plugins.Gzip
         ],
       }
