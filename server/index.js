@@ -67,10 +67,6 @@ const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-app.get('/service-worker.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'public', 'service-worker.js'));
-});
-
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3001/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
@@ -82,6 +78,10 @@ app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEn
 //     }, 100);
 //   });
 // }
+
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/public/service-worker.html'));
+});
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/public/index.html'), function(err) {
