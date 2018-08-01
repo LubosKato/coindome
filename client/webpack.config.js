@@ -16,20 +16,11 @@ const common = {
       loaders.extractCss,
     ],
   },
-  resolveLoader: {
-    modules: [
-    "node_modules"
-    ]
- },
 	resolve: {
     alias: {
       components: PATHS.components,
     },
-    extensions: ['.js', '.jsx'],
-    modules: [
-      path.join(__dirname, "src"),
-      "node_modules"
-      ]
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new HtmlWebpackPlugin({
