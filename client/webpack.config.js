@@ -18,6 +18,9 @@ const common = {
   },
 	resolve: {
     alias: {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat',
+      'preact-compat': 'preact-compat/dist/preact-compat',
       components: PATHS.components,
     },
     extensions: ['.js', '.jsx'],
