@@ -7,7 +7,9 @@ Redux is used for translations and currency (visible after login)<br />
 React FE is addressing Node backend via Apollo graphQL
 <br />
 Use GraphiQL console for query data for Bitcoin diagram
-
+<br />
+Audit results<br />
+![alt text](https://github.com/kejto/coindome/blob/master/client/public/images/results.jpg)
 
 ### Hosted on Heroku
 https://coindome.herokuapp.com/
