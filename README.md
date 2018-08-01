@@ -16,12 +16,11 @@ https://coindome.herokuapp.com/
 
 ### Installing
 
-yarn install
+yarn installlocal
 
 ## Getting Started
 
-"yarn startlocal" for local dev <br />
-"yarn start" for prod
+"yarn start"
 
 ### Prerequisites
 
