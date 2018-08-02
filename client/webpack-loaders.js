@@ -6,12 +6,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 exports.css = {
   test: /\.css$/,
-  use: ['style-loader', 'css-loader'],
+  use: ['style-loader', 'css-loader', 'sass-loader'],
   include: PATHS.css,
 }
 
 exports.extractCss = {
-  test:    /\.css$/,
+  test:/\.css$/,
   loader: ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
@@ -24,6 +24,14 @@ exports.extractCss = {
     ],
   }),
 };
+exports.extractSass= {
+  test: /\.scss$/,
+  use: ExtractTextPlugin.extract(
+    {
+      fallback: 'style-loader',
+      use: ['css-loader', 'sass-loader']
+    })
+}
 
 exports.babel = {
   test: /\.jsx?$/,
@@ -50,6 +58,9 @@ exports.devServer = function(options) {
         },
         '/auth': {
           target: 'http://localhost:3000',
+        },
+        '/subscriptions': {
+          target: 'http://localhost:3001',
         }
       }
 		},

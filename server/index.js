@@ -41,8 +41,15 @@ app.use((request, response, next) => {
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/javascript');
   next();
 });
+app.get('*.css', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
+  next();
+ });
 
 localizify
   .add('en_US', en)

@@ -16,7 +16,7 @@ https://coindome.herokuapp.com/
 
 ### Installing
 
-yarn installlocal
+yarn localinstall
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ VS Code
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License
 
 ## Acknowledgments
 
@@ -40,5 +40,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## TODO
 * include tests
-* add logout timeout, wrong password retries (5)
+* add messaging system over websockets
+* add wrong password retries
 * add administration of the users / roles

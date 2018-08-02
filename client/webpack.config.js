@@ -14,6 +14,7 @@ const common = {
     rules: [
       loaders.babel,
       loaders.extractCss,
+      loaders.extractSass
     ],
   },
 	resolve: {
