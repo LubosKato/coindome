@@ -11,6 +11,8 @@ Use GraphiQL console for query data for Bitcoin diagram
 Audit results<br />
 ![alt text](https://github.com/kejto/coindome/blob/master/client/public/images/results.jpg)
 
+to analyze FE bundles run "yarn analyze"
+
 ### Hosted on Heroku
 https://coindome.herokuapp.com/
 
