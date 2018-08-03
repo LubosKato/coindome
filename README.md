@@ -43,3 +43,4 @@ This project is licensed under the MIT License
 * add messaging system over websockets
 * add wrong password retries
 * add administration of the users / roles
+* implement CI builds with heroku

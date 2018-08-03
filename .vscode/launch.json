@@ -10,12 +10,12 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}/dist",
+            "webRoot": "${workspaceRoot}/client/public",
             "sourceMapPathOverrides": {
-                "webpack:///*": "${workspaceRoot}/*",
-                "webpack:///./*": "${workspaceRoot}/*",
-                "webpack:///src/*": "${workspaceRoot}/src/*",
-                "webpack:///./~/*": "${workspaceRoot}/node_modules/*"
+                "webpack:///*": "${workspaceRoot}/client/*",
+                "webpack:///./*": "${workspaceRoot}/client/*",
+                "webpack:///src/*": "${workspaceRoot}/client/src/*",
+                "webpack:///./~/*": "${workspaceRoot}/client/node_modules/*"
             },
             "trace": true
         }
