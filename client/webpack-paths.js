@@ -4,6 +4,7 @@ module.exports = {
   root,
   src: path.join(__dirname, 'src'),
   public: path.join(__dirname, 'public'),
-  css: path.join(__dirname, 'public/css'),
+  cssIncude: path.join(__dirname, 'src/styles'),
+  cssExclude: path.join(__dirname, 'node_modules'),
   components: path.join(__dirname, 'src/components'),
 };

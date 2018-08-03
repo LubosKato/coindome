@@ -5,33 +5,18 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 exports.css = {
-  test: /\.css$/,
-  use: ['style-loader', 'css-loader', 'sass-loader'],
-  include: PATHS.css,
+    test: /\.(css|scss|sass)$/,
+    loader: "css-loader!sass-loader?sourceMap",
+    include:PATHS.cssExclude,
+    exclude:PATHS.cssIncude
 }
 
 exports.extractCss = {
-  test:/\.css$/,
-  loader: ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: [
-      {
-        loader: 'css-loader',
-        query: {
-          modules: true,
-        },
-      },
-    ],
-  }),
+  test: /\.(css|scss|sass)$/,
+  loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]___[hash:base64:5]',
+  include: PATHS.cssIncude,
+  exclude: PATHS.cssExclude
 };
-exports.extractSass= {
-  test: /\.scss$/,
-  use: ExtractTextPlugin.extract(
-    {
-      fallback: 'style-loader',
-      use: ['css-loader', 'sass-loader']
-    })
-}
 
 exports.babel = {
   test: /\.jsx?$/,

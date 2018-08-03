@@ -4,7 +4,8 @@ import { HashRouter } from 'react-router-dom'
 import App from './components/Start.jsx'
 import registerServiceWorker from './registerServiceWorker.js'
 import 'style-loader!react-select/scss/default.scss'
-import 'react-toastify/dist/ReactToastify.css';
+import '!style-loader!css-loader!react-toastify/dist/ReactToastify.css'
+
 import { toast } from "react-toastify";
 
 ReactDom.render((

@@ -3,6 +3,8 @@ const PATHS = require('./webpack-paths');
 const loaders = require('./webpack-loaders');
 const plugins = require('./webpack-plugins');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const common = {
 	entry: PATHS.src,
@@ -13,22 +15,27 @@ const common = {
 	module: {
     rules: [
       loaders.babel,
-      loaders.extractCss,
-      loaders.extractSass
+      loaders.css,
+      loaders.extractCss
     ],
   },
 	resolve: {
     alias: {
       components: PATHS.components,
     },
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', '.css', '.scss']
   },
   plugins: [
+    //new CleanWebpackPlugin('public', {} ),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'template.html',
     }),
     plugins.extractText,
+    // new MiniCssExtractPlugin({
+    //   filename: "[name].css",
+    //   chunkFilename: "[id].css"
+    // })
   ],
 };
 

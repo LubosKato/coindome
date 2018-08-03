@@ -2,6 +2,16 @@ import React, { PropTypes } from 'react';
 import LoginForm from '../components/LoginForm.jsx';
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
+import { Mutation } from "react-apollo";
+import { gql } from "apollo-boost";
+
+const addNum = gql`
+  mutation AddNum($num: String!){
+      addNum(num: $num) {
+        num
+    }
+  }
+`;
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -65,6 +75,10 @@ class LoginContainer extends React.Component {
         localStorage.setItem('usrname', JSON.stringify(xhr.response.user));
         
        // console.log(JSON.parse(localStorage.getItem('usrname')).name);
+
+       <Mutation mutation={addNum}>
+        {mutate => mutate({ variables: { num: "this.state.random"} })   }
+       </Mutation>
 
         this.setState({redirect: true});
 
