@@ -52,7 +52,7 @@ class App extends React.Component {
       element={document}
       onActive={this.onActive}
       onIdle={this.onIdle}
-      timeout={1000 * 60 * 0.1}>
+      timeout={1000 * 60 * 10}>
     <ApolloProvider client={client}>  
       <Provider store={store}>
         <MuiThemeProvider>
