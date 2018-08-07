@@ -2,16 +2,7 @@ import React, { PropTypes } from 'react';
 import LoginForm from '../components/LoginForm.jsx';
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
-import { Mutation } from "react-apollo";
-import { gql } from "apollo-boost";
-
-const addNum = gql`
-  mutation AddNum($num: String!){
-      addNum(num: $num) {
-        num
-    }
-  }
-`;
+import PushNotification from '../components/Notifications/PushNotification.jsx'
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -29,6 +20,7 @@ class LoginContainer extends React.Component {
     this.state = {
       redirect: false,
       errors: {},
+      message: "User logged out",
       successMessage,
       user: {
         email: '',
@@ -75,13 +67,8 @@ class LoginContainer extends React.Component {
         localStorage.setItem('usrname', JSON.stringify(xhr.response.user));
         
        // console.log(JSON.parse(localStorage.getItem('usrname')).name);
-
-       <Mutation mutation={addNum}>
-        {mutate => mutate({ variables: { num: "this.state.random"} })   }
-       </Mutation>
-
+        this.setState({message: "User logged in"});
         this.setState({redirect: true});
-
       } else {
         // failure
 
@@ -118,20 +105,23 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <div>
-      {this.state.redirect == false? (   
-      <LoginForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        successMessage={this.state.successMessage}        
-        user={this.state.user}
-      />):(
-        <Redirect to='/' />   
-      )
+
+      {this.state.redirect == false? ( 
+        <React.Fragment>
+          <PushNotification label={"User logged out"}/>
+          <LoginForm
+            onSubmit={this.processForm}
+            onChange={this.changeUser}
+            errors={this.state.errors}
+            successMessage={this.state.successMessage}        
+            user={this.state.user}
+          />
+           </React.Fragment>
+        ):
+          <Redirect to='/' />
       }
       </div>
     );
   }
 }
-
 export default LoginContainer;

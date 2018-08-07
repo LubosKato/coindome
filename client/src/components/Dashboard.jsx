@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'material-ui/Card';
 import TranslationContainer from '../containers/TranslationContainer.jsx';
 import styles from './../styles/Index.css'
+import PushNotification from './Notifications/PushNotification.jsx'
 
 const Dashboard = ({ secretData }) => (
   <Card className={styles.container}>
@@ -10,7 +11,7 @@ const Dashboard = ({ secretData }) => (
       title={<TranslationContainer translationKey="dashboard_text"/>}
       subtitle={<TranslationContainer translationKey="logged_in_text"/>}
     />
-
+<PushNotification label={"logged in"}/>
     {secretData && <CardText style={{ fontSize: '16px', color: 'green' }}>{secretData}</CardText>}
   </Card>
 );

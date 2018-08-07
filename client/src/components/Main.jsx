@@ -6,7 +6,7 @@ import LoginPage from '../containers/LoginContainer.jsx';
 import SignUpPage from '../containers/SignUpContainer.jsx';
 import ProfilePage from '../containers/ProfileContainer.jsx';
 import TranslationContainer from './../containers/TranslationContainer.jsx';
-import S from "./Notifications/S";
+import Subscriptions from "./Notifications/Subscriptions.jsx";
 
 class Main extends React.Component {
   render() {
@@ -19,7 +19,7 @@ class Main extends React.Component {
               <Route path='/profile' component={ProfilePage}/>
               <Route path='/bitcoinchart' component={BitcoinChart}/>
             </Switch>
-            <S />
+            <Subscriptions />
           </main>     
     )
   }  

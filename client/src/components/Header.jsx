@@ -10,9 +10,8 @@ import * as currencyActions from './../actions/currencyActions';
 import { bindActionCreators } from 'redux';
 import {withRouter} from 'react-router'
 import PropTypes from 'prop-types';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import { ToastContainer, toast } from 'react-toastify';
+import PushNotification from '../components/Notifications/PushNotification.jsx'
 
 class Header extends React.Component {
   constructor(props) {
@@ -22,13 +21,6 @@ class Header extends React.Component {
       this.state = {
         currency: "USD"
       };
-  }
-
-  componentWillReceiveProps(params) {
-    //var xx = this.props.textMessage;
-    if(params.data.newNotification != null){
-      toast(params.data.newNotification.label);
-    }
   }
 
   onUpdate(val) {
@@ -109,16 +101,8 @@ function mapDispatchToProps(dispatch) {
     actions: bindActionCreators(currencyActions, dispatch),
   };
 }
-const subNewNotification = gql`
-  subscription {
-    newNotification {
-      label
-    }
-  }
-`;
-const query= graphql(subNewNotification);
-const headerWithQuery = query(Header);
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(headerWithQuery));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 
 Header.propTypes = {
   currency: PropTypes.object,
