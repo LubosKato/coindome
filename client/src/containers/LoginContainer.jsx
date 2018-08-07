@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import LoginForm from '../components/LoginForm.jsx';
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
@@ -28,8 +28,12 @@ class LoginContainer extends React.Component {
       }
     };
 
-    this.processForm = this.processForm.bind(this);
-    this.changeUser = this.changeUser.bind(this);
+    this.processForm = this
+      .processForm
+      .bind(this);
+    this.changeUser = this
+      .changeUser
+      .bind(this);
   }
 
   /**
@@ -54,31 +58,25 @@ class LoginContainer extends React.Component {
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
-        // success
-
-        // change the component-container state
-        this.setState({
-          errors: {}
-        });
+        // success change the component-container state
+        this.setState({errors: {}});
 
         // save the token
         Auth.authenticateUser(xhr.response.token);
 
         localStorage.setItem('usrname', JSON.stringify(xhr.response.user));
-        
-       // console.log(JSON.parse(localStorage.getItem('usrname')).name);
+
+        // console.log(JSON.parse(localStorage.getItem('usrname')).name);
         this.setState({message: "User logged in"});
         this.setState({redirect: true});
       } else {
-        // failure
-
-        // change the component state
-        const errors = xhr.response.errors ? xhr.response.errors : {};
+        // failure change the component state
+        const errors = xhr.response.errors
+          ? xhr.response.errors
+          : {};
         errors.summary = xhr.response.message;
 
-        this.setState({
-          errors
-        });
+        this.setState({errors});
       }
     });
     xhr.send(formData);
@@ -94,9 +92,7 @@ class LoginContainer extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    this.setState({
-      user
-    });
+    this.setState({user});
   }
 
   /**
@@ -106,20 +102,20 @@ class LoginContainer extends React.Component {
     return (
       <div>
 
-      {this.state.redirect == false? ( 
-        <React.Fragment>
-          <PushNotification label={"User logged out"}/>
-          <LoginForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            errors={this.state.errors}
-            successMessage={this.state.successMessage}        
-            user={this.state.user}
-          />
-           </React.Fragment>
-        ):
-          <Redirect to='/' />
-      }
+        {this.state.redirect == false
+          ? (
+            <React.Fragment>
+              <PushNotification label={"User logged out"}/>
+              <LoginForm
+                onSubmit={this.processForm}
+                onChange={this.changeUser}
+                errors={this.state.errors}
+                successMessage={this.state.successMessage}
+                user={this.state.user}/>
+            </React.Fragment>
+          )
+          : <Redirect to='/'/>
+}
       </div>
     );
   }

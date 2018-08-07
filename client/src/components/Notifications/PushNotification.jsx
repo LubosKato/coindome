@@ -1,27 +1,27 @@
-import React, { Component } from 'react'
-import { graphql } from 'react-apollo'
+import React, {Component} from 'react'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
 class PushNotification extends Component {
-  componentDidMount(){
+  componentDidMount() {
     this._pushNotification(this.props)
   }
 
-  render () {
+  render() {
     return null
   }
 
   _pushNotification(props) {
     var label = props.label;
-    this.props.pushNotificationMutation({
-      variables: {
-        label
-      }
-    })
+    this
+      .props
+      .pushNotificationMutation({variables: {
+          label
+        }})
   }
 }
 
-const POST_MUTATION = gql`
+const POST_MUTATION = gql `
 mutation PushNotificationMutation($label: String!){
   pushNotification(label: $label) {
     id
@@ -29,4 +29,4 @@ mutation PushNotificationMutation($label: String!){
   }
 }`
 
-export default graphql(POST_MUTATION, { name: 'pushNotificationMutation' })(PushNotification)
+export default graphql(POST_MUTATION, {name: 'pushNotificationMutation'})(PushNotification)

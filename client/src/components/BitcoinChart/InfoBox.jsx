@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import moment from 'moment';
 import styles from './../../styles/InfoBox.css';
 import TranslationContainer from '../../containers/TranslationContainer.jsx';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
@@ -13,11 +13,11 @@ class InfoBox extends Component {
       currentPrice: null,
       monthChangeD: null,
       monthChangeP: null,
-      updatedAt: null,      
-      currency:props.currency.currency
+      updatedAt: null,
+      currency: props.currency.currency
     }
   }
-  componentDidMount(){
+  componentDidMount() {
     this.updateChart();
   }
   componentDidUpdate(prevProps) {
@@ -26,11 +26,11 @@ class InfoBox extends Component {
       this.updateChart();
     }
   }
-  updateChart(){
+  updateChart() {
     var currency = this.props.currency.currency;
     this.getData = () => {
       const {data} = this.props;
-      const all = gql`
+      const all = gql `
       {getInfoBox{
         bpi
         disclaimer
@@ -39,22 +39,31 @@ class InfoBox extends Component {
           updatedISO
           updateduk
         }}}`;
-        
-        fetch('/graphql', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
+
+      fetch('/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
           body: JSON.stringify({query: all})
-        }).then( r => r.json()).then((bitcoinData) => {
-          const price = currency == 'USD' ? bitcoinData.data.getInfoBox.bpi.USD.rate_float : bitcoinData.data.getInfoBox.bpi.EUR.rate_float;
+        })
+        .then(r => r.json())
+        .then((bitcoinData) => {
+          const price = currency == 'USD'
+            ? bitcoinData.data.getInfoBox.bpi.USD.rate_float
+            : bitcoinData.data.getInfoBox.bpi.EUR.rate_float;
           const change = price - data[0].y;
           const changeP = (price - data[0].y) / data[0].y * 100;
 
           this.setState({
-            currentPrice: currency == 'USD' ? bitcoinData.data.getInfoBox.bpi.USD.rate_float : bitcoinData.data.getInfoBox.bpi.EUR.rate_float,
-            monthChangeD: change.toLocaleString('us-EN',{ style: 'currency', currency: currency }),
+            currentPrice: currency == 'USD'
+              ? bitcoinData.data.getInfoBox.bpi.USD.rate_float
+              : bitcoinData.data.getInfoBox.bpi.EUR.rate_float,
+            monthChangeD: change.toLocaleString('us-EN', {
+              style: 'currency',
+              currency: currency
+            }),
             monthChangeP: changeP.toFixed(2) + '%',
             updatedAt: bitcoinData.data.getInfoBox.time.updated
           })
@@ -66,29 +75,36 @@ class InfoBox extends Component {
     this.getData();
     this.refresh = setInterval(() => this.getData(), 90000);
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.refresh);
   }
-  render(){
+  render() {
     var currency = this.props.currency.currency;
     return (
       <div id={styles.datacontainer}>
-        { this.state.currentPrice ?
-          <div id={styles.left} className={styles.box}>
-            <div className={styles.heading}>{this.state.currentPrice.toLocaleString('us-EN',{ style: 'currency', currency: currency })}</div>
-            <div className={styles.subtext}><TranslationContainer translationKey="updated_text"/> { moment(this.state.updatedAt ).fromNow()}</div>
-          </div>
-        : null}
-        { this.state.currentPrice ?
-          <div id={styles.middle} className={styles.box}>
-            <div className={styles.heading}>{this.state.monthChangeD}</div>
-            <div className={styles.subtext}><TranslationContainer translationKey="change_curr_text"/> ({currency})</div>
-          </div>
-        : null}
-          <div id={styles.right} className={styles.box}>
-            <div className={styles.heading}>{this.state.monthChangeP}</div>
-            <div className={styles.subtext}><TranslationContainer translationKey="change_perc_text"/></div>
-          </div>
+        {this.state.currentPrice
+          ? <div id={styles.left} className={styles.box}>
+              <div className={styles.heading}>{this
+                  .state
+                  .currentPrice
+                  .toLocaleString('us-EN', {
+                    style: 'currency',
+                    currency: currency
+                  })}</div>
+              <div className={styles.subtext}><TranslationContainer translationKey="updated_text"/> {moment(this.state.updatedAt).fromNow()}</div>
+            </div>
+          : null}
+        {this.state.currentPrice
+          ? <div id={styles.middle} className={styles.box}>
+              <div className={styles.heading}>{this.state.monthChangeD}</div>
+              <div className={styles.subtext}><TranslationContainer translationKey="change_curr_text"/>
+                ({currency})</div>
+            </div>
+          : null}
+        <div id={styles.right} className={styles.box}>
+          <div className={styles.heading}>{this.state.monthChangeP}</div>
+          <div className={styles.subtext}><TranslationContainer translationKey="change_perc_text"/></div>
+        </div>
 
       </div>
     );
@@ -96,14 +112,11 @@ class InfoBox extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    currency: state.currency,
-  };
+  return {currency: state.currency};
 }
 
 export default connect(mapStateToProps, null)(InfoBox);
 
 InfoBox.propTypes = {
-  currency: PropTypes.object,
+  currency: PropTypes.object
 };
-

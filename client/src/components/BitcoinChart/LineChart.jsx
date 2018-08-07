@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from "./../../styles/LineChart.css";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 class LineChart extends Component {
@@ -9,22 +9,26 @@ class LineChart extends Component {
     this.state = {
       hoverLoc: null,
       activePoint: null,
-      currency:props.currency.currency
+      currency: props.currency.currency
     }
   }
   // GET X & Y || MAX & MIN
-  getX(){
+  getX() {
     const {data} = this.props;
     return {
       min: data[0].x,
       max: data[data.length - 1].x
     }
   }
-  getY(){
+  getY() {
     const {data} = this.props;
     return {
-      min: data.reduce((min, p) => p.y < min ? p.y : min, data[0].y),
-      max: data.reduce((max, p) => p.y > max ? p.y : max, data[0].y)
+      min: data.reduce((min, p) => p.y < min
+        ? p.y
+        : min, data[0].y),
+      max: data.reduce((max, p) => p.y > max
+        ? p.y
+        : max, data[0].y)
     }
   }
   // GET SVG COORDINATES
@@ -46,9 +50,12 @@ class LineChart extends Component {
       return "L " + this.getSvgX(point.x) + " " + this.getSvgY(point.y) + " ";
     }).join("");
 
-    return (
-      <path className={styles.linechart_path} d={pathD} style={{stroke: color}} />
-    );
+    return (<path
+      className={styles.linechart_path}
+      d={pathD}
+      style={{
+      stroke: color
+    }}/>);
   }
   // BUILD SHADED AREA
   makeArea() {
@@ -61,10 +68,9 @@ class LineChart extends Component {
 
     const x = this.getX();
     const y = this.getY();
-    pathD += "L " + this.getSvgX(x.max) + " " + this.getSvgY(y.min) + " "
-    + "L " + this.getSvgX(x.min) + " " + this.getSvgY(y.min) + " ";
+    pathD += "L " + this.getSvgX(x.max) + " " + this.getSvgY(y.min) + " L " + this.getSvgX(x.min) + " " + this.getSvgY(y.min) + " ";
 
-    return <path className={styles.linechart_area} d={pathD} />
+    return <path className={styles.linechart_area} d={pathD}/>
   }
   // BUILD GRID AXIS
   makeAxis() {
@@ -75,43 +81,63 @@ class LineChart extends Component {
     return (
       <g className={styles.linechart_axis}>
         <line
-          x1={this.getSvgX(x.min) - yLabelSize} y1={this.getSvgY(y.min)}
-          x2={this.getSvgX(x.max)} y2={this.getSvgY(y.min)}
-          strokeDasharray="5" />
+          x1={this.getSvgX(x.min) - yLabelSize}
+          y1={this.getSvgY(y.min)}
+          x2={this.getSvgX(x.max)}
+          y2={this.getSvgY(y.min)}
+          strokeDasharray="5"/>
         <line
-          x1={this.getSvgX(x.min) - yLabelSize} y1={this.getSvgY(y.max)}
-          x2={this.getSvgX(x.max)} y2={this.getSvgY(y.max)}
-          strokeDasharray="5" />
+          x1={this.getSvgX(x.min) - yLabelSize}
+          y1={this.getSvgY(y.max)}
+          x2={this.getSvgX(x.max)}
+          y2={this.getSvgY(y.max)}
+          strokeDasharray="5"/>
       </g>
     );
   }
-  makeLabels(){
+  makeLabels() {
     var currency = this.props.currency.currency;
     const {svgHeight, svgWidth, xLabelSize, yLabelSize} = this.props;
     const padding = 5;
-    return(
+    return (
       <g className={styles.linechart_label}>
         {/* Y AXIS LABELS */}
-        <text transform={`translate(${yLabelSize/2}, 20)`} textAnchor="middle">
-          {this.getY().max.toLocaleString('us-EN',{ style: 'currency', currency: currency })}
+        <text transform={`translate(${yLabelSize / 2}, 20)`} textAnchor="middle">
+          {this
+            .getY()
+            .max
+            .toLocaleString('us-EN', {
+              style: 'currency',
+              currency: currency
+            })}
         </text>
-        <text transform={`translate(${yLabelSize/2}, ${svgHeight - xLabelSize - padding})`} textAnchor="middle">
-          {this.getY().min.toLocaleString('us-EN',{ style: 'currency', currency: currency })}
+        <text
+          transform={`translate(${yLabelSize / 2}, ${svgHeight - xLabelSize - padding})`}
+          textAnchor="middle">
+          {this
+            .getY()
+            .min
+            .toLocaleString('us-EN', {
+              style: 'currency',
+              currency: currency
+            })}
         </text>
         {/* X AXIS LABELS */}
         <text transform={`translate(${yLabelSize}, ${svgHeight})`} textAnchor="start">
-          { this.props.data[0].d }
+          {this.props.data[0].d}
         </text>
         <text transform={`translate(${svgWidth}, ${svgHeight})`} textAnchor="end">
-          { this.props.data[this.props.data.length - 1].d }
+          {this.props.data[this.props.data.length - 1].d}
         </text>
       </g>
     )
   }
   // FIND CLOSEST POINT TO MOUSE
-  getCoords(e){
+  getCoords(e) {
     const {svgWidth, data, yLabelSize} = this.props;
-    const svgLocation = document.getElementsByClassName("linechart")[0].getBoundingClientRect();
+    const svgLocation = document
+      .getElementsByClassName("linechart")[0]
+      .getBoundingClientRect();
     const adjustment = (svgLocation.width - svgWidth) / 2; //takes padding into consideration
     const relativeLoc = e.clientX - svgLocation.left - adjustment;
 
@@ -126,65 +152,74 @@ class LineChart extends Component {
     });
 
     let closestPoint = {};
-    for(let i = 0, c = 500; i < svgData.length; i++){
-      if ( Math.abs(svgData[i].svgX - this.state.hoverLoc) <= c ){
+    for (let i = 0, c = 500; i < svgData.length; i++) {
+      if (Math.abs(svgData[i].svgX - this.state.hoverLoc) <= c) {
         c = Math.abs(svgData[i].svgX - this.state.hoverLoc);
         closestPoint = svgData[i];
       }
     }
 
-    if(relativeLoc - yLabelSize < 0){
+    if (relativeLoc - yLabelSize < 0) {
       this.stopHover();
     } else {
-      this.setState({
-        hoverLoc: relativeLoc,
-        activePoint: closestPoint
-      })
-      this.props.onChartHover(relativeLoc, closestPoint);
+      this.setState({hoverLoc: relativeLoc, activePoint: closestPoint})
+      this
+        .props
+        .onChartHover(relativeLoc, closestPoint);
     }
   }
   // STOP HOVER
-  stopHover(){
+  stopHover() {
     this.setState({hoverLoc: null, activePoint: null});
-    this.props.onChartHover(null, null);
+    this
+      .props
+      .onChartHover(null, null);
   }
   // MAKE ACTIVE POINT
-  makeActivePoint(){
+  makeActivePoint() {
     const {color, pointRadius} = this.props;
-    return (
-      <circle
-        className={styles.linechart_point}
-        style={{stroke: color}}
-        r={pointRadius}
-        cx={this.state.activePoint.svgX}
-        cy={this.state.activePoint.svgY}
-      />
-    );
+    return (<circle
+      className={styles.linechart_point}
+      style={{
+      stroke: color
+    }}
+      r={pointRadius}
+      cx={this.state.activePoint.svgX}
+      cy={this.state.activePoint.svgY}/>);
   }
   // MAKE HOVER LINE
-  createLine(){
+  createLine() {
     const {svgHeight, xLabelSize} = this.props;
-    return (
-      <line className={styles.hoverLine}
-        x1={this.state.hoverLoc} y1={-8}
-        x2={this.state.hoverLoc} y2={svgHeight - xLabelSize} />
-    )
+    return (<line
+      className={styles.hoverLine}
+      x1={this.state.hoverLoc}
+      y1={-8}
+      x2={this.state.hoverLoc}
+      y2={svgHeight - xLabelSize}/>)
   }
 
   render() {
     const {svgHeight, svgWidth} = this.props;
 
     return (
-      <svg  width={svgWidth} height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`} className={'linechart'}
-            onMouseLeave={ () => this.stopHover() }
-            onMouseMove={ (e) => this.getCoords(e) } >
+      <svg
+        width={svgWidth}
+        height={svgHeight}
+        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+        className={'linechart'}
+        onMouseLeave={() => this.stopHover()}
+        onMouseMove={(e) => this.getCoords(e)}>
         <g>
           {this.makeAxis()}
           {this.makePath()}
           {this.makeArea()}
           {this.makeLabels()}
-          {this.state.hoverLoc ? this.createLine() : null}
-          {this.state.hoverLoc ? this.makeActivePoint() : null}
+          {this.state.hoverLoc
+            ? this.createLine()
+            : null}
+          {this.state.hoverLoc
+            ? this.makeActivePoint()
+            : null}
         </g>
       </svg>
     );
@@ -202,13 +237,11 @@ LineChart.defaultProps = {
 }
 
 function mapStateToProps(state) {
-  return {
-    currency: state.currency,
-  };
+  return {currency: state.currency};
 }
 
 export default connect(mapStateToProps, null)(LineChart);
 
 LineChart.propTypes = {
-  currency: PropTypes.object,
+  currency: PropTypes.object
 };

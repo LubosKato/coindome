@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, {PropTypes} from 'react';
 import SignUpForm from '../components/SignUpForm.jsx';
 import {Redirect} from 'react-router-dom';
 import TranslationContainer from './../containers/TranslationContainer.jsx';
@@ -18,8 +18,12 @@ class SignUpContainer extends React.Component {
       }
     };
 
-    this.processForm = this.processForm.bind(this);
-    this.changeUser = this.changeUser.bind(this);
+    this.processForm = this
+      .processForm
+      .bind(this);
+    this.changeUser = this
+      .changeUser
+      .bind(this);
   }
 
   /**
@@ -32,9 +36,7 @@ class SignUpContainer extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    this.setState({
-      user
-    });
+    this.setState({user});
   }
 
   /**
@@ -53,46 +55,39 @@ class SignUpContainer extends React.Component {
     const confirmPassword = encodeURIComponent(this.state.user.confirmPassword);
     const formData = `name=${name}&email=${email}&password=${password}`;
 
-    if(password != confirmPassword){
+    if (password != confirmPassword) {
       const errors = {};
       errors.password = <TranslationContainer translationKey="match_password_text"/>;
-      this.setState({
-        errors
+      this.setState({errors});
+    } else {
+      // create an AJAX request
+      const xhr = new XMLHttpRequest();
+      xhr.open('post', '/auth/signup');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Accept-Language', localStorage.getItem('lang'));
+      xhr.responseType = 'json';
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          // success change the component-container state
+          this.setState({errors: {}});
+
+          // set a message
+          localStorage.setItem('successMessage', xhr.response.message);
+          this.setState({redirect: true});
+        } else {
+          // failure
+
+          const errors = xhr.response.errors
+            ? xhr.response.errors
+            : {};
+          errors.summary = xhr.response.message;
+
+          this.setState({errors});
+        }
       });
+      xhr.send(formData);
     }
-    else{
-    // create an AJAX request
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/signup');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Accept-Language', localStorage.getItem('lang'));
-    xhr.responseType = 'json';
-    xhr.addEventListener('load', () => {
-      if (xhr.status === 200) {
-        // success
-
-        // change the component-container state
-        this.setState({
-          errors: {}
-        });
-        
-        // set a message
-        localStorage.setItem('successMessage', xhr.response.message);
-        this.setState({redirect: true});
-      } else {
-        // failure
-
-        const errors = xhr.response.errors ? xhr.response.errors : {};
-        errors.summary = xhr.response.message;
-
-        this.setState({
-          errors
-        });
-      }
-    });
-    xhr.send(formData);
   }
-}
 
   /**
    * Render the component.
@@ -100,18 +95,14 @@ class SignUpContainer extends React.Component {
   render() {
     return (
       <div>
-      {this.state.redirect == false ?(
-      <SignUpForm
-        onSubmit={this.processForm}
-        onChange={this.changeUser}
-        errors={this.state.errors}
-        user={this.state.user}
-      />
-      ):
-      (
-        <Redirect to='/login' />
-      )
-      }
+        {this.state.redirect == false
+          ? (<SignUpForm
+            onSubmit={this.processForm}
+            onChange={this.changeUser}
+            errors={this.state.errors}
+            user={this.state.user}/>)
+          : (<Redirect to='/login'/>)
+}
       </div>
     );
   }

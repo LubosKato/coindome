@@ -15,23 +15,23 @@ class DashboardContainer extends React.Component {
    * This method will be executed after initial rendering.
    */
   componentDidMount() {
-    // {Auth.isUserAuthenticated() ? (
-    // if(Auth.isUserAuthenticated())
-    // {
-        const xhr = new XMLHttpRequest();
-        xhr.open('get', '/api/dashboard');
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        // set the authorization HTTP header
-        xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
-        xhr.responseType = 'json';
-        xhr.addEventListener('load', () => {
-        if (xhr.status === 200) {
-            this.setState({
-            secretData: xhr.response!= null ? xhr.response.message : ''
-            });
-        }
+    // {Auth.isUserAuthenticated() ? ( if(Auth.isUserAuthenticated()) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', '/api/dashboard');
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    // set the authorization HTTP header
+    xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.setState({
+          secretData: xhr.response != null
+            ? xhr.response.message
+            : ''
         });
-        xhr.send();
+      }
+    });
+    xhr.send();
     //}
 
   }
@@ -40,7 +40,7 @@ class DashboardContainer extends React.Component {
    * Render the component.
    */
   render() {
-    return (<Dashboard secretData={this.state.secretData} />);
+    return (<Dashboard secretData={this.state.secretData}/>);
   }
 }
 

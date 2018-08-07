@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle } from 'material-ui/Card';
+import {Card, CardTitle} from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import DashboardPage from '../containers/DashboardContainer.jsx';
 import styles from './../styles/Index.css'
@@ -16,14 +16,14 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        {Auth.isUserAuthenticated() == false ? (
-          <Card className={styles.container}>
-          <CardTitle title={this.props.cardtitleP} subtitle={this.props.cardsubtitleP} />  
-      </Card>):
-      (
-        <DashboardPage/>
-      )}
-      </div>    
+        {Auth.isUserAuthenticated() == false
+          ? (
+            <Card className={styles.container}>
+              <CardTitle title={this.props.cardtitleP} subtitle={this.props.cardsubtitleP}/>
+            </Card>
+          )
+          : (<DashboardPage/>)}
+      </div>
     )
   }
 }
