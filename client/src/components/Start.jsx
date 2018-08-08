@@ -15,7 +15,7 @@ import {split} from 'apollo-link';
 import {getMainDefinition} from 'apollo-utilities';
 
 const store = createStore(rootReducer);
-const httpLink = new HttpLink({uri: 'http://' + window.location.host + '/graphql'})
+const httpLink = new HttpLink({uri: 'http://localhost:3000/graphql'})
 
 const wsLink = new WebSocketLink({
   uri: `ws://` + window.location.host + `/subscriptions`,
