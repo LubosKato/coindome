@@ -31,7 +31,9 @@ export const TRANSLATIONS = {
     confirm_password_text:'Confirm password',
     curr_password_text:'Enter current password',
     match_password_text:'Passwords do not match',
-    update_password_success_text:'Password updated !'
+    update_password_success_text:'Password updated !',
+    loggedout_text: 'User was logget out!',
+    loggedin_text: 'User was logged In!',
   },
   sk_SK: {
     title_text:'Titulná stránka',
@@ -65,7 +67,9 @@ export const TRANSLATIONS = {
     confirm_password_text:'Potvrdiť heslo',
     curr_password_text:'Potvrdiť existujúce heslo',
     match_password_text:'Heslo musí byť rovnaké',
-    update_password_success_text:'Heslo zmenené !'
+    update_password_success_text:'Heslo zmenené !',
+    loggedout_text: 'Užívateľ bol odhlásený !',
+    loggedin_text: 'Užívateľ bol prihlásený !',
   }
 };
 

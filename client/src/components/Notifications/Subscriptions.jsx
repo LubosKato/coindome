@@ -3,6 +3,7 @@ import {gql} from "apollo-boost";
 import {toast} from 'react-toastify';
 import {graphql} from 'react-apollo'
 import React, {Component} from "react";
+import TranslationContainer from '../../containers/TranslationContainer.jsx';
 
 class Subscriptions extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Subscriptions extends Component {
             if (data != undefined) {
               if (data.newNotification.id != this.state.id) {
                 this.state.id = data.newNotification.id;
-                return toast(data.newNotification.label);
+                return toast( < TranslationContainer translationKey = {data.newNotification.label} />);
               } else {
                 return null;
               }

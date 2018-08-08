@@ -8,14 +8,12 @@ class PushNotification extends Component {
   }
 
   render() {
-    return null
+    return null;
   }
 
   _pushNotification(props) {
     var label = props.label;
-    this
-      .props
-      .pushNotificationMutation({variables: {
+    this.props.pushNotificationMutation({variables: {
           label
         }})
   }

@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import LoginForm from '../components/LoginForm.jsx';
 import Auth from '../modules/Auth';
 import {Redirect} from 'react-router-dom';
-import PushNotification from '../components/Notifications/PushNotification.jsx'
+import PushNotification from '../components/Notifications/PushNotification.jsx';
+import TranslationContainer from './TranslationContainer.jsx';
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -20,7 +21,6 @@ class LoginContainer extends React.Component {
     this.state = {
       redirect: false,
       errors: {},
-      message: "User logged out",
       successMessage,
       user: {
         email: '',
@@ -101,11 +101,10 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <div>
-
         {this.state.redirect == false
           ? (
             <React.Fragment>
-              <PushNotification label={"User logged out"}/>
+              <PushNotification label={"loggedout_text"}/>
               <LoginForm
                 onSubmit={this.processForm}
                 onChange={this.changeUser}

@@ -10,7 +10,7 @@ const Dashboard = ({secretData}) => (
     <CardTitle
       title={< TranslationContainer translationKey = "dashboard_text" />}
       subtitle={< TranslationContainer translationKey = "logged_in_text" />}/>
-    <PushNotification label={"logged in"}/> {secretData && <CardText style={{
+      <PushNotification label={"loggedin_text"}/> {secretData && <CardText style={{
       fontSize: '16px',
       color: 'green'
     }}>{secretData}</CardText>}
