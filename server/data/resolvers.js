@@ -22,7 +22,8 @@ const resolvers= {
   },  
   Mutation: {
     pushNotification: (root, args) => {
-      const newNotification = { id : id++, label: args.label };
+      console.log(args)
+      const newNotification = { id : id++, label: args.label, user: args.user };
       notifications.push(newNotification);
       pubsub.publish(NOTIFICATION_SUBSCRIPTION_TOPIC, { newNotification: newNotification });
 

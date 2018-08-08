@@ -9,7 +9,8 @@ class Subscriptions extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      id: 0
+      id: 0,
+      userName:''
     }
   }
 
@@ -19,8 +20,10 @@ class Subscriptions extends Component {
         <Subscription subscription={newNotification}>
           {({data}) => {
             if (data != undefined) {
-              if (data.newNotification.id != this.state.id) {
+              if ((data.newNotification.id != this.state.id)
+               && (data.newNotification.user != this.state.userName )) {
                 this.state.id = data.newNotification.id;
+                this.state.userName = data.newNotification.user;
                 return toast( < TranslationContainer translationKey = {data.newNotification.label} />);
               } else {
                 return null;
@@ -40,6 +43,7 @@ subscription {
   newNotification {
     id
     label
+    user
   }
 }`;
 

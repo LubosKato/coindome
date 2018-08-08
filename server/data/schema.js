@@ -9,8 +9,8 @@ type Query {
   getInfoBox: InfoBox @cacheControl(maxAge: 5000)
   notifications: Notification
 }
-type Notification { id: Int, label: String }
-type Mutation { pushNotification(label: String!): Notification }
+type Notification { id: Int, label: String, user: String }
+type Mutation { pushNotification(label: String!, user: String!): Notification }
 type Subscription { newNotification: Notification }
 type Bitcoin {
   period: String

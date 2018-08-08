@@ -13,17 +13,20 @@ class PushNotification extends Component {
 
   _pushNotification(props) {
     var label = props.label;
+    var user = localStorage.getItem('usrname') !=null ? JSON.parse(localStorage.getItem('usrname')).name : '';
     this.props.pushNotificationMutation({variables: {
-          label
+          label,
+          user
         }})
   }
 }
 
 const POST_MUTATION = gql `
-mutation PushNotificationMutation($label: String!){
-  pushNotification(label: $label) {
+mutation PushNotificationMutation($label: String!,$user: String!){
+  pushNotification(label: $label, user: $user) {
     id
     label
+    user
   }
 }`
 
