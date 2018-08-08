@@ -75,7 +75,7 @@ app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `wss://` + window.location.host + `/subscriptions` }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3001/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');
@@ -98,7 +98,7 @@ app.get('/*', function(req, res) {
   })
 })
 
-//start the server
+///start the server
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
 });
