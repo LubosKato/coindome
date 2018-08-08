@@ -75,7 +75,7 @@ app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `wss://coindome.herokuapp.com/subscriptions` }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `wss://` + window.location.host + `/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');
@@ -103,7 +103,7 @@ app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
 });
 const ws = createServer(app);
-ws.listen(process.env.PORT || 3001, () => {
+ws.listen(3001, () => {
   //console.log('Go to http://localhost:3000/graphiql to run queries!');
 
   new SubscriptionServer({
