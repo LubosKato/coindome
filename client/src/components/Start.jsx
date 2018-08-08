@@ -15,7 +15,7 @@ import {split} from 'apollo-link';
 import {getMainDefinition} from 'apollo-utilities';
 
 const store = createStore(rootReducer);
-const httpLink = new HttpLink({uri: 'http://localhost:3000/graphql'})
+const httpLink = new HttpLink({uri: 'https://coindome.herokuapp.com/graphql'})
 
 const wsLink = new WebSocketLink({
   uri: `wss://coindome.herokuapp.com/subscriptions`,
