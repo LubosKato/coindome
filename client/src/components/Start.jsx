@@ -18,7 +18,7 @@ const store = createStore(rootReducer);
 const httpLink = new HttpLink({uri: 'http://localhost:3000/graphql'})
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3001/subscriptions`,
+  uri: `ws://coindome.herokuapp.com/subscriptions`,
   options: {
     reconnect: true
   }
