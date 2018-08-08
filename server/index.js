@@ -99,11 +99,11 @@ app.get('/*', function(req, res) {
 })
 
 ///start the server
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
-});
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
+// });
 const ws = createServer(app);
-ws.listen(3001, () => {
+ws.listen(3000, () => {
   //console.log('Go to http://localhost:3000/graphiql to run queries!');
 
   new SubscriptionServer({

@@ -45,7 +45,7 @@ exports.devServer = function(options) {
           target: 'http://localhost:3000',
         },
         '/subscriptions': {
-          target: 'http://localhost:3001',
+          target: 'ws://localhost:3000',
         }
       }
 		},
