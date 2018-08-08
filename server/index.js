@@ -75,7 +75,7 @@ app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3001/subscriptions` }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `wss://coindome.herokuapp.com/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');
