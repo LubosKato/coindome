@@ -75,7 +75,7 @@ app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3001/subscriptions` }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3000/subscriptions` }));
 // if(process.env.NODE_ENV !== 'production') {
 //   process.once('uncaughtException', function(err) {
 //     console.error('FATAL: Uncaught exception.');
@@ -98,20 +98,32 @@ app.get('/*', function(req, res) {
   })
 })
 
-///start the server
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
-});
-const ws = createServer(app);
-ws.listen(3001, () => {
-  //console.log('Go to http://localhost:3000/graphiql to run queries!');
+// ///start the server
+// app.listen(process.env.PORT || 3000, () => {
+//   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
+// });
+// const ws = createServer(app);
+// ws.listen(3001, () => {
+//   //console.log('Go to http://localhost:3000/graphiql to run queries!');
 
-  new SubscriptionServer({
-    execute,
-    subscribe,
-    schema
-  }, {
-    server: ws,
-    path: '/subscriptions',
-  });
-});
+//   new SubscriptionServer({
+//     execute,
+//     subscribe,
+//     schema
+//   }, {
+//     server: ws,
+//     path: '/subscriptions',
+//   });
+// });
+
+const GRAPHQL_PATH = '/graphql'
+app.use(GRAPHQL_PATH, bodyParser.json(), graphqlExpress({
+  schema: schema
+}))
+
+const port = process.env.PORT || 3000;
+const httpServer = this._httpServer = app.listen(port)
+SubscriptionServer.create(
+  {schema: schema, execute, subscribe},
+  {server: httpServer, path: GRAPHQL_PATH},
+)

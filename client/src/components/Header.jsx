@@ -1,17 +1,15 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import Auth from '../modules/Auth';
-import {Redirect} from 'react-router-dom';
-import TranslationContainer from '../containers/TranslationContainer.jsx';
-import LangSwitchContainer from '../containers/LangSwitchContainer.jsx';
-import Currencies from './Currencies.jsx';
-import {connect} from 'react-redux';
-import * as currencyActions from './../actions/currencyActions';
-import {bindActionCreators} from 'redux';
-import {withRouter} from 'react-router'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router'
 import PropTypes from 'prop-types';
-import {ToastContainer, toast} from 'react-toastify';
-import PushNotification from '../components/Notifications/PushNotification.jsx'
+import { ToastContainer } from 'react-toastify';
+import Currencies from './Currencies';
+import LangSwitchContainer from '../containers/LangSwitchContainer';
+import * as currencyActions from '../actions/currencyActions';
+import TranslationContainer from '../containers/TranslationContainer';
+import Auth from '../modules/Auth';
 
 class Header extends React.Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class Header extends React.Component {
       .onUpdate
       .bind(this);
     this.state = {
-      currency: "USD"
+      currency: 'USD',
     };
   }
 
@@ -32,11 +30,10 @@ class Header extends React.Component {
       .props
       .actions
       .setCurrency(val);
-    this.setState({currency: val})
-  };
+    this.setState({ currency: val });
+  }
 
-  onLogOutClicked()
-  {
+  onLogOutClicked() {
     Auth.deauthenticateUser();
   }
 
@@ -44,7 +41,7 @@ class Header extends React.Component {
     return (
       <nav className="navbar navbar-default">
         <div className="App">
-          <div className="App-intro"></div>
+          <div className="App-intro" />
           <ToastContainer
             position="bottom-right"
             autoClose={5000}
@@ -54,7 +51,8 @@ class Header extends React.Component {
             rtl={false}
             pauseOnVisibilityChange
             draggable
-            pauseOnHover/>
+            pauseOnHover
+          />
         </div>
         <div className="container-fluid">
           <div className="navbar-header">
@@ -63,19 +61,21 @@ class Header extends React.Component {
               className="navbar-toggle collapsed"
               data-toggle="collapse"
               data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false">
+              aria-expanded="false"
+            >
               <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
             </button>
-            <Link to="/" className="navbar-brand"><TranslationContainer translationKey="site_text"/></Link>
+            <Link to="/" className="navbar-brand"><TranslationContainer translationKey="site_text" /></Link>
           </div>
 
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
               <li className="active">
-                <Link to="/bitcoinchart"><TranslationContainer translationKey="bitcoin_text"/>
+                <Link to="/bitcoinchart">
+                  <TranslationContainer translationKey="bitcoin_text" />
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
@@ -85,32 +85,37 @@ class Header extends React.Component {
               ? (
                 <ul className="nav navbar-nav navbar-right">
                   <li className="active">
-                    <Link to="/login"><TranslationContainer translationKey="login_text"/>
+                    <Link to="/login">
+                      <TranslationContainer translationKey="login_text" />
                       <span className="sr-only">(current)</span>
                     </Link>
                   </li>
                   <li className="active">
-                    <Link to="/signup"><TranslationContainer translationKey="signup_text"/>
+                    <Link to="/signup">
+                      <TranslationContainer translationKey="signup_text" />
                       <span className="sr-only">(current)</span>
                     </Link>
                   </li>
-                  <li><LangSwitchContainer/></li>
+                  <li><LangSwitchContainer /></li>
                 </ul>
               )
               : (
                 <ul className="nav navbar-nav navbar-right">
-                  <li><Currencies onUpdate={this.onUpdate}/></li>
+                  <li><Currencies onUpdate={this.onUpdate} /></li>
                   <li className="active">
-                    <Link to="/profile"><TranslationContainer translationKey="profile_text"/>
+                    <Link to="/profile">
+                      <TranslationContainer translationKey="profile_text" />
                       <span className="sr-only">(current)</span>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/login" onClick={this.onLogOutClicked}><TranslationContainer translationKey="logout_text"/>
+                    <Link to="/login" onClick={this.onLogOutClicked}>
+                      <TranslationContainer translationKey="logout_text" />
                       <span className="sr-only">(current)</span>
                     </Link>
                   </li>
-                  <li><LangSwitchContainer/>
+                  <li>
+                    <LangSwitchContainer />
                   </li>
                 </ul>
               )
@@ -123,12 +128,12 @@ class Header extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {currency: state.currency};
+  return { currency: state.currency };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(currencyActions, dispatch)
+    actions: bindActionCreators(currencyActions, dispatch),
   };
 }
 
@@ -136,5 +141,5 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 
 Header.propTypes = {
   currency: PropTypes.object,
-  actions: PropTypes.object
+  actions: PropTypes.object,
 };

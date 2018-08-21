@@ -2,13 +2,18 @@
   "name": "coindome",
   "version": "1.0.3",
   "description": "React sample code used as a blueprint for react PWA app",
-  "main": "index.js",
+  "main": "index.jsx",
   "author": "Lubos Kato",
   "license": "ISC",
+  "pre-commit": [
+    "lint"
+  ],
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",
     "build": "NODE_ENV=production webpack --optimize-minimize",
-    "analyze": "source-map-explorer public/bundle.js public/bundle.js.map"
+    "analyze": "source-map-explorer public/bundle.js public/bundle.js.map",
+    "lint": "eslint . --ext .js,.jsx",
+    "format": "prettier --write '**/*.{js,jsx}'"
   },
   "dependencies": {
     "apollo-boost": "^0.1.10",
@@ -17,7 +22,6 @@
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.5",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
@@ -29,7 +33,6 @@
     "copy-webpack-plugin": "^4.5.2",
     "cors": "^2.8.4",
     "css-loader": "^0.28.11",
-    "eslint": "^5.2.0",
     "express": "^4.16.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "graphql": "^0.13.2",
@@ -51,6 +54,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "postcss-loader": "^2.1.6",
+    "pre-commit": "^1.2.2",
     "prop-types": "^15.6.0",
     "react": "^16.4.0",
     "react-apollo": "^2.1.9",
@@ -64,6 +68,7 @@
     "react-select": "^1.2.1",
     "react-toastify": "^4.1.0",
     "redux": "^3.7.2",
+    "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
     "serviceworker-webpack-plugin": "^1.0.0-alpha02",
     "source-map-explorer": "^1.5.0",
@@ -82,6 +87,13 @@
   },
   "devDependencies": {
     "add": "^2.0.6",
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.2.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.14.2",
     "yarn": "^0.27.5"
   }
 }

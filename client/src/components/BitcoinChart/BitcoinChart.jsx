@@ -1,91 +1,94 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
-import styles from './../../styles/BitcoinChart.css';
-import LineChart from './LineChart.jsx';
-import ToolTip from './ToolTip.jsx';
-import InfoBox from './InfoBox.jsx';
-import TranslationContainer from '../../containers/TranslationContainer.jsx';
-import {connect} from 'react-redux';
-import {PERIODS} from './../../constants/periods';
+import { connect } from 'react-redux';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import styles from '../../styles/BitcoinChart.css';
+import LineChart from './LineChart';
+import ToolTip from './ToolTip';
+import InfoBox from './InfoBox';
+import TranslationContainer from '../../containers/TranslationContainer';
+import { PERIODS } from '../../constants/periods';
 
 class BitcoinChart extends Component {
   constructor(props) {
     super(props);
     this.updateChart = this
       .updateChart
-      .bind(this)
+      .bind(this);
     this.getToday = this
       .getToday
-      .bind(this)
+      .bind(this);
     this.getDate = this
       .getDate
-      .bind(this)
+      .bind(this);
     this.state = {
       fetchingData: true,
-      data: null,
       hoverLoc: null,
       activePoint: null,
-      currency: props.currency.currency,
       data: props.pbi,
-      period: '30'
-    }
+      period: '30',
+    };
   }
 
   handleChartHover(hoverLoc, activePoint) {
-    this.setState({hoverLoc: hoverLoc, activePoint: activePoint})
+    this.setState({ hoverLoc, activePoint });
   }
+
   componentDidMount() {
     this.updateChart(this.state.period);
   }
+
   componentDidUpdate(prevProps) {
     // only update chart if the data has changed
     if (prevProps.currency !== this.props.currency) {
       this.updateChart(this.state.period);
     }
   }
+
   getToday() {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear();
 
     if (dd < 10) {
-      dd = '0' + dd
+      dd = `0${dd}`;
     }
 
     if (mm < 10) {
-      mm = '0' + mm
+      mm = `0${mm}`;
     }
 
-    today = yyyy + '-' + mm + '-' + dd;
+    today = `${yyyy}-${mm}-${dd}`;
     return today;
   }
+
   getDate(period) {
-    var today = new Date();
+    let today = new Date();
     today.setDate(today.getDate() - period);
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear();
 
     if (dd < 10) {
-      dd = '0' + dd
+      dd = `0${dd}`;
     }
 
     if (mm < 10) {
-      mm = '0' + mm
+      mm = `0${mm}`;
     }
 
-    today = yyyy + '-' + mm + '-' + dd;
+    today = `${yyyy}-${mm}-${dd}`;
     return today;
   }
+
   updateChart(period) {
     this.state.period = period;
-    var currency = this.props.currency.currency;
-    var bpi = this.state.data;
+    const currency = this.props.currency.currency;
+    const bpi = this.state.data;
     const getData = () => {
-      const all = gql `
+      const all = gql`
       query getData($currency: String, $period: String){getGraphData(currency:$currency, period:$period)
         {
         bpi
@@ -101,21 +104,21 @@ class BitcoinChart extends Component {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          Accept: 'application/json',
         },
-          body: JSON.stringify({
-            query: all,
-            variables: {
-              currency,
-              period
-            }
-          })
-        })
+        body: JSON.stringify({
+          query: all,
+          variables: {
+            currency,
+            period,
+          },
+        }),
+      })
         .then(r => r.json())
         .then((bitcoinData) => {
           const sortedData = [];
           let count = 0;
-          for (let date in bitcoinData.data.getGraphData.bpi) {
+          for (const date in bitcoinData.data.getGraphData.bpi) {
             const date1 = new Date(date);
             sortedData.push({
               d: moment(date1.toISOString()).format('MMM DD'),
@@ -125,69 +128,77 @@ class BitcoinChart extends Component {
                 .bpi[date]
                 .toLocaleString('us-EN', {
                   style: 'currency',
-                  currency: currency
+                  currency,
                 }),
-              x: count, //previous days
-              y: bitcoinData.data.getGraphData.bpi[date] // numerical price
+              x: count, // previous days
+              y: bitcoinData.data.getGraphData.bpi[date], // numerical price
             });
             count++;
           }
-          this.setState({data: sortedData, fetchingData: false})
+          this.setState({ data: sortedData, fetchingData: false });
         })
         .catch((e) => {
           // console.log(e);
         });
-    }
+    };
     getData();
   }
+
   render() {
     return (
 
       <div>
         <div className={styles.row}>
-          <h1><TranslationContainer translationKey="chart_title_text"/></h1>
+          <h1><TranslationContainer translationKey="chart_title_text" /></h1>
         </div>
         <div
           className="lang"
           style={{
-          padding: 10,
-          textAlign: 'center'
-        }}>
-          {PERIODS.map((period, i) => <button
-            key={i}
-            style={{
-            fontWeight: this.state.period === period.value
-              ? 'bold'
-              : ''
+            padding: 10,
+            textAlign: 'center',
           }}
-            onClick={() => this.updateChart(period.value)}>
-            <span>{period.label}</span>
-          </button>)}
+        >
+          {PERIODS.map((period, i) => (
+            <button
+              key={i}
+              style={{
+                fontWeight: this.state.period === period.value
+                  ? 'bold'
+                  : '',
+              }}
+              onClick={() => this.updateChart(period.value)}
+            >
+              <span>{period.label}</span>
+            </button>
+          ))}
         </div>
         <div className={styles.row}>
           {!this.state.fetchingData
-            ? <InfoBox data={this.state.data}/>
+            ? <InfoBox data={this.state.data} />
             : null}
         </div>
         <div className={styles.row}>
           <div className={styles.popup}>
             {this.state.hoverLoc
-              ? <ToolTip hoverLoc={this.state.hoverLoc} activePoint={this.state.activePoint}/>
+              ? <ToolTip hoverLoc={this.state.hoverLoc} activePoint={this.state.activePoint} />
               : null}
           </div>
         </div>
         <div className={styles.row}>
           <div className={styles.chart}>
             {!this.state.fetchingData
-              ? <LineChart
+              ? (
+                <LineChart
                   data={this.state.data}
-                  onChartHover={(a, b) => this.handleChartHover(a, b)}/>
+                  onChartHover={(a, b) => this.handleChartHover(a, b)}
+                />
+              )
               : null}
           </div>
         </div>
         <div className={styles.row}>
           <div id="coindesk">
-            <TranslationContainer translationKey="powered_text"/>
+            <TranslationContainer translationKey="powered_text" />
             <a href="http://www.coindesk.com/price/">CoinDesk</a>
           </div>
         </div>
@@ -197,12 +208,12 @@ class BitcoinChart extends Component {
 }
 
 function mapStateToProps(state) {
-  return {currency: state.currency};
+  return { currency: state.currency };
 }
 
 export default connect(mapStateToProps, null)(BitcoinChart);
 
 BitcoinChart.propTypes = {
   currency: PropTypes.object,
-  bpi: PropTypes.bool
+  bpi: PropTypes.bool,
 };

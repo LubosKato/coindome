@@ -1,78 +1,74 @@
-import React from 'react'
-import Header from './Header.jsx'
-import Main from './Main.jsx'
+import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import {rootReducer} from './../reducers/rootReducer';
-import {ApolloProvider} from 'react-apollo';
-import {ApolloClient, HttpLink, InMemoryCache} from 'apollo-boost';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 import IdleTimer from 'react-idle-timer';
+import { withRouter } from 'react-router';
+import { WebSocketLink } from 'apollo-link-ws';
+import { split } from 'apollo-link';
+import { getMainDefinition } from 'apollo-utilities';
 import Auth from '../modules/Auth';
-import {withRouter} from 'react-router';
-import {WebSocketLink} from 'apollo-link-ws';
-import {split} from 'apollo-link';
-import {getMainDefinition} from 'apollo-utilities';
+import { rootReducer } from '../reducers/rootReducer';
+import Main from './Main';
+import Header from './Header';
 
 const store = createStore(rootReducer);
-const httpLink = new HttpLink({uri: 'http://localhost:3000/graphql'})
+const httpLink = new HttpLink({ uri: 'http://localhost:3000/graphql' });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:3001/subscriptions`,
+  uri: 'ws://localhost:3000/graphql',
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
-const link = split(({query}) => {
-  const {kind, operation} = getMainDefinition(query);
+const link = split(({ query }) => {
+  const { kind, operation } = getMainDefinition(query);
   return kind === 'OperationDefinition' && operation === 'subscription';
-}, wsLink, httpLink,);
+}, wsLink, httpLink);
 
-const client = new ApolloClient({link: link, cache: new InMemoryCache()})
+const client = new ApolloClient({ link, cache: new InMemoryCache() });
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-    this.idleTimer = null
-    this.onIdle = this
-      ._onIdle
-      .bind(this)
-  }
-
-  render() {
-    return (
-      <IdleTimer
-        ref={ref => {
-        this.idleTimer = ref
-      }}
-        element={document}
-        onActive={this.onActive}
-        onIdle={this.onIdle}
-        timeout={1000 * 60 * 10}>
-        <ApolloProvider client={client}>
-          <Provider store={store}>
-            <MuiThemeProvider>
-              <div>
-                <Header/>
-                <Main/>
-              </div>
-            </MuiThemeProvider>
-          </Provider>
-        </ApolloProvider>
-      </IdleTimer>
-    )
+    super(props);
+    this.idleTimer = null;
+    this.onIdle = this._onIdle.bind(this);
   }
 
   _onIdle(e) {
     if (Auth.isUserAuthenticated()) {
       Auth.deauthenticateUser();
-      this
-        .props
-        .history
-        .push(`/login`);
+      this.props.history.push('/login');
     }
+  }
+
+  render() {
+    return (
+      <IdleTimer
+        ref={(ref) => {
+          this.idleTimer = ref;
+        }}
+        element={document}
+        onActive={this.onActive}
+        onIdle={this.onIdle}
+        timeout={1000 * 60 * 10}
+      >
+        <ApolloProvider client={client}>
+          <Provider store={store}>
+            <MuiThemeProvider>
+              <div>
+                <Header />
+                <Main />
+              </div>
+            </MuiThemeProvider>
+          </Provider>
+        </ApolloProvider>
+      </IdleTimer>
+    );
   }
 }
 
-export default withRouter(App)
+export default withRouter(App);
