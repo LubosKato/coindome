@@ -4,6 +4,8 @@ const passport = require('passport');
 const router = new express.Router();
 const { t } = require('localizify');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+var { generateToken, sendToken } = require('../utils/token.utils');
+require('../passport/passport')();
 
 /**
  * Validate cahnge password
@@ -267,5 +269,16 @@ router.get('/diagram', (req, res, next) => {
     }
   });
 });
+
+router.route('/facebook').post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        }
+        req.auth = {
+            id: req.user.id
+        };
+
+        next();
+    }, generateToken, sendToken);
 
 module.exports = router;

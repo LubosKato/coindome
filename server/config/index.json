@@ -1,4 +1,8 @@
 {
   "dbUri": "mongodb://kejto79:heslo@ds143388.mlab.com:43388/coindome",
-  "jwtSecret": "a secret phrase!!"
+  "jwtSecret": "a secret phrase!!",
+  "facebookAuth":{
+    "clientID":"265160767429693",
+    "clientSecret":"2006a6b47437219d53be08b345a5006f"
+  }
 }

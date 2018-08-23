@@ -10,24 +10,28 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const cors = require('cors');
 const { execute, subscribe } = require('graphql');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
-const { createServer } = require('http');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
 
 var path=require('path');
-
 // connect to the database and load models
 require('./models').connect(config.dbUri);
 
 const app = express();
 //app.use('*', cors({ origin: `http://localhost:8080` }));
-app.use(cors())
-// tell the app to look for static files in these directories
-//app.use(express.static('./server/static/'));
-app.use(express.static('../client/public'))
-app.use(express.static(__dirname + '/'));
-//app.use(express.static(path.join(__dirname + '/default.htm')));
+var corsOption = {
+  origin: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  exposedHeaders: ['x-auth-token']
+};
+app.use(cors(corsOption));
 
+app.use(logger('dev'));
+app.use(bodyParser.json());
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 // pass the passport middleware
 app.use(passport.initialize());
 
@@ -44,12 +48,16 @@ app.get('*.js', function (req, res, next) {
   res.set('Content-Type', 'text/javascript');
   next();
 });
+
 app.get('*.css', function(req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
   res.set('Content-Type', 'text/css');
   next();
  });
+
+app.use(express.static('../client/public'))
+app.use(express.static(__dirname + '/'));
 
 localizify
   .add('en_US', en)
@@ -72,19 +80,10 @@ app.use('/api', authCheckMiddleware);
 const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
-app.use('/api', apiRoutes);
+app.use('/api/v1/', apiRoutes);
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint: `ws://localhost:3000/subscriptions` }));
-// if(process.env.NODE_ENV !== 'production') {
-//   process.once('uncaughtException', function(err) {
-//     console.error('FATAL: Uncaught exception.');
-//     console.error(err.stack||err);
-//     setTimeout(function(){
-//       process.exit(1);
-//     }, 100);
-//   });
-// }
 
 app.get("/service-worker.js", (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/service-worker.html'));
@@ -97,24 +96,6 @@ app.get('/*', function(req, res) {
     }
   })
 })
-
-// ///start the server
-// app.listen(process.env.PORT || 3000, () => {
-//   console.log('Server is running on http://localhost:3000 or http://127.0.0.1:3000');
-// });
-// const ws = createServer(app);
-// ws.listen(3001, () => {
-//   //console.log('Go to http://localhost:3000/graphiql to run queries!');
-
-//   new SubscriptionServer({
-//     execute,
-//     subscribe,
-//     schema
-//   }, {
-//     server: ws,
-//     path: '/subscriptions',
-//   });
-// });
 
 const GRAPHQL_PATH = '/graphql'
 app.use(GRAPHQL_PATH, bodyParser.json(), graphqlExpress({

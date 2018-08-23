@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
   },
   password: String,
   name: String,
+  facebookProvider: {
+    id:String,
+    token: String
+},
   //currentpwd: String
 });
 

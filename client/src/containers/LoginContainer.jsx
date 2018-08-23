@@ -1,9 +1,8 @@
-import React, {PropTypes} from 'react';
-import LoginForm from '../components/LoginForm.jsx';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import LoginForm from '../components/LoginForm';
 import Auth from '../modules/Auth';
-import {Redirect} from 'react-router-dom';
-import PushNotification from '../components/Notifications/PushNotification.jsx';
-import TranslationContainer from './TranslationContainer.jsx';
+import PushNotification from '../components/Notifications/PushNotification';
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -24,16 +23,32 @@ class LoginContainer extends React.Component {
       successMessage,
       user: {
         email: '',
-        password: ''
-      }
+        password: '',
+      },
     };
 
-    this.processForm = this
-      .processForm
-      .bind(this);
-    this.changeUser = this
-      .changeUser
-      .bind(this);
+    this.processForm = this.processForm.bind(this);
+    this.changeUser = this.changeUser.bind(this);
+    this.facebookResponse = this.facebookResponse.bind(this);
+  }
+
+  facebookResponse(response) {
+    const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
+    const options = {
+      method: 'POST',
+      body: tokenBlob,
+      mode: 'cors',
+      cache: 'default',
+    };
+    fetch('http://localhost:3000/auth/facebook', options).then((r) => {
+      const token = r.headers.get('x-auth-token');
+      r.json().then(() => {
+        if (token) {
+          Auth.authenticateUser(token);
+          this.setState({ redirect: true });
+        }
+      });
+    });
   }
 
   /**
@@ -59,16 +74,13 @@ class LoginContainer extends React.Component {
     xhr.addEventListener('load', () => {
       if (xhr.status === 200) {
         // success change the component-container state
-        this.setState({errors: {}});
+        this.setState({ errors: {} });
 
         // save the token
         Auth.authenticateUser(xhr.response.token);
-
         localStorage.setItem('usrname', JSON.stringify(xhr.response.user));
-
         // console.log(JSON.parse(localStorage.getItem('usrname')).name);
-        this.setState({message: "User logged in"});
-        this.setState({redirect: true});
+        this.setState({ redirect: true });
       } else {
         // failure change the component state
         const errors = xhr.response.errors
@@ -76,7 +88,7 @@ class LoginContainer extends React.Component {
           : {};
         errors.summary = xhr.response.message;
 
-        this.setState({errors});
+        this.setState({ errors });
       }
     });
     xhr.send(formData);
@@ -92,7 +104,7 @@ class LoginContainer extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    this.setState({user});
+    this.setState({ user });
   }
 
   /**
@@ -104,16 +116,19 @@ class LoginContainer extends React.Component {
         {this.state.redirect == false
           ? (
             <React.Fragment>
-              <PushNotification label={"loggedout_text"}/>
+              <PushNotification label="loggedout_text" />
+
               <LoginForm
                 onSubmit={this.processForm}
                 onChange={this.changeUser}
                 errors={this.state.errors}
                 successMessage={this.state.successMessage}
-                user={this.state.user}/>
+                user={this.state.user}
+                facebookResponse={this.facebookResponse}
+              />
             </React.Fragment>
           )
-          : <Redirect to='/'/>
+          : <Redirect to="/" />
 }
       </div>
     );
