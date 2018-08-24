@@ -34,7 +34,7 @@ class LoginContainer extends React.Component {
   }
 
   onFailure(error) {
-    alert(error);
+
   }
 
   facebookResponse(response) {
