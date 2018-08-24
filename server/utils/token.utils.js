@@ -1,18 +1,14 @@
 var jwt = require('jsonwebtoken');
 const { t } = require('localizify');
-
-var createToken = function(auth) {
-    return jwt.sign({
-            id: auth.id
-        }, 'my-secret',
-        {
-            expiresIn: 60 * 120
-        });
-};
+const config = require('../config');
 
 module.exports = {
   generateToken: function(req, res, next) {
-      req.token = createToken(req.auth);
+      //console.log(req)
+      const payload = {
+        sub: req.user
+      };
+      req.token = jwt.sign(payload, config.jwtSecret);
       return next();
   },
   sendToken: function(req, res) {

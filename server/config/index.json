@@ -4,5 +4,9 @@
   "facebookAuth":{
     "clientID":"265160767429693",
     "clientSecret":"2006a6b47437219d53be08b345a5006f"
+  },
+  "googleAuth":{
+    "clientID":"409271290184-l962h3l398k6729vj2ht8rs77662apil.apps.googleusercontent.com",
+    "clientSecret":"3V1zKcx6JAEJHnuNjhlSY0Zc"
   }
 }

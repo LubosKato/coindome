@@ -13,7 +13,11 @@ const UserSchema = new mongoose.Schema({
   facebookProvider: {
     id:String,
     token: String
-},
+  },
+  googleProvider: {
+    id:String,
+    token: String
+  }
   //currentpwd: String
 });
 

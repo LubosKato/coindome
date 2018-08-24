@@ -3,7 +3,7 @@ const validator = require('validator');
 const passport = require('passport');
 const router = new express.Router();
 const { t } = require('localizify');
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { graphiqlExpress } = require('apollo-server-express');
 var { generateToken, sendToken } = require('../utils/token.utils');
 require('../passport/passport')();
 
@@ -274,8 +274,20 @@ router.route('/facebook').post(passport.authenticate('facebook-token', {session:
         if (!req.user) {
             return res.send(401, 'User Not Authenticated');
         }
+
         req.auth = {
-            id: req.user.id
+            id: req.user
+        };
+
+        next();
+    }, generateToken, sendToken);
+
+router.route('/google').post(passport.authenticate('google-token', {session: false}), function(req, res, next) {
+        if (!req.user) {
+            return res.send(401, 'User Not Authenticated');
+        }
+        req.auth = {
+            id: req.user
         };
 
         next();

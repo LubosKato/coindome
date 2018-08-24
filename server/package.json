@@ -1,6 +1,6 @@
 {
   "name": "coindome",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "npm": "^6.1.0",
     "passport": "^0.4.0",
     "passport-facebook-token": "^3.3.0",
+    "passport-google-token": "^0.1.2",
     "passport-local": "^1.0.0",
     "prop-types": "^15.6.0",
     "rimraf": "^2.6.2",

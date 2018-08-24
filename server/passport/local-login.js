@@ -39,7 +39,7 @@ module.exports = new PassportLocalStrategy({
 
         return done(error);
       }
-
+console.log(user._id)
       const payload = {
         sub: user._id
       };

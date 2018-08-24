@@ -60,6 +60,7 @@
     "react-apollo": "^2.1.9",
     "react-dom": "^16.0.0",
     "react-facebook-login": "^4.0.1",
+    "react-google-login": "^3.2.1",
     "react-hot-loader": "^4.3.3",
     "react-idle-timer": "^4.0.7",
     "react-notification-system": "^0.2.17",

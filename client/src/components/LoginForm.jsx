@@ -5,23 +5,32 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 import TranslationContainer from '../containers/TranslationContainer';
 import styles from '../styles/Index.css';
 
 const LoginForm = ({
-  onSubmit, onChange, errors, successMessage, user, facebookResponse,
+  onSubmit, onChange, errors, successMessage, user, facebookResponse, googleResponse, onFailure,
 }) => (
   <Card className={styles.container}>
     <form action="/" onSubmit={onSubmit}>
       <h2 className={styles.card_heading}><TranslationContainer translationKey="login_text" /></h2>
-
-      <FacebookLogin
-        appId="265160767429693"
-        autoLoad={false}
-        fields="name,email,picture"
-        callback={facebookResponse}
-      />
-
+      <div className={styles.field_line}>
+        <FacebookLogin
+          appId="265160767429693"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={facebookResponse}
+        />
+      </div>
+      <div className={styles.field_line}>
+        <GoogleLogin
+          clientId="409271290184-l962h3l398k6729vj2ht8rs77662apil.apps.googleusercontent.com"
+          buttonText="Login with Google"
+          onSuccess={googleResponse}
+          onFailure={onFailure}
+        />
+      </div>
       {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
       {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
 

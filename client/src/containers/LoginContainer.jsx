@@ -30,6 +30,11 @@ class LoginContainer extends React.Component {
     this.processForm = this.processForm.bind(this);
     this.changeUser = this.changeUser.bind(this);
     this.facebookResponse = this.facebookResponse.bind(this);
+    this.googleResponse = this.googleResponse.bind(this);
+  }
+
+  onFailure(error) {
+    alert(error);
   }
 
   facebookResponse(response) {
@@ -45,6 +50,25 @@ class LoginContainer extends React.Component {
       r.json().then(() => {
         if (token) {
           Auth.authenticateUser(token);
+          this.setState({ redirect: true });
+        }
+      });
+    });
+  }
+
+  googleResponse(response) {
+    const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
+    const options = {
+      method: 'POST',
+      body: tokenBlob,
+      mode: 'cors',
+      cache: 'default',
+    };
+    fetch('http://localhost:3000/auth/google', options).then((r) => {
+      const token = r.headers.get('x-auth-token');
+      r.json().then(() => {
+        console.log(token)
+        if (token) {
           this.setState({ redirect: true });
         }
       });
@@ -125,6 +149,8 @@ class LoginContainer extends React.Component {
                 successMessage={this.state.successMessage}
                 user={this.state.user}
                 facebookResponse={this.facebookResponse}
+                googleResponse={this.googleResponse}
+                onFailure={this.onFailure}
               />
             </React.Fragment>
           )
