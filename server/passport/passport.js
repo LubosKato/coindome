@@ -11,13 +11,13 @@ module.exports = function () {
             clientSecret: config.facebookAuth.clientSecret
         },
         async function (accessToken, refreshToken, profile, done) {
-            return await User.findOne({ 'facebookProvider.id': profile.id}, (err, user) => {
+            return await User.findOne({ email: profile.emails[0].value }, (err, user) => {
                 if (err) { return done(err); }
                 const data = {
                     name: profile.displayName
                     }; 
-                    
-                if (!user) {            
+
+                if (!user.facebookProvider) {            
                 const userData = {
                     email: profile.emails[0].value,
                     facebookProvider: {
@@ -32,8 +32,18 @@ module.exports = function () {
                     newUser.save((err) => {
                     if (err) { return done(err); }
 
-                    done(null, accessToken, data);
+                    return done(null, accessToken, data);
                     });
+                } else{
+                    User.update(
+                        {uid: user.uid}, 
+                        {facebookProvider: {
+                            id: profile.id,
+                            token: accessToken
+                        }},
+                        {multi:true}, 
+                          function(err, numberAffected){  
+                          });
                 }
 
                 return done(null, user, accessToken);
@@ -66,7 +76,7 @@ module.exports = function () {
                     newUser.save((err) => {
                     if (err) { return done(err); }
 
-                    done(null, accessToken, data);
+                    return done(null, accessToken, data);
                     });
                 }
                 
