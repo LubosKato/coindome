@@ -261,7 +261,7 @@ router.post('/changepwd', (req, res, next) => {
 router.get('/diagram', (req, res, next) => {
     request('https://api.coindesk.com/v1/bpi/historical/close.json?currency=USD&start=2018-05-29&end=2018-06-28', function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
+
       return res.status(200).json({
         success: true,
         message: "registerSucccess"
@@ -276,7 +276,7 @@ router.route('/facebook').post(passport.authenticate('facebook-token', {session:
         }
 
         req.auth = {
-            id: req.user
+            id: req._id
         };
 
         next();
@@ -286,8 +286,9 @@ router.route('/google').post(passport.authenticate('google-token', {session: fal
         if (!req.user) {
             return res.send(401, 'User Not Authenticated');
         }
+
         req.auth = {
-            id: req.user
+            id: req._id
         };
 
         next();

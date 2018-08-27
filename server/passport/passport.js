@@ -16,6 +16,7 @@ module.exports = function () {
                 const data = {
                     name: profile.displayName
                     }; 
+                    
                 if (!user) {            
                 const userData = {
                     email: profile.emails[0].value,
@@ -34,8 +35,8 @@ module.exports = function () {
                     done(null, accessToken, data);
                     });
                 }
-                
-                return done(null, accessToken, user);
+
+                return done(null, user, accessToken);
             });   
         }));
 
@@ -49,6 +50,7 @@ module.exports = function () {
                 const data = {
                     name: profile.displayName
                     }; 
+
                 if (!user) {            
                 const userData = {
                     email: profile.emails[0].value,
@@ -68,7 +70,7 @@ module.exports = function () {
                     });
                 }
                 
-                return done(null, accessToken, user);
+                return done(null, user, accessToken);
             });   
         }));
 };

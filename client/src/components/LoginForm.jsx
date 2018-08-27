@@ -23,14 +23,14 @@ const LoginForm = ({
           callback={facebookResponse}
         />
       </div>
-      {/* <div className={styles.field_line}>
+      <div className={styles.field_line}>
         <GoogleLogin
           clientId="409271290184-l962h3l398k6729vj2ht8rs77662apil.apps.googleusercontent.com"
           buttonText="Login with Google"
           onSuccess={googleResponse}
           onFailure={onFailure}
         />
-      </div> */}
+      </div>
       {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
       {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
 

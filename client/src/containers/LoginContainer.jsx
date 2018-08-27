@@ -67,8 +67,8 @@ class LoginContainer extends React.Component {
     fetch('http://localhost:3000/auth/google', options).then((r) => {
       const token = r.headers.get('x-auth-token');
       r.json().then(() => {
-        console.log(token)
         if (token) {
+          Auth.authenticateUser(token);
           this.setState({ redirect: true });
         }
       });
