@@ -21,15 +21,15 @@ const isLocalhost = Boolean(
 export default function register(toast) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL);
+    const publicUrl = new URL(process.env.PUBLIC_URL, '');
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
       return;
     }
-    toast('1' + publicUrl,);
-    console.log(publicUrl)
+    toast('1' + process.env.PUBLIC_URL,);
+    toast('2' + window.location,);
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       let isAppOnline = navigator.onLine;
@@ -82,7 +82,6 @@ function registerValidSW(swUrl, toast) {
       };
     })
     .catch(error => {
-      toast.error('Error during service worker registration: ' + swUrl,);
       toast.error('Error during service worker registration: ' + error,);
     });
 }
