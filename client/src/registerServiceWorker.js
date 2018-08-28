@@ -30,7 +30,7 @@ export default function register(toast) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = '/service-worker.js';
+      const swUrl = `${window.location.origin}/service-worker.js`;
       let isAppOnline = navigator.onLine;
 
       window.addEventListener('online', () => {
@@ -49,7 +49,7 @@ export default function register(toast) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, toast);
       } else {
-        toast('1' + swUrl,);
+                toast('1' +window.location.origin,);
         // Is not local host. Just register service worker
         registerValidSW(swUrl, toast);
       }
