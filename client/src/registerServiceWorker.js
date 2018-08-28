@@ -28,7 +28,7 @@ export default function register(toast) {
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
       return;
     }
-
+    toast(publicUrl);
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       let isAppOnline = navigator.onLine;
