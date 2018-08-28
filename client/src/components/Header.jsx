@@ -39,7 +39,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-fixed-top">
         <div className="App">
           <div className="App-intro" />
           <ToastContainer
@@ -81,7 +81,7 @@ class Header extends React.Component {
               </li>
             </ul>
 
-            {Auth.isUserAuthenticated() == false
+            {Auth.isUserAuthenticated() === false
               ? (
                 <ul className="nav navbar-nav navbar-right">
                   <li className="active">
