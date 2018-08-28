@@ -49,6 +49,7 @@ export default function register(toast) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, toast);
       } else {
+        toast('1' + swUrl,);
         // Is not local host. Just register service worker
         registerValidSW(swUrl, toast);
       }
@@ -57,7 +58,7 @@ export default function register(toast) {
 }
 
 function registerValidSW(swUrl, toast) {
-  toast('1' + swUrl,);
+
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
