@@ -28,7 +28,7 @@ export default function register(toast) {
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
       return;
     }
-    toast.error('1' + publicUrl,);
+    toast('1' + publicUrl,);
     console.log(publicUrl)
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
