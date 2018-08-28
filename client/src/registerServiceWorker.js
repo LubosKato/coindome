@@ -57,11 +57,12 @@ export default function register(toast) {
 }
 
 function registerValidSW(swUrl, toast) {
+  toast('1' + swUrl,);
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
       registration.onupdatefound = () => {
-        toast('1' + swUrl,);
+
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
