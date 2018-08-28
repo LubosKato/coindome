@@ -33,7 +33,7 @@ class LoginContainer extends React.Component {
     this.googleResponse = this.googleResponse.bind(this);
   }
 
-  onFailure(error) {
+  onFailure() {
 
   }
 
@@ -47,9 +47,10 @@ class LoginContainer extends React.Component {
     };
     fetch('http://localhost:3000/auth/facebook', options).then((r) => {
       const token = r.headers.get('x-auth-token');
-      r.json().then(() => {
+      r.json().then((data) => {
         if (token) {
           Auth.authenticateUser(token);
+          localStorage.setItem('usrname', JSON.stringify(data.user));
           this.setState({ redirect: true });
         }
       });
@@ -66,8 +67,12 @@ class LoginContainer extends React.Component {
     };
     fetch('http://localhost:3000/auth/google', options).then((r) => {
       const token = r.headers.get('x-auth-token');
-      r.json().then(() => {
+      // r.text().then((data) => {
+      //   console.log(data);
+      // });
+      r.json().then((data) => {
         if (token) {
+          localStorage.setItem('usrname', JSON.stringify(data.user));
           Auth.authenticateUser(token);
           this.setState({ redirect: true });
         }
