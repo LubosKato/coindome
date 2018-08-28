@@ -8,10 +8,10 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
-export default function register () { // Register the service worker
+export default function register (onUpdate) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      const swUrl = 'service-worker.js';
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       navigator.serviceWorker
         .register(swUrl)
         .then(registration => {
@@ -25,6 +25,7 @@ export default function register () { // Register the service worker
                   // It's the perfect time to display a "New content is
                   // available; please refresh." message in your web app.
                   console.log('New content is available; please refresh.');
+                  if (onUdpate) onUpdate();
                 } else {
                   // At this point, everything has been precached.
                   // It's the perfect time to display a
@@ -42,7 +43,7 @@ export default function register () { // Register the service worker
   }
 }
 
-export function unregister () {
+export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();
