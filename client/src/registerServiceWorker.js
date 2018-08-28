@@ -49,7 +49,8 @@ export default function register(toast) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, toast);
       } else {
-                toast('1' +window.location.origin,);
+        toast('1' +window.location.origin,);
+       
         // Is not local host. Just register service worker
         registerValidSW(swUrl, toast);
       }
@@ -62,6 +63,7 @@ function registerValidSW(swUrl, toast) {
     .register(swUrl)
     .then(registration => {
       registration.onupdatefound = () => {
+        toast("mage it");
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
