@@ -30,6 +30,7 @@ export default function register(toast) {
     }
     toast('1' + process.env.PUBLIC_URL,);
     toast('2' + window.location,);
+    toast('3' + publicUrl,);
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       let isAppOnline = navigator.onLine;

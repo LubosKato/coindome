@@ -55,12 +55,7 @@ switch (process.env.NODE_ENV) {
           plugins.sw,
           plugins.copy,
           //plugins.uglifyJs,
-          plugins.Gzip,
-          new webpack.DefinePlugin({
-            'process.env': {
-              NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-            },
-          }),
+          plugins.Gzip
         ],
       }
 	  );

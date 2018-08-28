@@ -1,6 +1,6 @@
 {
   "name": "coindome",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "React sample code used as a blueprint for react PWA app",
   "main": "index.jsx",
   "author": "Lubos Kato",
