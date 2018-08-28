@@ -28,7 +28,8 @@ export default function register(toast) {
       // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
       return;
     }
-    toast(publicUrl);
+    toast.error('1' + publicUrl,);
+    console.log(publicUrl)
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
       let isAppOnline = navigator.onLine;
@@ -81,6 +82,7 @@ function registerValidSW(swUrl, toast) {
       };
     })
     .catch(error => {
+      toast.error('Error during service worker registration: ' + swUrl,);
       toast.error('Error during service worker registration: ' + error,);
     });
 }
