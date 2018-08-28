@@ -13,4 +13,11 @@ ReactDom.render((
   </HashRouter>
 ), document.getElementById('react-app'));
 
-registerServiceWorker();
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then((reg) => {
+    console.log('REGISTERED!')
+  }).catch((error) => {
+    // registration failed
+    console.log('FAILED TO REGISTER ' + error);
+  });
+}
