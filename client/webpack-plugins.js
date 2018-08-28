@@ -3,7 +3,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 
 exports.loaderOptions = new webpack.LoaderOptionsPlugin({
   options: {
@@ -13,7 +15,7 @@ exports.loaderOptions = new webpack.LoaderOptionsPlugin({
 
 exports.environmentVariables = new webpack.DefinePlugin({
   'process.env': {
-    'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV),
   },
 });
 
@@ -29,7 +31,7 @@ exports.environmentVariables = new webpack.DefinePlugin({
 
 exports.extractText = (() => {
   const config = {
-    filename:  'style.css',
+    filename: 'style.css',
   };
   return new ExtractTextPlugin(config);
 })();
@@ -38,13 +40,13 @@ exports.manifest = new ManifestPlugin({
   fileName: 'asset-manifest.json',
 });
 
-exports.Gzip = new CompressionPlugin({ 
-  asset: "[path].gz[query]",
-  algorithm: "gzip",
+exports.Gzip = new CompressionPlugin({
+  asset: '[path].gz[query]',
+  algorithm: 'gzip',
   test: /\.js$|\.css$|\.html$/,
   threshold: 10240,
-  minRatio: 0.8
-})
+  minRatio: 0.8,
+});
 
 exports.sw = new SWPrecacheWebpackPlugin({
   // By default, a cache-busting query parameter is appended to requests

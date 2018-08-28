@@ -13,4 +13,4 @@ ReactDom.render((
   </HashRouter>
 ), document.getElementById('react-app'));
 
-registerServiceWorker(toast);
+registerServiceWorker();
