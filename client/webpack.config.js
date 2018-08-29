@@ -1,32 +1,33 @@
 const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const PATHS = require('./webpack-paths');
 const loaders = require('./webpack-loaders');
 const plugins = require('./webpack-plugins');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const common = {
-	entry: PATHS.src,
-	output: {
-		path: PATHS.public,
-		filename: 'bundle.js',
-	},
-	module: {
+  entry: PATHS.src,
+  output: {
+    path: PATHS.public,
+    filename: 'bundle.js',
+  },
+  module: {
     rules: [
       loaders.babel,
       loaders.css,
-      loaders.extractCss
+      loaders.extractCss,
     ],
   },
-	resolve: {
+  resolve: {
     alias: {
       components: PATHS.components,
     },
-    extensions: ['.js', '.jsx', '.css', '.scss']
+    extensions: ['.js', '.jsx', '.css', '.scss'],
   },
   plugins: [
-    //new CleanWebpackPlugin('public', {} ),
+    // new CleanWebpackPlugin('public', {} ),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'template.html',
@@ -42,33 +43,50 @@ const common = {
 let config;
 
 switch (process.env.NODE_ENV) {
-	case 'production':
-		config = merge(
-		  common,
+  case 'production':
+    config = merge(
+	    common,
       {
         devtool: 'source-map',
-        mode:'production',
+        mode: 'production',
         plugins: [
           plugins.loaderOptions,
           plugins.environmentVariables,
           plugins.manifest,
           plugins.sw,
           plugins.copy,
-          //plugins.uglifyJs,
-          //plugins.Gzip
+          // plugins.uglifyJs,
+          // plugins.Gzip,
+          new webpack.DefinePlugin({
+            'process.env': {
+              API_HOST: JSON.stringify('coindome.herokuapp.com'),
+            },
+          }),
         ],
-      }
+      },
 	  );
-		break;
-	case 'development':
-		config = merge(
-			common,
-			{ devtool: 'eval-source-map', mode:'development' },
-			loaders.devServer({
-				host: process.env.host,
-				port: process.env.port,
-			})
-		);
+    break;
+  case 'development':
+    config = merge(
+      common,
+      {
+        devtool: 'eval-source-map',
+        mode: 'development',
+        plugins: [
+          new webpack.DefinePlugin({
+            'process.env': {
+              API_HOST: JSON.stringify('localhost:3000'),
+            },
+          }),
+        ],
+      },
+      loaders.devServer({
+        host: process.env.host,
+        port: process.env.port,
+      }),
+    );
+    break;
+  default:
     break;
 }
 
