@@ -69,7 +69,7 @@ function registerValidSW(swUrl, toast) {
               // the fresh content will have been added to the cache.
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
-              toast.info('🔄 New content is available; please refresh.')
+              toast.info('🔄 New content is available; please refresh cache.')
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
