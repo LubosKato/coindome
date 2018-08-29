@@ -59,7 +59,8 @@ switch (process.env.NODE_ENV) {
           // plugins.Gzip,
           new webpack.DefinePlugin({
             'process.env': {
-              API_HOST: JSON.stringify('coindome.herokuapp.com'),
+              API_HOST: JSON.stringify('https://coindome.herokuapp.com'),
+              SUBS_HOST: JSON.stringify('wss://coindome.herokuapp.com'),
             },
           }),
         ],
@@ -75,7 +76,8 @@ switch (process.env.NODE_ENV) {
         plugins: [
           new webpack.DefinePlugin({
             'process.env': {
-              API_HOST: JSON.stringify('localhost:3000'),
+              API_HOST: JSON.stringify('http://localhost:3000'),
+              SUBS_HOST: JSON.stringify('ws://localhost:3000'),
             },
           }),
         ],

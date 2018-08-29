@@ -43,7 +43,7 @@ class LoginContainer extends React.Component {
       mode: 'cors',
       cache: 'default',
     };
-    fetch(`http://${process.env.API_HOST}/auth/facebook`, options).then((r) => {
+    fetch(`${process.env.API_HOST}/auth/facebook`, options).then((r) => {
       const token = r.headers.get('x-auth-token');
       r.json().then((data) => {
         if (token) {
@@ -63,7 +63,7 @@ class LoginContainer extends React.Component {
       mode: 'cors',
       cache: 'default',
     };
-    fetch(`http://${process.env.API_HOST}/auth/google`, options).then((r) => {
+    fetch(`${process.env.API_HOST}/auth/google`, options).then((r) => {
       const token = r.headers.get('x-auth-token');
       r.json().then((data) => {
         if (token) {

@@ -15,10 +15,10 @@ import Main from './Main';
 import Header from './Header';
 
 const store = createStore(rootReducer);
-const httpLink = new HttpLink({ uri: `http://${process.env.API_HOST}/graphql` });
+const httpLink = new HttpLink({ uri: `${process.env.API_HOST}/graphql` });
 
 const wsLink = new WebSocketLink({
-  uri: `wss://${process.env.API_HOST}/graphql`,
+  uri: `${process.env.SUBS_HOST}/graphql`,
   options: {
     reconnect: true,
   },
