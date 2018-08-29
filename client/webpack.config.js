@@ -5,6 +5,7 @@ const plugins = require('./webpack-plugins');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
+var webpack = require('webpack');
 
 const common = {
 	entry: PATHS.src,
@@ -56,7 +57,23 @@ switch (process.env.NODE_ENV) {
           plugins.copy,
           //plugins.uglifyJs,
           plugins.Gzip,
-          new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+          new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+          new webpack.NoErrorsPlugin(),
+          new webpack.optimize.DedupePlugin(),
+          new webpack.optimize.UglifyJsPlugin({
+            mangle: true,
+            compress: {
+              warnings: false, // Suppress uglification warnings
+              pure_getters: true,
+              unsafe: true,
+              unsafe_comps: true,
+              screw_ie8: true
+            },
+            output: {
+              comments: false,
+            },
+            exclude: [/\.min\.js$/gi] // skip pre-minified libs
+          }),
         ],
       }
 	  );
