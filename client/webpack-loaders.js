@@ -1,21 +1,18 @@
-"use strict";
-
-const PATHS = require('./webpack-paths');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PATHS = require('./webpack-paths');
 
 exports.css = {
-    test: /\.(css|scss|sass)$/,
-    loader: "css-loader!sass-loader?sourceMap",
-    include:PATHS.cssExclude,
-    exclude:PATHS.cssIncude
-}
+  test: /\.(css|scss|sass)$/,
+  loader: 'css-loader!sass-loader?sourceMap',
+  include: PATHS.cssExclude,
+  exclude: PATHS.cssIncude,
+};
 
 exports.extractCss = {
   test: /\.(css|scss|sass)$/,
   loader: 'style-loader!css-loader?sourceMap&modules&importLoaders=1&localIdentName=[name]-[local]___[hash:base64:5]',
   include: PATHS.cssIncude,
-  exclude: PATHS.cssExclude
+  exclude: PATHS.cssExclude,
 };
 
 exports.babel = {
@@ -24,19 +21,19 @@ exports.babel = {
   exclude: /node_modules/,
 };
 
-exports.devServer = function(options) {
-	return {
-		devServer: {
-			historyApiFallback: true,
-			hot: true,
-			inline: true,
-			stats: 'errors-only',
-			host: options.host,
-			port: options.port,
+exports.devServer = function (options) {
+  return {
+    devServer: {
+      historyApiFallback: true,
+      hot: true,
+      inline: true,
+      stats: 'errors-only',
+      host: options.host,
+      port: options.port,
       contentBase: './client/dist',
       proxy: {
         '/graphql': {
-            target: 'http://localhost:3000',
+          target: 'http://localhost:3000',
         },
         '/api': {
           target: 'http://localhost:3000',
@@ -46,13 +43,13 @@ exports.devServer = function(options) {
         },
         '/subscriptions': {
           target: 'ws://localhost:3000',
-        }
-      }
-		},
-		plugins: [
-			new webpack.HotModuleReplacementPlugin({
-				multistep: true
-			})
-		],
-	};
+        },
+      },
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin({
+        multistep: true,
+      }),
+    ],
+  };
 };

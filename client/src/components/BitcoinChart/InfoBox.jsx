@@ -71,7 +71,7 @@ class InfoBox extends Component {
           });
         })
         .catch((e) => {
-          console.log(e);
+          //console.log(e);
         });
     };
     this.getData();

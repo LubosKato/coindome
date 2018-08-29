@@ -42,19 +42,19 @@ app.use((request, response, next) => {
   next();
 });
 
-// app.get('*.js', function (req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'text/javascript');
-//   next();
-// });
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/javascript');
+  next();
+});
 
-// app.get('*.css', function(req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'text/css');
-//   next();
-//  });
+app.get('*.css', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
+  next();
+ });
 
 app.use(express.static('../client/public'))
 app.use(express.static(__dirname + '/'));
@@ -81,14 +81,6 @@ const authRoutes = require('./routes/auth');
 const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api/v1/', apiRoutes);
-
-// var subscriptionsEndpoint = '';
-// console.log(process.env)
-// if (process.env.NODE_ENV !== 'production'){
-//   subscriptionsEndpoint = 'ws://coindome.herokuapp.com/subscriptions'
-// }else{
-//   subscriptionsEndpoint = 'ws://localhost:3000/subscriptions'
-// }
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint:  'wss://coindome.herokuapp.com/subscriptions' }));
