@@ -91,7 +91,7 @@ app.use('/api/v1/', apiRoutes);
 // }
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint:  'ws://coindome.herokuapp.com/subscriptions' }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql',  subscriptionsEndpoint:  'wss://coindome.herokuapp.com/subscriptions' }));
 
 app.get("/service-worker.js", (req, res) => {
   res.sendFile(path.join(__dirname, '../client/public/service-worker.html'));
