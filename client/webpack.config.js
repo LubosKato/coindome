@@ -11,7 +11,7 @@ const common = {
   entry: PATHS.src,
   output: {
     path: PATHS.public,
-    filename: 'bundle.js.gz',
+    filename: 'bundle.js',
   },
   module: {
     rules: [
