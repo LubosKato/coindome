@@ -48,9 +48,7 @@ export default function register(toast) {
       if (isLocalhost) {
         // This is running on localhost. Lets check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, toast);
-      } else {
-        toast('1' +window.location.origin,);
-       
+      } else {       
         // Is not local host. Just register service worker
         registerValidSW(swUrl, toast);
       }
