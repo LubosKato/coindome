@@ -5,14 +5,13 @@ const plugins = require('./webpack-plugins');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
-var webpack = require('webpack');
 
 const common = {
 	entry: PATHS.src,
 	output: {
 		path: PATHS.public,
 		filename: 'bundle.js',
-  },
+	},
 	module: {
     rules: [
       loaders.babel,
@@ -56,8 +55,7 @@ switch (process.env.NODE_ENV) {
           plugins.sw,
           plugins.copy,
           //plugins.uglifyJs,
-          //plugins.Gzip,
-          //new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+          //plugins.Gzip
         ],
       }
 	  );
