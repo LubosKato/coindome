@@ -12,7 +12,10 @@ const common = {
 	output: {
 		path: PATHS.public,
 		filename: 'bundle.js',
-	},
+  },
+  optimization: {
+    noEmitOnErrors: true
+  },
 	module: {
     rules: [
       loaders.babel,
@@ -58,7 +61,6 @@ switch (process.env.NODE_ENV) {
           //plugins.uglifyJs,
           plugins.Gzip,
           new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-          new webpack.NoErrorsPlugin(),
           new webpack.optimize.DedupePlugin(),
           new webpack.optimize.UglifyJsPlugin({
             mangle: true,
