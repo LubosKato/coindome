@@ -18,7 +18,7 @@ const store = createStore(rootReducer);
 const httpLink = new HttpLink({ uri: `http://${process.env.API_HOST}/graphql` });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://${process.env.API_HOST}/graphql`,
+  uri: `wss://${process.env.API_HOST}/graphql`,
   options: {
     reconnect: true,
   },
