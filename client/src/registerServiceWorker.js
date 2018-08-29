@@ -61,7 +61,6 @@ function registerValidSW(swUrl, toast) {
     .register(swUrl)
     .then(registration => {
       registration.onupdatefound = () => {
-        toast("mage it");
         const installingWorker = registration.installing;
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {

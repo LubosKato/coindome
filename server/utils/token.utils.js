@@ -12,7 +12,6 @@ module.exports = {
       return next();
   },
   sendToken: function(req, res) {
-    console.log(req.authInfo.name)
       res.setHeader('x-auth-token', req.token);
       return res.status(200).send({
         success: true,
