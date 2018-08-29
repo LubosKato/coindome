@@ -33,7 +33,9 @@ class LoginContainer extends React.Component {
     this.googleResponse = this.googleResponse.bind(this);
   }
 
-  onFailure() { }
+  onFailure() {
+
+  }
 
   facebookResponse(response) {
     const tokenBlob = new Blob([JSON.stringify({ access_token: response.accessToken }, null, 2)], { type: 'application/json' });
@@ -65,6 +67,9 @@ class LoginContainer extends React.Component {
     };
     fetch('http://localhost:3000/auth/google', options).then((r) => {
       const token = r.headers.get('x-auth-token');
+      // r.text().then((data) => {
+      //   console.log(data);
+      // });
       r.json().then((data) => {
         if (token) {
           localStorage.setItem('usrname', JSON.stringify(data.user));
