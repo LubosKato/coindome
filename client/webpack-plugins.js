@@ -4,6 +4,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliGzipPlugin = require('brotli-gzip-webpack-plugin');
 
 exports.loaderOptions = new webpack.LoaderOptionsPlugin({
   options: {
@@ -42,8 +43,16 @@ exports.Gzip = new CompressionPlugin({
   asset: '[path].gz[query]',
   algorithm: 'gzip',
   test: /\.js$|\.css$|\.html$/,
-  threshold: 10240,
+  threshold: 5240,
   minRatio: 0.8,
+});
+
+exports.brotliGzip = new BrotliGzipPlugin({
+  asset: '[path].gz[query]',
+  algorithm: 'gzip',
+  test: /\.(js|css|html|svg)$/,
+  threshold: 10240,
+  minRatio: 0.8
 });
 
 exports.sw = new SWPrecacheWebpackPlugin({

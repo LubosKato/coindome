@@ -64,7 +64,7 @@ switch (process.env.NODE_ENV) {
           plugins.sw,
           plugins.copy,
           // plugins.uglifyJs,
-          plugins.Gzip,
+          plugins.brotliGzip,
           new webpack.DefinePlugin({
             'process.env': {
               API_HOST: JSON.stringify('https://coindome.herokuapp.com'),

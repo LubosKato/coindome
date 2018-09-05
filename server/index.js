@@ -42,19 +42,19 @@ app.use((request, response, next) => {
   next();
 });
 
-// app.get('*.js', function (req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'text/javascript');
-//   next();
-// });
+app.get('*.js', function (req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/javascript');
+  next();
+});
 
-// app.get('*.css', function(req, res, next) {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   res.set('Content-Type', 'text/css');
-//   next();
-//  });
+app.get('*.css', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.set('Content-Type', 'text/css');
+  next();
+ });
 
 app.use(express.static('../client/public'))
 app.use(express.static(__dirname + '/'));
