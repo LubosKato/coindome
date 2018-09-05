@@ -1,8 +1,7 @@
-import React, {PropTypes} from 'react';
-import ProfileForm from '../components/Profile/Profile.jsx';
-import ProfileSuccessForm from '../components/Profile/ProfileSuccess.jsx';
-import {Redirect} from 'react-router-dom';
-import TranslationContainer from './../containers/TranslationContainer.jsx';
+import React from 'react';
+import ProfileForm from '../components/Profile/Profile';
+import ProfileSuccessForm from '../components/Profile/ProfileSuccess';
+import TranslationContainer from './TranslationContainer';
 
 class ProfileContainer extends React.Component {
   constructor(props) {
@@ -15,16 +14,12 @@ class ProfileContainer extends React.Component {
         name: '',
         currentpwd: '',
         newpwd: '',
-        confirmPassword: ''
-      }
+        confirmPassword: '',
+      },
     };
 
-    this.processForm = this
-      .processForm
-      .bind(this);
-    this.changeUser = this
-      .changeUser
-      .bind(this);
+    this.processForm = this.processForm.bind(this);
+    this.changeUser = this.changeUser.bind(this);
   }
 
   /**
@@ -37,7 +32,7 @@ class ProfileContainer extends React.Component {
     const user = this.state.user;
     user[field] = event.target.value;
 
-    this.setState({user});
+    this.setState({ user });
   }
 
   /**
@@ -48,9 +43,7 @@ class ProfileContainer extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-    this.state.user.name = JSON
-      .parse(localStorage.getItem('usrname'))
-      .name;
+    this.state.user.name = JSON.parse(localStorage.getItem('usrname')).name;
     // create a string for an HTTP body message
     const name = encodeURIComponent(this.state.user.name);
     const newpwd = encodeURIComponent(this.state.user.newpwd);
@@ -60,8 +53,8 @@ class ProfileContainer extends React.Component {
 
     if (newpwd != confirmPassword) {
       const errors = {};
-      errors.password = <TranslationContainer translationKey="match_password_text"/>;
-      this.setState({errors});
+      errors.password = <TranslationContainer translationKey="match_password_text" />;
+      this.setState({ errors });
     } else {
       // create an AJAX request
       const xhr = new XMLHttpRequest();
@@ -72,11 +65,11 @@ class ProfileContainer extends React.Component {
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
           // success change the component-container state
-          this.setState({errors: {}});
+          this.setState({ errors: {} });
 
           // set a message
           localStorage.setItem('successMessage', xhr.response.message);
-          this.setState({redirect: true});
+          this.setState({ redirect: true });
         } else {
           // failure
 
@@ -85,7 +78,7 @@ class ProfileContainer extends React.Component {
             : {};
           errors.summary = xhr.response.message;
 
-          this.setState({errors});
+          this.setState({ errors });
         }
       });
       xhr.send(formData);
@@ -99,14 +92,17 @@ class ProfileContainer extends React.Component {
     return (
       <div>
         {this.state.redirect == false
-          ? (<ProfileForm
-            onSubmit={this.processForm}
-            onChange={this.changeUser}
-            errors={this.state.errors}
-            user={this.state.user}/>)
+          ? (
+            <ProfileForm
+              onSubmit={this.processForm}
+              onChange={this.changeUser}
+              errors={this.state.errors}
+              user={this.state.user}
+/>
+          )
           : (
-            <ProfileSuccessForm/>
-          //<Redirect to='/login' />
+            <ProfileSuccessForm />
+          // <Redirect to='/login' />
           )
 }
       </div>

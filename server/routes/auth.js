@@ -5,6 +5,10 @@ const router = new express.Router();
 const { t } = require('localizify');
 const { graphiqlExpress } = require('apollo-server-express');
 var { generateToken, sendToken } = require('../utils/token.utils');
+const Token = require('mongoose').model('Token');
+const User = require('mongoose').model('User');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
 require('../passport/passport')();
 
 /**
@@ -201,6 +205,96 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+router.get('/getuser/:token', (req, res, next) => {
+  // Find a matching token
+  Token.findOne({ token: req.params.token }, function (err, token) {
+    if (!token) return res.status(400).send({ type: 'not-verified', msg: t('unableVerify') });
+
+    // If we found a token, find a matching user
+    User.findOne({ _id: token._userId }, function (err, user) {
+        if (!user) return res.status(400).send({ msg: t('noUserFound') });
+            if (err) { return res.status(500).send({ msg: err.message }); }
+            return res.status(200).json({
+              email: user.email,
+              name: user.name,
+            });
+        });
+    });
+});
+
+router.get('/confirmation/:token', (req, res, next) => {
+  // Find a matching token
+  Token.findOne({ token: req.params.token }, function (err, token) {
+    if (!token) return res.status(400).send({ type: 'not-verified', msg: t('unableVerify') });
+
+    // If we found a token, find a matching user
+    User.findOne({ _id: token._userId }, function (err, user) {
+        if (!user) return res.status(400).send({ msg: t('noUserFound') });
+        if (user.isVerified) return res.status(400).send({ type: 'already-verified', msg: t('alreadyVerified')});
+
+        // Verify and save the user
+        user.isVerified = true;
+        user.save(function (err) {
+            if (err) { return res.status(500).send({ success: false, message: err.message }); }
+            return res.status(200).json({
+              success: true,
+              message: t('verify')
+            });
+        });
+    });
+  });
+});
+
+router.get('/reset/:email', (req, res, next) => {
+  // Find a matching token
+  User.findOne({ email: req.params.email }, function (err, user) {
+    if (!user) return res.status(400).send({ msg: t('unableVerify') });
+    // Create a verification token, save it, and send email
+    var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+    // Save the token
+    token.save(function (err) {
+      if (err) { return res.status(500).send({ success: false, message: err.message }); }
+        // Send the email
+        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass:'coindome97'} });
+        var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('resetSubject'), text: 'Hello,\n\n' + t('resetBody') +' \nhttp:\/\/' + req.headers.host + '\/#\/reset\/' + token.token + '.\n' };
+        transporter.sendMail(mailOptions, function (err) {
+            if (err) { return res.status(500).send({ msg: err.message }); }
+            return res.status(200).json({
+              success: true,
+              message: t('resetSent') + user.email 
+            });
+        });
+    });
+
+ });
+});
+
+/// TODO implement FE
+router.get('/resend', (req, res, next) => {
+  User.findOne({ email: req.body.email }, function (err, user) {
+    if (!user) return res.status(400).send({ msg: t('unableVerify') });
+    if (user.isVerified) return res.status(400).send({ msg:  t('noUserFound') });
+
+    // Create a verification token, save it, and send email
+    var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+
+    // Save the token
+    token.save(function (err) {
+      if (err) { return res.status(500).send({ success: false, message: err.message }); }
+        // Send the email
+        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: 'coindome97' } });
+        var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('tokenSubject'), text: 'Hello,\n\n' + t('verifyContent') +' \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n' };
+        transporter.sendMail(mailOptions, function (err) {
+          if (err) { return res.status(500).send({ success: false, message: err.message }); }
+            return res.status(200).json({
+              success: true,
+              message: t('verify')
+            });
+        });
+    });
+ });
+});
+
 router.post('/changepwd', (req, res, next) => {
   const validationResult = validateProfileForm(req.body);
   if (!validationResult.success) {
@@ -258,21 +352,9 @@ router.post('/changepwd', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/diagram', (req, res, next) => {
-    request('https://api.coindesk.com/v1/bpi/historical/close.json?currency=USD&start=2018-05-29&end=2018-06-28', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-
-      return res.status(200).json({
-        success: true,
-        message: "registerSucccess"
-      });
-    }
-  });
-});
-
 router.route('/facebook').post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
         if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
+            return res.send(401, t('userNotAuth'));
         }
 
         req.auth = {
@@ -284,7 +366,7 @@ router.route('/facebook').post(passport.authenticate('facebook-token', {session:
 
 router.route('/google').post(passport.authenticate('google-token', {session: false}), function(req, res, next) {
         if (!req.user) {
-            return res.send(401, 'User Not Authenticated');
+            return res.send(401, t('userNotAuth'));
         }
 
         req.auth = {

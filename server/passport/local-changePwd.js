@@ -21,7 +21,7 @@ module.exports = new PassportLocalStrategy({
   };
 var result = null;
   async function returnResult(){
-  // find a user by name address
+  // find a user by name
   return await User.findOne({ name: userData.name }, (err, user) => {
     const errors = {};
     if (err) { return done(err); }

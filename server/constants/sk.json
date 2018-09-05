@@ -8,10 +8,21 @@
     "errors": "Prosím skontrolujte formulár.",
     "password": "Heslo musí mať najmenej 8 znakov.",
     "formProcessError": "Nepodarilo sa spracovať formulár.",
-    "registerSucccess": "Účet bol úspešne vytvorený! Teraz sa môžete prihlásiť.",
+    "registerSucccess": "Účet bol úspešne vytvorený! Prosim verifikujte email a mozte sa prihlásiť.",
     "changePwdSucccess":"Úspešne ste zmenili heslo!",
     "wrongEmail":"Zly email alebo heslo",
     "samePassword":"Toto heslo je zhodne s predoslym",
     "error": "IncorrectCredentialsError",
-    "matchPassword":"Aktualne heslo nieje rovnake!"
+    "matchPassword":"Aktualne heslo nieje rovnake!",
+    "verify": "Ucet bol verifikovany. Prosim prihlaste sa.",
+    "noUserFound": "Uzivatel s tymto emailom sa nepodarilo najst.",
+    "alreadyVerified": "Ucet uz bol verifikovany. Prosim prihlaste sa.",
+    "verificationSent": "Verifikacny email poslany ",
+    "resetSent": "Email na resetovanie hesla bol poslany na ",
+    "tokenSubject": "Verifikacny token uctu z Coindome",
+    "verifyContent": "Prosim verifikujte dvoj ucet kliknutim na link: ",
+    "unableVerify":"NEboli sme schopny najst token. Vas token mohol expirovat.",
+    "resetBody": "prosim resetujte heslo klinkutim na tento link",
+    "resetSubject": "Token pre reset hesla z Coindome",
+    "userNotAuth": "Uzivatel nebol autentikovany"
 }

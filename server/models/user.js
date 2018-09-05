@@ -17,8 +17,11 @@ const UserSchema = new mongoose.Schema({
   googleProvider: {
     id:String,
     token: String
-  }
-  //currentpwd: String
+  },
+  roles: [{ type: 'String' }],
+  isVerified: { type: Boolean, default: false },
+  passwordResetToken: String,
+  passwordResetExpires: Date
 });
 
 /**

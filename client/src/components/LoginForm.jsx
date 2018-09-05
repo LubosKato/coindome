@@ -31,8 +31,8 @@ const LoginForm = ({
           onFailure={onFailure}
         />
       </div>
-      {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
-      {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
+      {successMessage && <p style={{ fontSize: '16px', color: 'green' }}>{successMessage}</p>}
+      {errors.summary && <p style={{ fontSize: '16px', color: 'tomato' }}>{errors.summary}</p>}
 
       <div className={styles.field_line}>
         <TextField
@@ -62,7 +62,10 @@ const LoginForm = ({
           primary
         />
       </div>
-
+      <CardText>
+        <TranslationContainer translationKey="reset_legend" />
+        <Link to="/sendreset"><TranslationContainer translationKey="reset_text" /></Link>
+      </CardText>
       <CardText>
         <TranslationContainer translationKey="login_legend" />
         <Link to="/signup"><TranslationContainer translationKey="create_text" /></Link>

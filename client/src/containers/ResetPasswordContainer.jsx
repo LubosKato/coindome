@@ -1,15 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import SignUpForm from '../components/SignUpForm';
-import TranslationContainer from './TranslationContainer';
+import ResetPasswordForm from '../components/Reset/ResetPasswordForm';
 
-class SignUpContainer extends React.Component {
+class ResetPasswordContainer extends React.Component {
   constructor(props) {
     super(props);
     // set the initial component state
     this.state = {
       redirect: false,
       errors: {},
+      id: props.match.params.id,
       user: {
         email: '',
         name: '',
@@ -18,12 +18,21 @@ class SignUpContainer extends React.Component {
       },
     };
 
-    this.processForm = this
-      .processForm
-      .bind(this);
-    this.changeUser = this
-      .changeUser
-      .bind(this);
+    this.processForm = this.processForm.bind(this);
+    this.changeUser = this.changeUser.bind(this);
+  }
+
+  componentWillMount() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('get', `/auth/getuser/${this.state.id}`);
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200) {
+        this.state.user.name = xhr.response != null ? xhr.response.name : '';
+        this.state.user.email = xhr.response != null ? xhr.response.email : '';
+      }
+    });
+    xhr.send();
   }
 
   /**
@@ -47,22 +56,22 @@ class SignUpContainer extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-
+    console.log(this.state.user.name)
     // create a string for an HTTP body message
     const name = encodeURIComponent(this.state.user.name);
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
+    const newpwd = encodeURIComponent(this.state.user.newpwd);
+    const currentpwd = encodeURIComponent(this.state.user.currentpwd);
     const confirmPassword = encodeURIComponent(this.state.user.confirmPassword);
-    const formData = `name=${name}&email=${email}&password=${password}`;
+    const formData = `name=${name}&password=${newpwd}&currentpwd=${currentpwd}`;
 
-    if (password != confirmPassword) {
+    if (newpwd != confirmPassword) {
       const errors = {};
       errors.password = <TranslationContainer translationKey="match_password_text" />;
       this.setState({ errors });
     } else {
       // create an AJAX request
       const xhr = new XMLHttpRequest();
-      xhr.open('post', '/auth/signup');
+      xhr.open('post', '/auth/changepwd');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xhr.setRequestHeader('Accept-Language', localStorage.getItem('lang'));
       xhr.responseType = 'json';
@@ -88,7 +97,6 @@ class SignUpContainer extends React.Component {
       xhr.send(formData);
     }
   }
-
   /**
    * Render the component.
    */
@@ -97,7 +105,7 @@ class SignUpContainer extends React.Component {
       <div>
         {this.state.redirect == false
           ? (
-            <SignUpForm
+            <ResetPasswordForm
               onSubmit={this.processForm}
               onChange={this.changeUser}
               errors={this.state.errors}
@@ -111,4 +119,4 @@ class SignUpContainer extends React.Component {
   }
 }
 
-export default SignUpContainer;
+export default ResetPasswordContainer;
