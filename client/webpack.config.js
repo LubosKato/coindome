@@ -49,6 +49,14 @@ switch (process.env.NODE_ENV) {
       {
         devtool: 'source-map',
         mode: 'production',
+        resolve: {
+          alias: {
+            react: 'preact-compat',
+            'react-dom': 'preact-compat',
+            // Not necessary unless you consume a module using `createClass`
+            'create-react-class': 'preact-compat/lib/create-react-class',
+          },
+        },
         plugins: [
           plugins.loaderOptions,
           plugins.environmentVariables,
