@@ -50,9 +50,9 @@ exports.Gzip = new CompressionPlugin({
 exports.brotliGzip = new BrotliGzipPlugin({
   asset: '[path].gz[query]',
   algorithm: 'gzip',
-  test: /\.(js|css|html|svg)$/,
-  threshold: 10240,
-  minRatio: 0.8
+  test: /\.js$|\.css$/,
+  // threshold: 10240,
+  // minRatio: 0.8
 });
 
 exports.sw = new SWPrecacheWebpackPlugin({
