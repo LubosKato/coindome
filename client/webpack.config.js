@@ -1,13 +1,13 @@
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const ServiceWorkerWepbackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 const PATHS = require('./webpack-paths');
 const loaders = require('./webpack-loaders');
 const plugins = require('./webpack-plugins');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ServiceWorkerWepbackPlugin = require('serviceworker-webpack-plugin');
-const path = require('path');
 
 const common = {
   entry: PATHS.src,
@@ -33,8 +33,15 @@ const common = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'template.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
     }),
     plugins.extractText,
+    new ServiceWorkerWepbackPlugin({
+      entry: path.join(__dirname, 'public/sw.js'),
+    }),
     // new MiniCssExtractPlugin({
     //   filename: "[name].css",
     //   chunkFilename: "[id].css"
@@ -63,10 +70,7 @@ switch (process.env.NODE_ENV) {
           plugins.loaderOptions,
           plugins.environmentVariables,
           plugins.manifest,
-          //plugins.sw,
-          new ServiceWorkerWepbackPlugin({
-            entry: path.join(__dirname, 'public/sw.js'),
-          }),
+          // plugins.sw,
           plugins.copy,
           // plugins.uglifyJs,
           plugins.brotliGzip,
