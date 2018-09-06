@@ -6,6 +6,7 @@ const loaders = require('./webpack-loaders');
 const plugins = require('./webpack-plugins');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ServiceWorkerWepbackPlugin = require('serviceworker-webpack-plugin');
 
 const common = {
   entry: PATHS.src,
@@ -61,7 +62,10 @@ switch (process.env.NODE_ENV) {
           plugins.loaderOptions,
           plugins.environmentVariables,
           plugins.manifest,
-          plugins.sw,
+          //plugins.sw,
+          new ServiceWorkerWepbackPlugin({
+            entry: path.join(__dirname, 'public/sw.js'),
+          }),
           plugins.copy,
           // plugins.uglifyJs,
           plugins.brotliGzip,
