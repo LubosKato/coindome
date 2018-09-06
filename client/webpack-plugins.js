@@ -51,7 +51,7 @@ exports.brotliGzip = new BrotliGzipPlugin({
   asset: '[path].gz[query]',
   algorithm: 'gzip',
   test: /\.js$|\.css$/,
-  threshold: 10240,
+  // threshold: 10240,
   minRatio: 0.8,
 });
 
