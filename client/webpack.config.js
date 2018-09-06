@@ -7,6 +7,7 @@ const plugins = require('./webpack-plugins');
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ServiceWorkerWepbackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 
 const common = {
   entry: PATHS.src,
