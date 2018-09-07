@@ -1,12 +1,10 @@
 # Coindome
 
-This is blueprint for react app with nodejs.<br />
+This is blueprint for PWA react app with nodejs backend.<br />
 Its using mongolab for mongodb and heroku for hosting<br />
-User password is hashed in DB,<br />
-Redux is used for translations and currency (visible after login)<br />
+For security is used JWT 2.0
+Redux is used for translations and currency is visible after login<br />
 React FE is addressing Node backend via Apollo graphQL
-<br />
-Use GraphiQL console for query data for Bitcoin diagram
 <br />
 Audit results<br />
 ![alt text](https://github.com/kejto/coindome/blob/master/client/public/images/results.jpg)
