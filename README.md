@@ -28,6 +28,23 @@ yarn localinstall
 
 VS Code
 
+### TechStack 
+jwt
+webpack 4
+babel
+sourcemap
+bootstrap 4
+redux
+apollo
+graphql
+mongoose
+heroku
+yarn 
+elsint
+gzip
+cors
+express
+
 ## Authors
 
 * **Lubos Kato** - *Initial work* - [kejto](https://github.com/kejto)
