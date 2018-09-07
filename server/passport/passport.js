@@ -16,7 +16,7 @@ module.exports = function () {
                 const data = {
                     name: profile.displayName
                     }; 
-console.log(user)
+
                 if (!user) {            
                 const userData = {
                     email: profile.emails[0].value,
