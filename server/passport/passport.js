@@ -16,8 +16,8 @@ module.exports = function () {
                 const data = {
                     name: profile.displayName
                     }; 
-
-                if (!user.facebookProvider) {            
+console.log(user)
+                if (!user) {            
                 const userData = {
                     email: profile.emails[0].value,
                     facebookProvider: {
@@ -61,7 +61,7 @@ module.exports = function () {
                     name: profile.displayName
                     }; 
 
-                if (!user.googleProvider) {            
+                if (!user) {              
                 const userData = {
                     email: profile.emails[0].value,
                     googleProvider: {
