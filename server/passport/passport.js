@@ -55,13 +55,13 @@ module.exports = function () {
             clientSecret: config.googleAuth.clientSecret
         },
         async function (accessToken, refreshToken, profile, done) {
-            return await User.findOne({ 'googleProvider.id': profile.id }, (err, user) => {
+            return await User.findOne({ email: profile.emails[0].value }, (err, user) => {
                 if (err) { return done(err); }
                 const data = {
                     name: profile.displayName
                     }; 
 
-                if (!user) {            
+                if (!user.googleProvider) {            
                 const userData = {
                     email: profile.emails[0].value,
                     googleProvider: {
@@ -78,6 +78,16 @@ module.exports = function () {
 
                     return done(null, accessToken, data);
                     });
+                }else{
+                    User.update(
+                        {uid: user.uid}, 
+                        {googleProvider: {
+                            id: profile.id,
+                            token: accessToken
+                        }},
+                        {multi:true}, 
+                          function(err, numberAffected){  
+                          });
                 }
                 
                 return done(null, user, accessToken);

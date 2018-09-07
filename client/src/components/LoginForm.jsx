@@ -31,6 +31,7 @@ const LoginForm = ({
           onFailure={onFailure}
         />
       </div>
+      <div><TranslationContainer translationKey="or" /></div>
       {successMessage && <p style={{ fontSize: '16px', color: 'green' }}>{successMessage}</p>}
       {errors.summary && <p style={{ fontSize: '16px', color: 'tomato' }}>{errors.summary}</p>}
 

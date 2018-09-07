@@ -38,6 +38,7 @@ export const TRANSLATIONS = {
     reset_legend: 'Forgot password? ',
     sendEmail_text: 'Send Email',
     verify: 'The account has been verified. Please log in.',
+    or: 'OR',
   },
   sk_SK: {
     title_text: 'Titulná stránka',
@@ -78,6 +79,7 @@ export const TRANSLATIONS = {
     reset_legend: 'Zabudli ste heslo? ',
     sendEmail_text: 'Poslať Email',
     verify: 'Ucet bol verifikovany. Prosim prihlaste sa.',
+    or: 'Alebo',
   },
 };
 
