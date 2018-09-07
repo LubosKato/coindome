@@ -82,6 +82,8 @@ LoginForm.propTypes = {
   successMessage: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
   facebookResponse: PropTypes.func.isRequired,
+  googleResponse: PropTypes.func.isRequired,
+  onFailure: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

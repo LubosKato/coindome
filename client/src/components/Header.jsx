@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,7 +13,6 @@ import {
   Nav,
   NavItem,
   NavLink,
-  NavbarNav,
 } from 'reactstrap';
 import Currencies from './Currencies';
 import LangSwitchContainer from '../containers/LangSwitchContainer';
@@ -58,7 +57,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <Navbar color="light" light expand="md" fixed="sticky" scrolling="true">
+      <Navbar color="light" light expand="md" fixed="top" scrolling="true">
         <div className="App">
           <div className="App-intro" />
           <ToastContainer
@@ -82,7 +81,7 @@ class Header extends React.Component {
           <Nav className="ml-auto" navbar>
             {Auth.isUserAuthenticated() === false
               ? (
-                <Nav>
+                <Fragment>
                   <NavItem>
                     <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
                   </NavItem>
@@ -92,10 +91,10 @@ class Header extends React.Component {
                   <NavItem>
                     <LangSwitchContainer />
                   </NavItem>
-                </Nav>
+                </Fragment>
               )
               : (
-                <Nav>
+                <Fragment>
                   <NavItem>
                     <Currencies onUpdate={this.onUpdate} />
                   </NavItem>
@@ -110,7 +109,7 @@ class Header extends React.Component {
                   <NavItem>
                     <LangSwitchContainer />
                   </NavItem>
-                </Nav>
+                </Fragment>
               )}
           </Nav>
         </Collapse>

@@ -22,3 +22,7 @@ h1 {
 .popup {
   min-height: 50px;
 }
+
+body{
+  margin-top: 60px !important;;
+}
