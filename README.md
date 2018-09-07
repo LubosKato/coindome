@@ -29,21 +29,21 @@ yarn localinstall
 VS Code
 
 ### TechStack 
-jwt
-webpack 4
-babel
-sourcemap
-bootstrap 4
-redux
-apollo
-graphql
-mongoose
-heroku
-yarn 
-elsint
-gzip
-cors
-express
+jwt<br />
+webpack 4<br />
+babel<br />
+sourcemap<br />
+bootstrap 4<br />
+redux<br />
+apollo<br />
+graphql<br />
+mongoose<br />
+heroku<br />
+yarn <br />
+elsint<br />
+gzip<br />
+cors<br />
+express<br />
 
 ## Authors
 
