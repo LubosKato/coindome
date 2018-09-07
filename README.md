@@ -58,6 +58,5 @@ This project is licensed under the MIT License
 * credits for jwt oauth 2.0 implementation https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
 
 ## TODO
-* add reset password functionality
 * include tests
 * implement CI builds with heroku
