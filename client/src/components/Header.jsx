@@ -81,7 +81,7 @@ class Header extends React.Component {
           <Nav className="ml-auto" navbar>
             {Auth.isUserAuthenticated() === false
               ? (
-                <Fragment>
+                <React.Fragment>
                   <NavItem>
                     <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
                   </NavItem>
@@ -91,7 +91,7 @@ class Header extends React.Component {
                   <NavItem>
                     <LangSwitchContainer />
                   </NavItem>
-                </Fragment>
+                </React.Fragment>
               )
               : (
                 <Fragment>
