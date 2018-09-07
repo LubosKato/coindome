@@ -5,6 +5,8 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const BrotliGzipPlugin = require('brotli-gzip-webpack-plugin');
+const ServiceWorkerWepbackPlugin = require('serviceworker-webpack-plugin');
+const path = require('path');
 
 exports.loaderOptions = new webpack.LoaderOptionsPlugin({
   options: {
@@ -55,24 +57,28 @@ exports.brotliGzip = new BrotliGzipPlugin({
   minRatio: 0.8,
 });
 
-exports.sw = new SWPrecacheWebpackPlugin({
-  // By default, a cache-busting query parameter is appended to requests
-  // used to populate the caches, to ensure the responses are fresh.
-  // If a URL is already hashed by Webpack, then there is no concern
-  // about it being stale, and the cache-busting can be skipped.
-  dontCacheBustUrlsMatching: /\.\w{8}\./,
-  filename: 'service-worker.js',
-  logger(message) {
-    if (message.indexOf('Total precache size is') === 0) {
-      // This message occurs for every build and is a bit too noisy.
-      return;
-    }
-    console.log(message);
-  },
-  minify: true,
-  navigateFallback: '/index.html',
-  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+exports.sw = new ServiceWorkerWepbackPlugin({
+  entry: path.join(__dirname, 'public/sw.js'),
 });
+
+// exports.sw = new SWPrecacheWebpackPlugin({
+//   // By default, a cache-busting query parameter is appended to requests
+//   // used to populate the caches, to ensure the responses are fresh.
+//   // If a URL is already hashed by Webpack, then there is no concern
+//   // about it being stale, and the cache-busting can be skipped.
+//   dontCacheBustUrlsMatching: /\.\w{8}\./,
+//   filename: 'service-worker.js',
+//   logger(message) {
+//     if (message.indexOf('Total precache size is') === 0) {
+//       // This message occurs for every build and is a bit too noisy.
+//       return;
+//     }
+//     console.log(message);
+//   },
+//   minify: true,
+//   navigateFallback: '/index.html',
+//   staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+// });
 
 exports.copy = new CopyWebpackPlugin([
   { from: 'public' },

@@ -4,7 +4,10 @@ const PATHS = require('./webpack-paths');
 exports.css = {
   test: /\.(css|scss|sass)$/,
   loader: 'css-loader!sass-loader?sourceMap',
-  include: PATHS.cssExclude,
+  include: [
+    PATHS.cssExclude,
+    /node_modules\/bootstrap/,
+  ],
   exclude: PATHS.cssIncude,
 };
 

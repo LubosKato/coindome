@@ -2,14 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { ToastContainer } from 'react-toastify';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  NavbarNav,
+} from 'reactstrap';
 import Currencies from './Currencies';
 import LangSwitchContainer from '../containers/LangSwitchContainer';
 import * as currencyActions from '../actions/currencyActions';
 import TranslationContainer from '../containers/TranslationContainer';
 import Auth from '../modules/Auth';
+
 
 class Header extends React.Component {
   constructor(props) {
@@ -22,7 +33,9 @@ class Header extends React.Component {
       .bind(this);
     this.state = {
       currency: 'USD',
+      isOpen: false,
     };
+    this.toggle = this.toggle.bind(this);
   }
 
   onUpdate(val) {
@@ -37,9 +50,15 @@ class Header extends React.Component {
     Auth.deauthenticateUser();
   }
 
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
   render() {
     return (
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <Navbar color="light" light expand="md" fixed="sticky" scrolling="true">
         <div className="App">
           <div className="App-intro" />
           <ToastContainer
@@ -54,75 +73,48 @@ class Header extends React.Component {
             pauseOnHover
           />
         </div>
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#bs-example-navbar-collapse-1"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Toggle navigation</span>
-              <span className="icon-bar" />
-              <span className="icon-bar" />
-              <span className="icon-bar" />
-            </button>
-            <Link to="/" className="navbar-brand"><TranslationContainer translationKey="site_text" /></Link>
-          </div>
-
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
-              <li className="active">
-                <Link to="/bitcoinchart">
-                  <TranslationContainer translationKey="bitcoin_text" />
-                  <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-            </ul>
-
+        <NavbarBrand href="#/"><TranslationContainer translationKey="site_text" /></NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav navbar>
+            <NavLink href="/#/bitcoinchart/"><TranslationContainer translationKey="bitcoin_text" /></NavLink>
+          </Nav>
+          <Nav className="ml-auto" navbar>
             {Auth.isUserAuthenticated() === false
               ? (
-                <ul className="nav navbar-nav navbar-right">
-                  <li className="active">
-                    <Link to="/login">
-                      <TranslationContainer translationKey="login_text" />
-                      <span className="sr-only">(current)</span>
-                    </Link>
-                  </li>
-                  <li className="active">
-                    <Link to="/signup">
-                      <TranslationContainer translationKey="signup_text" />
-                      <span className="sr-only">(current)</span>
-                    </Link>
-                  </li>
-                  <li><LangSwitchContainer /></li>
-                </ul>
+                <Nav>
+                  <NavItem>
+                    <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/#/signup/"><TranslationContainer translationKey="signup_text" /></NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <LangSwitchContainer />
+                  </NavItem>
+                </Nav>
               )
               : (
-                <ul className="nav navbar-nav navbar-right">
-                  <li><Currencies onUpdate={this.onUpdate} /></li>
-                  <li className="active">
-                    <Link to="/profile">
-                      <TranslationContainer translationKey="profile_text" />
-                      <span className="sr-only">(current)</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/login" onClick={this.onLogOutClicked}>
+                <Nav>
+                  <NavItem>
+                    <Currencies onUpdate={this.onUpdate} />
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/#/profile/"><TranslationContainer translationKey="profile_text" /></NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <Link to="/login" onClick={this.onLogOutClicked} className="nav-link">
                       <TranslationContainer translationKey="logout_text" />
-                      <span className="sr-only">(current)</span>
                     </Link>
-                  </li>
-                  <li>
+                  </NavItem>
+                  <NavItem>
                     <LangSwitchContainer />
-                  </li>
-                </ul>
-              )
-}
-          </div>
-        </div>
-      </nav>
+                  </NavItem>
+                </Nav>
+              )}
+          </Nav>
+        </Collapse>
+      </Navbar>
     );
   }
 }

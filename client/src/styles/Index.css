@@ -1,7 +1,6 @@
 body {
     margin: 0;
     font-family: 'Oxygen', sans-serif;
-    padding-top: 60px;
   }
   
   a {
@@ -47,6 +46,7 @@ body {
     margin: 0 auto;
     text-align: center;
     width: 700px;
+    margin-top: 10px;
   }
   
   .card_heading {

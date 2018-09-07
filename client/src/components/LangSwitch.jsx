@@ -8,7 +8,7 @@ export default class LangSwitch extends Component {
       <div
         className="lang"
         style={{
-          padding: 10,
+          padding: 5,
           textAlign: 'center',
         }}
       >
