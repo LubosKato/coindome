@@ -14,4 +14,7 @@ docker-compose.yml
 client/public/asset-manifest.json
 client/public/bundle.js
 client/public/bundle.js.map
+client/public/bundle.js.gz
+client/public/sw.js.map
+client/public/sw.js.gz
 

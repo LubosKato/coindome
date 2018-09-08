@@ -16,25 +16,25 @@ const common = {
   module: {
     rules: [
       loaders.babel,
-      //loaders.css,
-      //loaders.extractCss,
-      {
-        test: /\.(css|scss|sass)$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              sourceMap: true,
-              importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader
-            }
-          },
-          'postcss-loader',
-          'sass-loader'
-        ]
-      }
+      loaders.css,
+      loaders.extractCss,
+      // {
+      //   test: /\.(css|scss|sass)$/,
+      //   use: [
+      //     'style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: true,
+      //         localIdentName: '[path][name]__[local]--[hash:base64:5]',
+      //         sourceMap: true,
+      //         importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader
+      //       }
+      //     },
+      //     'postcss-loader',
+      //     'sass-loader'
+      //   ]
+      // }
     ],
   },
   resolve: {
@@ -82,7 +82,7 @@ switch (process.env.NODE_ENV) {
         plugins: [
           plugins.loaderOptions,
           plugins.environmentVariables,
-          plugins.manifest,
+          //plugins.manifest,
           plugins.copy,
 
           // plugins.uglifyJs,
