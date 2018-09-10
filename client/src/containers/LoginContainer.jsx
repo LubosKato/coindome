@@ -154,7 +154,7 @@ class LoginContainer extends React.Component {
               />
             </React.Fragment>
           )
-          : <Redirect to="/" />
+          : <Redirect to="/#" />
 }
       </div>
     );

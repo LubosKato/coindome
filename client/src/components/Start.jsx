@@ -61,11 +61,11 @@ class App extends React.Component {
         <ApolloProvider client={client}>
           <Provider store={store}>
             <MuiThemeProvider>
-              <div className={styles.wrapper}>
+              {/* <div className={styles.wrapper}> */}
                 <Header />
                 <Main />
-                <Footer />
-              </div>
+                {/* <Footer />
+              </div> */}
             </MuiThemeProvider>
           </Provider>
         </ApolloProvider>
