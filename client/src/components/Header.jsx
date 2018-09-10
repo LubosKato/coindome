@@ -58,7 +58,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md" fixed="top" scrolling="true">
+        <Navbar color="light" light expand="md" fixed="fixed" scrolling="true">
           <div className="App">
             <div className="App-intro" />
             <ToastContainer
