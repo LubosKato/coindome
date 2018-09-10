@@ -58,7 +58,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md" fixed="fixed" scrolling="true">
+        <Navbar color="light" light expand="md" fixed="top" scrolling="true">
           <div className="App">
             <div className="App-intro" />
             <ToastContainer
@@ -115,9 +115,9 @@ class Header extends React.Component {
             </Nav>
           </Collapse>
         </Navbar>
-        {/* <Navbar color="light" light expand="md" fixed="fixed" scrolling="true">
+        <Navbar color="light" light expand="md" fixed="fixed" scrolling="true">
           <NavbarBrand href="#/"><TranslationContainer translationKey="site_text" /></NavbarBrand>
-        </Navbar> */}
+        </Navbar>
       </div>
     );
   }
