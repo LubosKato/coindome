@@ -10,11 +10,12 @@ import Subscriptions from './Notifications/Subscriptions';
 import SendResetPassword from '../containers/SendResetPwdContainer';
 import ResetPassword from '../containers/ResetPasswordContainer';
 import Confirmation from '../containers/ConfirmationContainer';
+import Privacy from './Privacy';
 
 class Main extends React.Component {
   render() {
     return (
-      <main>
+      <main className="container-fluid py-3 flex-fill">
         <Switch>
           <Route exact path="/" render={() => (
               <Home cardtitleP={<TranslationContainer translationKey="title_text" />}
@@ -29,6 +30,7 @@ class Main extends React.Component {
           <Route path="/sendreset" component={SendResetPassword} />
           <Route path="/reset/:id" component={ResetPassword} />
           <Route path="/confirmation/:id" component={Confirmation} />
+          <Route path="/privacy" component={Privacy} />
         </Switch>
         <Subscriptions />
       </main>

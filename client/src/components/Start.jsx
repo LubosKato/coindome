@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
@@ -13,6 +13,8 @@ import Auth from '../modules/Auth';
 import { rootReducer } from '../reducers/rootReducer';
 import Main from './Main';
 import Header from './Header';
+import Footer from './FooterC';
+import styles from '../styles/Index.css';
 
 const store = createStore(rootReducer);
 const httpLink = new HttpLink({ uri: `${process.env.API_HOST}/graphql` });
@@ -59,9 +61,10 @@ class App extends React.Component {
         <ApolloProvider client={client}>
           <Provider store={store}>
             <MuiThemeProvider>
-              <div>
+              <div className={styles.wrapper}>
                 <Header />
                 <Main />
+                <Footer />
               </div>
             </MuiThemeProvider>
           </Provider>

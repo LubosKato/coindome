@@ -12,7 +12,7 @@ import styles from '../styles/Index.css';
 const LoginForm = ({
   onSubmit, onChange, errors, successMessage, user, facebookResponse, googleResponse, onFailure,
 }) => (
-  <Card className={styles.container}>
+  <Card className={styles.loginContainer}>
     <form action="/" onSubmit={onSubmit}>
       <h2 className={styles.card_heading}><TranslationContainer translationKey="login_text" /></h2>
       <div className={styles.field_line}>
@@ -23,6 +23,39 @@ const LoginForm = ({
           callback={facebookResponse}
         />
       </div>
+      <div className={styles.field_line}>
+        <FacebookLogin
+          appId="265160767429693"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={facebookResponse}
+        />
+      </div>
+      <div className={styles.field_line}>
+        <FacebookLogin
+          appId="265160767429693"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={facebookResponse}
+        />
+      </div>
+
+            <div className={styles.field_line}>
+        <FacebookLogin
+          appId="265160767429693"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={facebookResponse}
+        />
+      </div>      <div className={styles.field_line}>
+        <FacebookLogin
+          appId="265160767429693"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={facebookResponse}
+        />
+      </div>
+
       <div className={styles.field_line}>
         <GoogleLogin
           clientId="409271290184-l962h3l398k6729vj2ht8rs77662apil.apps.googleusercontent.com"

@@ -39,6 +39,7 @@ export const TRANSLATIONS = {
     sendEmail_text: 'Send Email',
     verify: 'The account has been verified. Please log in.',
     or: 'OR',
+    privacy: 'Privacy policy',
   },
   sk_SK: {
     title_text: 'Titulná stránka',
@@ -80,6 +81,7 @@ export const TRANSLATIONS = {
     sendEmail_text: 'Poslať Email',
     verify: 'Ucet bol verifikovany. Prosim prihlaste sa.',
     or: 'Alebo',
+    privacy: 'Ochrana súkromia',
   },
 };
 

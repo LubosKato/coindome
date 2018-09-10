@@ -57,63 +57,68 @@ class Header extends React.Component {
 
   render() {
     return (
-      <Navbar color="light" light expand="md" fixed="sticky" scrolling="true">
-        <div className="App">
-          <div className="App-intro" />
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnVisibilityChange
-            draggable
-            pauseOnHover
-          />
-        </div>
-        <NavbarBrand href="#/"><TranslationContainer translationKey="site_text" /></NavbarBrand>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav navbar>
-            <NavLink href="/#/bitcoinchart/"><TranslationContainer translationKey="bitcoin_text" /></NavLink>
-          </Nav>
-          <Nav className="ml-auto" navbar>
-            {Auth.isUserAuthenticated() === false
-              ? (
-                <React.Fragment>
-                  <NavItem>
-                    <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/#/signup/"><TranslationContainer translationKey="signup_text" /></NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <LangSwitchContainer />
-                  </NavItem>
-                </React.Fragment>
-              )
-              : (
-                <Fragment>
-                  <NavItem>
-                    <Currencies onUpdate={this.onUpdate} />
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="/#/profile/"><TranslationContainer translationKey="profile_text" /></NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <Link to="/login" onClick={this.onLogOutClicked} className="nav-link">
-                      <TranslationContainer translationKey="logout_text" />
-                    </Link>
-                  </NavItem>
-                  <NavItem>
-                    <LangSwitchContainer />
-                  </NavItem>
-                </Fragment>
-              )}
-          </Nav>
-        </Collapse>
-      </Navbar>
+      <div>
+        <Navbar color="light" light expand="md" fixed="top" scrolling="true">
+          <div className="App">
+            <div className="App-intro" />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnVisibilityChange
+              draggable
+              pauseOnHover
+            />
+          </div>
+          <NavbarBrand href="#/"><TranslationContainer translationKey="site_text" /></NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav navbar>
+              <NavLink href="/#/bitcoinchart/"><TranslationContainer translationKey="bitcoin_text" /></NavLink>
+            </Nav>
+            <Nav className="ml-auto" navbar>
+              {Auth.isUserAuthenticated() === false
+                ? (
+                    <React.Fragment>
+                      <NavItem>
+                        <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink href="/#/signup/"><TranslationContainer translationKey="signup_text" /></NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <LangSwitchContainer />
+                      </NavItem>
+                    </React.Fragment>
+                )
+                : (
+                    <Fragment>
+                      <NavItem>
+                        <Currencies onUpdate={this.onUpdate} />
+                      </NavItem>
+                      <NavItem>
+                        <NavLink href="/#/profile/"><TranslationContainer translationKey="profile_text" /></NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <Link to="/login" onClick={this.onLogOutClicked} className="nav-link">
+                          <TranslationContainer translationKey="logout_text" />
+                        </Link>
+                      </NavItem>
+                      <NavItem>
+                        <LangSwitchContainer />
+                      </NavItem>
+                    </Fragment>
+                )}
+            </Nav>
+          </Collapse>
+        </Navbar>
+        <Navbar color="light" light expand="md" fixed="fixed" scrolling="true">
+          <NavbarBrand href="#/"><TranslationContainer translationKey="site_text" /></NavbarBrand>
+        </Navbar>
+      </div>
     );
   }
 }

@@ -7,8 +7,8 @@ import TextField from 'material-ui/TextField';
 import TranslationContainer from './../containers/TranslationContainer.jsx';
 import styles from './../styles/Index.css'
 
-const SignUpForm = ({onSubmit, onChange, errors, user}) => (
-  <Card className={styles.container}>
+const SignUpForm = ({ onSubmit, onChange, errors, user }) => (
+  <Card className={styles.loginContainer}>
     <form action="/" onSubmit={onSubmit}>
       <h2 className={styles.card_heading}><TranslationContainer translationKey="signup_text"/></h2>
 

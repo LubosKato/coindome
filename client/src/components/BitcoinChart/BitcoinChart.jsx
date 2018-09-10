@@ -9,6 +9,7 @@ import ToolTip from './ToolTip';
 import InfoBox from './InfoBox';
 import TranslationContainer from '../../containers/TranslationContainer';
 import { PERIODS } from '../../constants/periods';
+import indexStyles from '../../styles/Index.css';
 
 class BitcoinChart extends Component {
   constructor(props) {
@@ -147,7 +148,7 @@ class BitcoinChart extends Component {
   render() {
     return (
 
-      <div>
+      <div className={indexStyles.container}>
         <div className={styles.row}>
           <h1><TranslationContainer translationKey="chart_title_text" /></h1>
         </div>
