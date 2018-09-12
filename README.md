@@ -45,7 +45,7 @@ express<br />
 
 ## Authors
 
-* **Lubos Kato** - *Initial work* - [kejto](https://github.com/kejto)
+* **Lubos Kato** - *Initial work* - [kejto](https://github.com/kejto) <br />www.linkedin.com/in/luboskato 
 
 ## License
 
