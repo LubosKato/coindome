@@ -12,8 +12,10 @@ const { execute, subscribe } = require('graphql');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var sslRedirect = require('heroku-ssl-redirect');
 
 var path=require('path');
+app.use(sslRedirect());
 // connect to the database and load models
 require('./models').connect(config.dbUri);
 
