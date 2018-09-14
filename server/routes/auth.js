@@ -255,7 +255,7 @@ router.get('/reset/:email', (req, res, next) => {
     token.save(function (err) {
       if (err) { return res.status(500).send({ success: false, message: err.message }); }
         // Send the email
-        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass:'coindome97'} });
+        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass:process.env.SENDGRID} });
         var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('resetSubject'), text: 'Hello,\n\n' + t('resetBody') +' \nhttp:\/\/' + req.headers.host + '\/#\/reset\/' + token.token + '.\n' };
         transporter.sendMail(mailOptions, function (err) {
             if (err) { return res.status(500).send({ msg: err.message }); }
@@ -282,7 +282,7 @@ router.get('/resend', (req, res, next) => {
     token.save(function (err) {
       if (err) { return res.status(500).send({ success: false, message: err.message }); }
         // Send the email
-        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: 'coindome97' } });
+        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: process.env.SENDGRID } });
         var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('tokenSubject'), text: 'Hello,\n\n' + t('verifyContent') +' \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n' };
         transporter.sendMail(mailOptions, function (err) {
           if (err) { return res.status(500).send({ success: false, message: err.message }); }
