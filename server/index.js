@@ -15,11 +15,12 @@ var cookieParser = require('cookie-parser');
 var sslRedirect = require('heroku-ssl-redirect');
 
 var path=require('path');
-app.use(sslRedirect());
+
 // connect to the database and load models
 require('./models').connect(config.dbUri);
 
 const app = express();
+app.use(sslRedirect());
 //app.use('*', cors({ origin: `http://localhost:8080` }));
 var corsOption = {
   origin: true,
