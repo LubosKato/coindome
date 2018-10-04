@@ -15,7 +15,7 @@
     "start": "concurrently \"cd client && yarn start\" \"cd server && yarn start\"",
     "start:prod": "cd server && yarn start:prod",
     "analyze": "cd client && yarn analyze",
-    "test": "cd client test"
+    "test": "cd client && yarn test"
   },
   "cacheDirectories": [
     "node_modules",

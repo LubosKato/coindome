@@ -31,7 +31,6 @@ class Header extends React.Component {
       .onUpdate
       .bind(this);
     this.state = {
-      currency: 'USD',
       isOpen: false,
     };
     this.toggle = this.toggle.bind(this);
@@ -82,35 +81,35 @@ class Header extends React.Component {
             <Nav className="ml-auto" navbar>
               {Auth.isUserAuthenticated() === false
                 ? (
-                    <React.Fragment>
-                      <NavItem>
-                        <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/#/signup/"><TranslationContainer translationKey="signup_text" /></NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <LangSwitchContainer />
-                      </NavItem>
-                    </React.Fragment>
+                  <Fragment>
+                    <NavItem>
+                      <NavLink href="/#/login/"><TranslationContainer translationKey="login_text" /></NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/#/signup/"><TranslationContainer translationKey="signup_text" /></NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <LangSwitchContainer />
+                    </NavItem>
+                  </Fragment>
                 )
                 : (
-                    <Fragment>
-                      <NavItem>
-                        <Currencies onUpdate={this.onUpdate} />
-                      </NavItem>
-                      <NavItem>
-                        <NavLink href="/#/profile/"><TranslationContainer translationKey="profile_text" /></NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <Link to="/login" onClick={this.onLogOutClicked} className="nav-link">
-                          <TranslationContainer translationKey="logout_text" />
-                        </Link>
-                      </NavItem>
-                      <NavItem>
-                        <LangSwitchContainer />
-                      </NavItem>
-                    </Fragment>
+                  <Fragment>
+                    <NavItem>
+                      <Currencies onUpdate={this.onUpdate} />
+                    </NavItem>
+                    <NavItem>
+                      <NavLink href="/#/profile/"><TranslationContainer translationKey="profile_text" /></NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <Link to="/login" onClick={this.onLogOutClicked} className="nav-link">
+                        <TranslationContainer translationKey="logout_text" />
+                      </Link>
+                    </NavItem>
+                    <NavItem>
+                      <LangSwitchContainer />
+                    </NavItem>
+                  </Fragment>
                 )}
             </Nav>
           </Collapse>
@@ -136,6 +135,9 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 
 Header.propTypes = {
-  currency: PropTypes.instanceOf(Object),
   actions: PropTypes.instanceOf(Object),
+};
+
+Header.defaultProps = {
+  actions: false,
 };
