@@ -31,8 +31,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  cardtitleP: PropTypes.object.isRequired,
-  cardsubtitleP: PropTypes.object.isRequired,
+  cardtitleP: PropTypes.instanceOf(Object).isRequired,
+  cardsubtitleP: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Home;

@@ -137,7 +137,7 @@ class LoginContainer extends React.Component {
   render() {
     return (
       <div>
-        {this.state.redirect == false
+        {this.state.redirect === false
           ? (
             <React.Fragment>
               <PushNotification label="loggedout_text" />

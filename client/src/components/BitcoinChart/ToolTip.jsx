@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styles from '../../styles/ToolTip.css';
 
-class ToolTip extends Component {
+class ToolTip extends PureComponent {
   render() {
     const { hoverLoc, activePoint } = this.props;
     const svgLocation = document

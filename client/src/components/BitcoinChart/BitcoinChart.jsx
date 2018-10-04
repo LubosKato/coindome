@@ -17,12 +17,7 @@ class BitcoinChart extends Component {
     this.updateChart = this
       .updateChart
       .bind(this);
-    this.getToday = this
-      .getToday
-      .bind(this);
-    this.getDate = this
-      .getDate
-      .bind(this);
+
     this.state = {
       fetchingData: true,
       hoverLoc: null,
@@ -30,10 +25,6 @@ class BitcoinChart extends Component {
       data: props.pbi,
       period: '30',
     };
-  }
-
-  handleChartHover(hoverLoc, activePoint) {
-    this.setState({ hoverLoc, activePoint });
   }
 
   componentDidMount() {
@@ -47,41 +38,8 @@ class BitcoinChart extends Component {
     }
   }
 
-  getToday() {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; // January is 0!
-    const yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = `0${dd}`;
-    }
-
-    if (mm < 10) {
-      mm = `0${mm}`;
-    }
-
-    today = `${yyyy}-${mm}-${dd}`;
-    return today;
-  }
-
-  getDate(period) {
-    let today = new Date();
-    today.setDate(today.getDate() - period);
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; // January is 0!
-    const yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd = `0${dd}`;
-    }
-
-    if (mm < 10) {
-      mm = `0${mm}`;
-    }
-
-    today = `${yyyy}-${mm}-${dd}`;
-    return today;
+  handleChartHover(hoverLoc, activePoint) {
+    this.setState({ hoverLoc, activePoint });
   }
 
   updateChart(period) {
@@ -161,6 +119,7 @@ class BitcoinChart extends Component {
         >
           {PERIODS.map((period, i) => (
             <button
+              type="button"
               key={i}
               style={{
                 fontWeight: this.state.period === period.value
@@ -215,6 +174,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, null)(BitcoinChart);
 
 BitcoinChart.propTypes = {
-  currency: PropTypes.object,
+  currency: PropTypes.instanceOf(Object),
   bpi: PropTypes.bool,
 };

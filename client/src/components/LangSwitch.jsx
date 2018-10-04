@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { LANG_NAMES } from "../constants/translations";
+import { LANG_NAMES } from '../constants/translations';
 
-export default class LangSwitch extends Component {
+export default class LangSwitch extends PureComponent {
   render() {
     return (
       <div
@@ -13,17 +13,19 @@ export default class LangSwitch extends Component {
         }}
       >
         {LANG_NAMES.map((language, i) => (
-<button
-          key={i}
-          style={{
-          fontWeight: this.props.locale === language.locale
-            ? 'bold'
-            : ''
-        }}
-          onClick={() => this.props.setLanguage(language.locale)}>
-          <span>{language.name}</span>
-        </button>
-))}
+          <button
+            type="button"
+            key={i}
+            style={{
+              fontWeight: this.props.locale === language.locale
+                ? 'bold'
+                : '',
+            }}
+            onClick={() => this.props.setLanguage(language.locale)}
+          >
+            <span>{language.name}</span>
+          </button>
+        ))}
       </div>
     );
   }

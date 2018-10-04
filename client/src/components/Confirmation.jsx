@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText } from 'material-ui/Card';
-import TranslationContainer from '../containers/TranslationContainer';
+import { Card, CardText } from 'material-ui/Card';
 import styles from '../styles/Index.css';
 import PushNotification from './Notifications/PushNotification';
 

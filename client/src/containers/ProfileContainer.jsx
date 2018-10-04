@@ -98,7 +98,7 @@ class ProfileContainer extends React.Component {
               onChange={this.changeUser}
               errors={this.state.errors}
               user={this.state.user}
-/>
+            />
           )
           : (
             <ProfileSuccessForm />

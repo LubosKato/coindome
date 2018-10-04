@@ -4,5 +4,5 @@ import currencyReducer from './currencyReducer';
 
 export const rootReducer = combineReducers({
   translation: translationReducer,
-  currency: currencyReducer
+  currency: currencyReducer,
 });

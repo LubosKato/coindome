@@ -136,6 +136,6 @@ function mapDispatchToProps(dispatch) {
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
 
 Header.propTypes = {
-  currency: PropTypes.object,
-  actions: PropTypes.object,
+  currency: PropTypes.instanceOf(Object),
+  actions: PropTypes.instanceOf(Object),
 };

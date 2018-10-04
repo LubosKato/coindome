@@ -13,7 +13,7 @@ class InfoBox extends Component {
       currentPrice: null,
       monthChangeD: null,
       monthChangeP: null,
-      updatedAt: null
+      updatedAt: null,
     };
   }
 
@@ -26,6 +26,10 @@ class InfoBox extends Component {
     if (prevProps.currency !== this.props.currency) {
       this.updateChart();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refresh);
   }
 
   updateChart() {
@@ -78,10 +82,6 @@ class InfoBox extends Component {
     this.refresh = setInterval(() => this.getData(), 90000);
   }
 
-  componentWillUnmount() {
-    clearInterval(this.refresh);
-  }
-
   render() {
     const currency = this.props.currency.currency;
     return (
@@ -113,13 +113,9 @@ class InfoBox extends Component {
               <div className={styles.heading}>{this.state.monthChangeD}</div>
               <div className={styles.subtext}>
     <TranslationContainer translationKey="change_curr_text" />
-
-
                 (
     {currency}
-
 )
-
 </div>
                         </div>
           )

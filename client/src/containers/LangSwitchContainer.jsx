@@ -1,26 +1,27 @@
-import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import * as translationActions from '../actions/langActions';
-import LangSwitch from '../components/LangSwitch.jsx';
+import LangSwitch from '../components/LangSwitch';
 
 class LangSwitchContainer extends Component {
-
   render() {
-    return (<LangSwitch
+    return (
+<LangSwitch
       locale={this.props.locale}
-      setLanguage={this.props.translationActions.setLanguage}/>);
+      setLanguage={this.props.translationActions.setLanguage}/>
+);
   }
 }
 
 function mapStateToProps(state) {
-  return {locale: state.translation.locale};
+  return { locale: state.translation.locale };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    translationActions: bindActionCreators(translationActions, dispatch)
+    translationActions: bindActionCreators(translationActions, dispatch),
   };
 }
 
@@ -28,5 +29,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(LangSwitchContainer)
 
 LangSwitchContainer.propTypes = {
   locale: PropTypes.string,
-  translationActions: PropTypes.object
+  translationActions: PropTypes.object,
 };

@@ -13,7 +13,8 @@
     "build": "NODE_ENV=production webpack --optimize-minimize",
     "analyze": "source-map-explorer public/bundle.js public/bundle.js.map",
     "lint": "eslint . --ext .js,.jsx",
-    "format": "prettier --write '**/*.{js,jsx}'"
+    "format": "prettier --write '**/*.{js,jsx}'",
+    "test": "jest --watch"
   },
   "dependencies": {
     "apollo-boost": "^0.1.10",
@@ -34,6 +35,8 @@
     "copy-webpack-plugin": "^4.5.2",
     "cors": "^2.8.4",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "express": "^4.16.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "graphql": "^0.13.2",
@@ -75,6 +78,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
+    "react-test-renderer": "^16.5.2",
     "react-toastify": "^4.1.0",
     "reactstrap": "^6.4.0",
     "redux": "^3.7.2",

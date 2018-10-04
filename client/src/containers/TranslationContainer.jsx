@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
-import {connect} from 'react-redux';
-import {TRANSLATIONS} from './../constants/translations';
-import Translation from '../components/Translation.jsx';
+import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+import { TRANSLATIONS } from '../constants/translations';
+import Translation from '../components/Translation';
 
 class TranslationContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      translation: ''
+      translation: '',
     };
   }
 
@@ -26,29 +26,27 @@ class TranslationContainer extends Component {
   _updateTranslation(translationKey, activeLanguageCode) {
     if (translationKey && activeLanguageCode) {
       try {
-        this.setState({translation: TRANSLATIONS[activeLanguageCode][translationKey]
-        });
+        this.setState({ translation: TRANSLATIONS[activeLanguageCode][translationKey] });
         localStorage.setItem('lang', activeLanguageCode);
       } catch (error) {
-        //console.log(error);
+        // console.log(error);
       }
     }
   }
 
   render() {
-    if (!this.state.translation || this.state.translation === '') 
-      return null;
-    return (<Translation translation={this.state.translation}/>);
+    if (!this.state.translation || this.state.translation === '') { return null; }
+    return (<Translation translation={this.state.translation} />);
   }
 }
 
 function mapStateToProps(state) {
-  return {locale: state.translation.locale};
+  return { locale: state.translation.locale };
 }
 
 export default connect(mapStateToProps, null)(TranslationContainer);
 
 TranslationContainer.propTypes = {
   translationKey: PropTypes.string.isRequired,
-  locale: PropTypes.string
+  locale: PropTypes.string,
 };

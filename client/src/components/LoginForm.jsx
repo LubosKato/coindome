@@ -78,9 +78,9 @@ const LoginForm = ({
 LoginForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.instanceOf(Object).isRequired,
   successMessage: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.instanceOf(Object).isRequired,
   facebookResponse: PropTypes.func.isRequired,
   googleResponse: PropTypes.func.isRequired,
   onFailure: PropTypes.func.isRequired,

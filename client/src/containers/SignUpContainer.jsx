@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import SignUpForm from '../components/SignUpForm';
 import TranslationContainer from './TranslationContainer';
 
-class SignUpContainer extends React.Component {
+class SignUpContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     // set the initial component state
@@ -95,7 +95,7 @@ class SignUpContainer extends React.Component {
   render() {
     return (
       <div>
-        {this.state.redirect == false
+        {this.state.redirect === false
           ? (
             <SignUpForm
               onSubmit={this.processForm}

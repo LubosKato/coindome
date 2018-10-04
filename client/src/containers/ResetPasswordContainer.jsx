@@ -56,7 +56,7 @@ class ResetPasswordContainer extends React.Component {
   processForm(event) {
     // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-    console.log(this.state.user.name)
+    console.log(this.state.user.name);
     // create a string for an HTTP body message
     const name = encodeURIComponent(this.state.user.name);
     const newpwd = encodeURIComponent(this.state.user.newpwd);
@@ -64,7 +64,7 @@ class ResetPasswordContainer extends React.Component {
     const confirmPassword = encodeURIComponent(this.state.user.confirmPassword);
     const formData = `name=${name}&password=${newpwd}&currentpwd=${currentpwd}`;
 
-    if (newpwd != confirmPassword) {
+    if (newpwd !== confirmPassword) {
       const errors = {};
       errors.password = <TranslationContainer translationKey="match_password_text" />;
       this.setState({ errors });
@@ -97,13 +97,14 @@ class ResetPasswordContainer extends React.Component {
       xhr.send(formData);
     }
   }
+
   /**
    * Render the component.
    */
   render() {
     return (
       <div>
-        {this.state.redirect == false
+        {this.state.redirect === false
           ? (
             <ResetPasswordForm
               onSubmit={this.processForm}

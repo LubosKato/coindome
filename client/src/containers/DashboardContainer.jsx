@@ -1,13 +1,13 @@
 import React from 'react';
 import Auth from '../modules/Auth';
-import Dashboard from '../components/Dashboard.jsx';
+import Dashboard from '../components/Dashboard';
 
 class DashboardContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      secretData: ''
+      secretData: '',
     };
   }
 
@@ -27,20 +27,18 @@ class DashboardContainer extends React.Component {
         this.setState({
           secretData: xhr.response != null
             ? xhr.response.message
-            : ''
+            : '',
         });
       }
     });
     xhr.send();
-    //}
-
   }
 
   /**
    * Render the component.
    */
   render() {
-    return (<Dashboard secretData={this.state.secretData}/>);
+    return (<Dashboard secretData={this.state.secretData} />);
   }
 }
 

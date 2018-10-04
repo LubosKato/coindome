@@ -14,7 +14,8 @@
     "localinstall": "(cd client && yarn) && cd.. && (cd server && yarn)",
     "start": "concurrently \"cd client && yarn start\" \"cd server && yarn start\"",
     "start:prod": "cd server && yarn start:prod",
-    "analyze": "cd client && yarn analyze"
+    "analyze": "cd client && yarn analyze",
+    "test": "cd client test"
   },
   "cacheDirectories": [
     "node_modules",

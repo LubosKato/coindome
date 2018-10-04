@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
-import {PropTypes} from 'prop-types';
+import React, { PureComponent } from 'react';
+import { PropTypes } from 'prop-types';
 
-export default class Translation extends Component {
-
+export default class Translation extends PureComponent {
   render() {
     return (
       <span>{this.props.translation}</span>
@@ -11,5 +10,5 @@ export default class Translation extends Component {
 }
 
 Translation.propTypes = {
-  translation: PropTypes.string.isRequired
+  translation: PropTypes.string.isRequired,
 };

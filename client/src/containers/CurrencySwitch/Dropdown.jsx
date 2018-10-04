@@ -1,12 +1,11 @@
 import React from 'react';
-import './../../styles/dropdown.css';
 
 class Dropdown extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      displayMenu: false
+      displayMenu: false,
     };
 
     this.showDropdownMenu = this
@@ -15,13 +14,12 @@ class Dropdown extends React.Component {
     this.hideDropdownMenu = this
       .hideDropdownMenu
       .bind(this);
-
-  };
+  }
 
   showDropdownMenu(event) {
     event.preventDefault();
     this.setState({
-      displayMenu: true
+      displayMenu: true,
     }, () => {
       document.addEventListener('click', this.hideDropdownMenu);
     });
@@ -29,7 +27,7 @@ class Dropdown extends React.Component {
 
   hideDropdownMenu() {
     this.setState({
-      displayMenu: false
+      displayMenu: false,
     }, () => {
       document.removeEventListener('click', this.hideDropdownMenu);
     });
@@ -37,14 +35,12 @@ class Dropdown extends React.Component {
 
   render() {
     return (
-      <div className="dropdown" style={{
-        width: "200px"
-      }}>
-        <div className="button2" onClick={this.showDropdownMenu}>
-          USD
-        </div>
-
-        {this.state.displayMenu
+      <div
+        className="dropdown"
+        style={{ width: '200px' }}
+      >
+        <div className="button2" onClick={this.showDropdownMenu}>USD</div>
+        { this.state.displayMenu
           ? (
             <ul>
               <li>
@@ -56,10 +52,8 @@ class Dropdown extends React.Component {
             </ul>
           )
           : (null)
-}
-
+        }
       </div>
-
     );
   }
 }
