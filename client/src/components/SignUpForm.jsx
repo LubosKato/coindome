@@ -14,7 +14,7 @@ const SignUpForm = ({
     <form action="/" onSubmit={onSubmit}>
       <h2 className={styles.card_heading}><TranslationContainer translationKey="signup_text" /></h2>
 
-      {errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
+      {errors && errors.summary && <p className={styles.error_message}>{errors.summary}</p>}
 
       <div className={styles.field_line}>
         <TextField
@@ -80,5 +80,7 @@ SignUpForm.propTypes = {
   errors: PropTypes.instanceOf(Object).isRequired,
   user: PropTypes.instanceOf(Object).isRequired,
 };
+
+
 
 export default SignUpForm;

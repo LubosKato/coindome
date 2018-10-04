@@ -18,6 +18,30 @@
                 "webpack:///./~/*": "${workspaceRoot}/client/node_modules/*"
             },
             "trace": true
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest All",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": ["--runInBand"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "windows": {
+              "program": "${workspaceFolder}/client/node_modules/jest/bin/jest",
+            }
+          },
+          {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Current File",
+            "program": "${workspaceFolder}/client/node_modules/.bin/jest",
+            "args": ["${relativeFile}"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "windows": {
+              "program": "${workspaceFolder}/client/node_modules/jest/bin/jest",
+            }
+          }
     ]
 }

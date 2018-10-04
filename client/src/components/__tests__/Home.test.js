@@ -12,13 +12,8 @@ describe('Home', () => {
     const mountedHome = shallow(<Home />);
   });
 
-//   it('contains a image', () => {
-//     const img = mountedHome.find('img');
-//     expect(img.length).toBe(1);
-//   });
-
-//   it('displays the none map when no params are given', () => {
-//     const defaultMap = mountedMap.find('img [src="images/none.png"]');
-//     expect(defaultMap.length).toBe(1);
-//   });
+  it('contains a card title', () => {
+    const title = mountedHome.find('CardTitle');
+    expect(title.length).toBe(1);
+  });
 });

@@ -1,6 +1,6 @@
 {
   "name": "coindome",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "React sample code used as a blueprint for react PWA app",
   "main": "index.jsx",
   "author": "Lubos Kato",
@@ -8,14 +8,14 @@
   "pre-commit": [
     "lint"
   ],
-  "jest":{
+  "jest": {
     "setupFiles": [
       "<rootDir>/src/setupTests.js"
-      ],
+    ],
     "moduleNameMapper": {
-     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-     "\\.(css|less|scss|sass)$": "identity-obj-proxy"
-   }
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    }
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",

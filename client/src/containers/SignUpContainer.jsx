@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import SignUpForm from '../components/SignUpForm';
 import TranslationContainer from './TranslationContainer';
 
-class SignUpContainer extends React.PureComponent {
+class SignUpContainer extends React.Component {
   constructor(props) {
     super(props);
     // set the initial component state
