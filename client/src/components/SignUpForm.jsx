@@ -81,6 +81,21 @@ SignUpForm.propTypes = {
   user: PropTypes.instanceOf(Object).isRequired,
 };
 
-
+SignUpForm.defaultProps = {
+  errors: {
+    name: '',
+    email: '',
+    summary: '',
+  },
+  user:{
+    name:''
+  },
+  onSubmit: () => {
+    return null;
+  },
+  onChange: () => {
+    return null;
+  },
+};
 
 export default SignUpForm;

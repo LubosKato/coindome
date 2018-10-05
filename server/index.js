@@ -80,7 +80,7 @@ const authCheckMiddleware = require('./middleware/auth-check');
 app.use('/api', authCheckMiddleware);
 
 // routes
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/loginController');
 const apiRoutes = require('./routes/api');
 app.use('/auth', authRoutes);
 app.use('/api/v1/', apiRoutes);
