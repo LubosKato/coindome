@@ -1,6 +1,6 @@
 const validator = require('validator');
 const { t } = require('localizify');
-
+module.exports = {
 /**
  * Validate cahnge password
  *
@@ -8,7 +8,7 @@ const { t } = require('localizify');
  * @returns {object} The result of validation. Object contains a boolean validation result,
  *                   errors tips, and a global message for the whole form.
  */
-function validateProfileForm(payload) {
+ validateProfileForm: function(payload) {
     const errors = {};
     let isFormValid = true;
     let message = '';
@@ -36,7 +36,7 @@ function validateProfileForm(payload) {
       message,
       errors
     };
-  }
+  },
   
   /**
    * Validate the sign up form
@@ -45,7 +45,7 @@ function validateProfileForm(payload) {
    * @returns {object} The result of validation. Object contains a boolean validation result,
    *                   errors tips, and a global message for the whole form.
    */
-  function validateSignupForm(payload) {
+  validateSignupForm: function(payload) {
     const errors = {};
     let isFormValid = true;
     let message = '';
@@ -74,7 +74,7 @@ function validateProfileForm(payload) {
       message,
       errors
     };
-  }
+  },
   
   /**
    * Validate the login form
@@ -83,7 +83,7 @@ function validateProfileForm(payload) {
    * @returns {object} The result of validation. Object contains a boolean validation result,
    *                   errors tips, and a global message for the whole form.
    */
-  function validateLoginForm(payload) {
+   validateLoginForm: function(payload) {
     const errors = {};
     let isFormValid = true;
     let message = '';
@@ -108,7 +108,4 @@ function validateProfileForm(payload) {
       errors
     };
   }
-
-  module.exports.validateLoginForm = validateLoginForm;
-  module.exports.validateSignupForm = validateSignupForm;
-  module.exports.validateProfileForm = validateProfileForm;
+}

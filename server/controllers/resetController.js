@@ -3,8 +3,8 @@ const { t } = require('localizify');
 const Token = require('mongoose').model('Token');
 const User = require('mongoose').model('User');
 var crypto = require('crypto');
-var nodemailer = require('nodemailer');
 require('../passport/passport')();
+var mailer = require('../utils/other.utils');
 
 exports.reset = function(req, res, next) {
     // Find a matching token
@@ -15,16 +15,7 @@ exports.reset = function(req, res, next) {
       // Save the token
       token.save(function (err) {
         if (err) { return res.status(500).send({ success: false, message: err.message }); }
-          // Send the email
-          var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass:process.env.SENDGRID} });
-          var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('resetSubject'), text: 'Hello,\n\n' + t('resetBody') +' \nhttp:\/\/' + req.headers.host + '\/#\/reset\/' + token.token + '.\n' };
-          transporter.sendMail(mailOptions, function (err) {
-              if (err) { return res.status(500).send({ msg: err.message }); }
-              return res.status(200).json({
-                success: true,
-                message: t('resetSent') + user.email 
-              });
-          });
+        mailer.sendMail(req,res,user,token);
       });
   
    });
@@ -42,16 +33,7 @@ exports.reset = function(req, res, next) {
       // Save the token
       token.save(function (err) {
         if (err) { return res.status(500).send({ success: false, message: err.message }); }
-          // Send the email
-          var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: process.env.SENDGRID } });
-          var mailOptions = { from: 'no-reply@coindome.com', to: user.email, subject: t('tokenSubject'), text: 'Hello,\n\n' + t('verifyContent') +' \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n' };
-          transporter.sendMail(mailOptions, function (err) {
-            if (err) { return res.status(500).send({ success: false, message: err.message }); }
-              return res.status(200).json({
-                success: true,
-                message: t('verify')
-              });
-          });
+        mailer.sendMail(req,res,user,token);
       });
    });
   };

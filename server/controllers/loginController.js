@@ -40,17 +40,6 @@ exports.signup = function(req, res, next){
             });
           }
         }
-  
-        // Send the email
-        var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: process.env.SENDGRID } });
-        var mailOptions = { from: 'no-reply@coindome.com', to: newUser.email, subject: t('tokenSubject'), text: 'Hello,\n\n' + t('verifyContent') +' \nhttp:\/\/' + req.headers.host + '\/#\/confirmation\/' + token.token + '.\n' };
-        transporter.sendMail(mailOptions, function (err, info) {
-            if (err) { return done("Email doesn't exist") }
-            return res.status(200).json({
-            success: true,
-            message: t('verify') + newUser.email 
-            });
-        });
 
         return res.status(400).json({
           success: false,

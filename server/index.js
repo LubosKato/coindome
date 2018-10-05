@@ -13,9 +13,12 @@ const { SubscriptionServer } = require('subscriptions-transport-ws');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var sslRedirect = require('heroku-ssl-redirect');
-
+require('dotenv').load();
 var path=require('path');
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 // connect to the database and load models
 require('./models').connect(config.dbUri);
 

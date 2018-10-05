@@ -1,9 +1,9 @@
 const User = require('mongoose').model('User');
 const Token = require('mongoose').model('Token');
 const PassportLocalStrategy = require('passport-local').Strategy;
-var nodemailer = require('nodemailer');
 var crypto = require('crypto');
 const { t } = require('localizify');
+var mailer = require('../utils/other.utils');
 
 /**
  * Return the Passport Local Strategy object.
@@ -29,16 +29,7 @@ module.exports = new PassportLocalStrategy({
         // Save the verification token
         token.save(function (err) {
             if (err) { return done(err) }
-              // Send the email
-              var transporter = nodemailer.createTransport({ service: 'Sendgrid', auth: { user: 'kejto', pass: process.env.SENDGRID } });
-              var mailOptions = { from: 'no-reply@coindome.com', to: newUser.email, subject: t('tokenSubject'), text: 'Hello,\n\n' + t('verifyContent') +' \nhttp:\/\/' + req.headers.host + '\/#\/confirmation\/' + token.token + '.\n' };
-              transporter.sendMail(mailOptions, function (err, info) {
-                if (err) { return done("Email doesn't exist") }
-                return res.status(200).json({
-                  success: true,
-                  message: t('verify') + newUser.email 
-                });
-              });
+            mailer.sendMail(req,null,newUser,token);
         });
     return done(err, newUser);
   });
