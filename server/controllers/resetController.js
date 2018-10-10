@@ -1,12 +1,12 @@
 const passport = require('passport');
 const { t } = require('localizify');
 const Token = require('mongoose').model('Token');
-const User = require('mongoose').model('User');
 var crypto = require('crypto');
 require('../passport/passport')();
 var mailer = require('../utils/other.utils');
 
-exports.reset = function(req, res, next) {
+var resetController = function(User){
+var reset = function(req, res, next) {
     // Find a matching token
     User.findOne({ email: req.params.email }, function (err, user) {
       if (!user) return res.status(400).send({ msg: t('unableVerify') });
@@ -21,8 +21,8 @@ exports.reset = function(req, res, next) {
    });
   };
   
-  /// TODO implement FE
-  exports.resend = function (req, res, next) {
+/// TODO implement FE
+var resend = function (req, res, next) {
     User.findOne({ email: req.body.email }, function (err, user) {
       if (!user) return res.status(400).send({ msg: t('unableVerify') });
       if (user.isVerified) return res.status(400).send({ msg:  t('noUserFound') });
@@ -38,7 +38,7 @@ exports.reset = function(req, res, next) {
    });
   };
 
-exports.changepwd = function (req, res, next) {
+var changepwd = function (req, res, next) {
     const validationResult = validation.validateProfileForm(req.body);
     if (!validationResult.success) {
       return res.status(400).json({
@@ -95,7 +95,7 @@ exports.changepwd = function (req, res, next) {
     })(req, res, next);
   };
 
-exports.confirmation = function (req, res, next) {
+var confirmation = function (req, res, next) {
     // Find a matching token
     Token.findOne({ token: req.params.token }, function (err, token) {
       if (!token) return res.status(400).send({ type: 'not-verified', msg: t('unableVerify') });
@@ -117,3 +117,12 @@ exports.confirmation = function (req, res, next) {
       });
     });
   };
+
+  return{
+    reset: reset,
+    resend: resend,
+    changepwd: changepwd,
+    confirmation: confirmation,
+  }
+}
+module.exports = resetController;

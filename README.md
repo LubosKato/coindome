@@ -56,5 +56,6 @@ This project is licensed under the MIT License
 * credits for jwt oauth 2.0 implementation https://vladimirponomarev.com/blog/authentication-in-react-apps-jwt
 
 ## TODO
-* include tests
+* add elsint to nodejs
+* update pwa functionality
 * implement CI builds with heroku

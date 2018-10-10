@@ -5,8 +5,9 @@ const { t } = require('localizify');
 const { graphiqlExpress } = require('apollo-server-express');
 var { generateToken, sendToken } = require('../utils/token.utils');
 require('../passport/passport')();
-var login_controller = require('../controllers/loginController');
-var reset_controller = require('../controllers/resetController');
+const User = require('mongoose').model('User');
+var login_controller = require('../controllers/loginController')(User);
+var reset_controller = require('../controllers/resetController')(User);
 
 router.use('/graphiql', graphiqlExpress({
   endpointURL: '/graphql'

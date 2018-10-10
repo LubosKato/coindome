@@ -8,7 +8,7 @@ const plugins = require('./webpack-plugins');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const common = {
-  entry: PATHS.src,
+  entry: ['babel-polyfill', PATHS.src ],
   output: {
     path: PATHS.public,
     filename: 'bundle.js',

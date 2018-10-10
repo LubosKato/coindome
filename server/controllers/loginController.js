@@ -1,12 +1,11 @@
 const passport = require('passport');
 const { t } = require('localizify');
 const Token = require('mongoose').model('Token');
-const User = require('mongoose').model('User');
-var nodemailer = require('nodemailer');
 require('../passport/passport')();
 const validation = require('../validation/loginValidation');
 
-exports.signup = function(req, res, next){
+var loginController = function(User) {
+var signup = function(req, res, next){
     const validationResult = validation.validateSignupForm(req.body);
     if (!validationResult.success) {
       return res.status(400).json({
@@ -54,7 +53,7 @@ exports.signup = function(req, res, next){
     })(req, res, next);
   };
 
-  exports.login = function (req, res, next) {
+  var login = function (req, res, next) {
     const validationResult = validation.validateLoginForm(req.body);
     if (!validationResult.success) {
       return res.status(400).json({
@@ -88,7 +87,7 @@ exports.signup = function(req, res, next){
     })(req, res, next);
   };
 
-exports.getuser = function (req, res, next) {
+var getuser = function (req, res, next) {
     // Find a matching token
     Token.findOne({ token: req.params.token }, function (err, token) {
       if (!token) return res.status(400).send({ type: 'not-verified', msg: t('unableVerify') });
@@ -104,4 +103,13 @@ exports.getuser = function (req, res, next) {
           });
       });
   };
+
+  return{
+    signup: signup,
+    login: login,
+    getuser: getuser,
+  }
+}
+
+  module.exports = loginController;
   
